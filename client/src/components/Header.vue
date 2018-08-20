@@ -5,7 +5,7 @@
         Logo
       </div>
       <div class="header__inner-item nav-section">
-        <router-link to="" class="btn btn--primary-outline">Login</router-link>
+        <router-link to="" class="btn btn--primary-outline">Log in</router-link>
       </div>
     </div>
   </header>
