@@ -1,0 +1,122 @@
+// ********************************************************
+// Button component
+// ********************************************************
+@charset "UTF-8";
+
+@import "./variables";
+@import "./mixins";
+
+.btn{
+  @include ripple-bg($picton-blue);
+  background-color: transparent;
+  border: $button-border-width solid $picton-blue;
+  border-radius: $button-border-radius;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $button-font-family;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  line-height: $button-line-height;
+  max-width: $button-max-width;
+  overflow: hidden;
+  padding: $button-padding;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: background-color $button-transition-timing;
+  vertical-align: middle; // Fixes the issue when a button is next to a link
+}
+
+.btn:focus,
+.btn:hover {
+  @include lighten-bg($picton-blue);
+  color: $white;
+}
+
+// Ripple effect.
+.btn::after {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: scale(10, 10);
+  transition: transform 0.5s, opacity 1s;
+  width: 100%;
+}
+
+.btn:active::after {
+  opacity: 0.2;
+  transform: scale(0, 0);
+  transition: 0s;
+}
+
+// Attribute, modifier and state all in one.
+// Will help us to change the button status in
+// any way possible.
+// ********************************************************
+.btn[disabled],
+.btn[disabled]:focus,
+.btn[disabled]:hover,
+.btn-disabled,
+.btn-disabled:focus,
+.btn-disabled:hover,
+.btn.is-disabled,
+.btn.is-disabled:focus,
+.btn.is-disabled:hover {
+  background-color: $button-disabled-bg;
+  border-color: $button-disabled-bg;
+  color: $button-disabled-color;
+}
+
+
+// Modifiers: block, plain
+// ********************************************************
+.btn-block {
+  display: block;
+  max-width: none;
+  width: 100%;
+}
+
+.btn--plain {
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: $font-size-base-rem;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+
+.btn-primary {
+  @include ripple-bg(darken($picton-blue, 5%));
+  background-color: $picton-blue;
+  border-color: $picton-blue;
+  color: $white;
+}
+
+.btn-primary:focus,
+.btn-primary:hover {
+  @include lighten-bg($picton-blue);
+}
+
+.btn--primary-outline {
+  @include ripple-bg(darken($picton-blue, 5%));
+  border: 0.2rem solid $picton-blue;
+  color: $ebony;
+}
+
+.btn--primary-outline:focus,
+.btn--primary-outline:hover {
+  @include lighten-bg($picton-blue);
+}

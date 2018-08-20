@@ -1,0 +1,15 @@
+// ********************************************************
+// Button Mixins
+// ********************************************************
+
+@mixin lighten-bg($color, $lighten-factor: $button-hover-lighten-factor) {
+  $bg-color: lighten($color, $lighten-factor);
+  background-color: $bg-color;
+  border-color: $bg-color;
+}
+
+@mixin ripple-bg($color) {
+  &::after {
+    background-image: radial-gradient(circle, $color 10%, transparent 10.01%);
+  }
+}

@@ -1,0 +1,79 @@
+// ********************************************************
+// General Variables
+// ********************************************************
+
+
+// Primary colors
+// ********************************************************
+$white: #fefefe;
+$picton-blue: #429ae1;
+$silver: #bcbcbc;
+$tundora: #454545;
+$ebony: #010103;
+$fuchsia-blue: #9140bd;
+$sushi: #86b249;
+$cream-can:#f6cd62;
+$mojo:#c75343;
+
+
+// Secondary colors
+// ********************************************************
+$abbey: #545757;
+$blue-vibrant: #4491d0;
+$azure: #2d69ae;
+$dark-muted: #3d3c3d;
+$blizzard-blue: #abd5f0;
+
+// Others colors
+// ********************************************************
+$polo-blue: #84aacd;
+$au-chico: #925c65;
+$clay-grek: #989164;
+
+// Alert Backgrounds
+// ********************************************************
+$magic-mint: $sushi !default;
+$cosmos: $mojo !default;
+$sky-blue: $blue-vibrant !default;
+$easter: $cream-can !default;
+
+
+// Typography
+// ********************************************************
+$font-size-root: 62.5%;
+
+// Definining rems as 10px = 16px * 0.625
+$font-size: $font-size-root !default;
+$font-color: $tundora !default;
+$font-family: "Roboto",
+sans-serif !default;
+$font-family-pre: Courier,
+monospace !default;
+$font-size-base: 1.6em !default; // 16px by default
+$font-size-base-rem: 1.6rem !default;
+$font-weight: 300 !default;
+$line-height-base: 1.4 !default;
+
+$link-color: $picton-blue !default;
+
+$heading-font-color: $abbey !default;
+$heading-font-family: $font-family !default;
+$heading-font-weight: 300 !default;
+$heading-font-h1 : 3.6rem !default; // 36px
+$heading-font-h1-xs : 3rem !default;
+$heading-font-h2 : 3rem !default;
+$heading-font-h2-xs : 2.65rem !default;
+$heading-font-h3 : 2.65rem !default;
+$heading-font-h3-xs : 2.4rem !default;
+$heading-font-h4 : 2.4rem !default;
+$heading-font-h4-xs : 2.2rem !default;
+$heading-font-h5 : 2.2rem !default;
+$heading-font-h5-xs : 2rem !default;
+$heading-font-h6 : 2rem !default;
+$heading-font-h6-xs : 1.6rem !default;
+
+
+// General
+// ********************************************************
+$border-radius: 0.4rem !default;
+$transition-timing: 0.3s !default;
