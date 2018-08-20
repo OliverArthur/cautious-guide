@@ -48,8 +48,6 @@ module.exports.User = createModel('User', {
   status: String
 })
 
-
-
 module.exports.Group = createModel('Group', {
   team: {
     type: ObjectId,

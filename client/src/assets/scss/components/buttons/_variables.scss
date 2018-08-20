@@ -1,0 +1,19 @@
+// ********************************************************
+// Button variables
+// ********************************************************
+
+$button-border-radius: $border-radius !default;
+$button-border-width: 0.1rem !default;
+$button-disabled-bg: $silver !default;
+$button-disabled-color: $abbey !default;
+// Normalising button styles for any element type.
+$button-font-family: $font-family !default;
+// For reasons of accessibility all buttons will have a font of 24 pixels.
+$button-font-size: 1.9rem !default;
+$button-font-weight: 300 !default;
+$button-line-height: $line-height-base !default;
+$button-max-width: 50rem !default;
+
+$button-padding: 0.5em 1em !default;
+$button-transition-timing: $transition-timing !default;
+$button-hover-lighten-factor: 5% !default;
