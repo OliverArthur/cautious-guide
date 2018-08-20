@@ -1,0 +1,26 @@
+{
+  "name": "nardi_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js src/app.js"
+  },
+  "author": "",
+  "dependencies": {
+    "bcrypt": "3.0.0",
+    "dotenv": "6.0.0",
+    "graphql": "0.13.2",
+    "graphql-yoga": "1.16.1",
+    "jsonwebtoken": "8.3.0",
+    "moment": "2.22.2",
+    "mongoose": "5.2.9",
+    "nodemailer": "4.6.8",
+    "nodemon": "1.18.3"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,graphql"
+  },
+  "license": "ISC"
+}
