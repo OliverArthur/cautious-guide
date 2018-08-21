@@ -9,7 +9,7 @@
             :span-phone="12"
             :span-tablet="12">
             <div class="container--column">
-              <h1>Easy way to have your task and project organize</h1>
+              <h1>An easy way to have your task and projects organized</h1>
               <h2>
                 Logo is project and task management software that any team
                 can use to collaborate and share note efficiently.

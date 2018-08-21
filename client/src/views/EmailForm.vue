@@ -163,5 +163,9 @@ export default {
     }
   }
 
+  .btn {
+    width: 100%;
+  }
+
 }
 </style>
