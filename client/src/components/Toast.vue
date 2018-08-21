@@ -1,5 +1,5 @@
 <template>
-  <transition>
+  <transition mode="out-in">
     <div class="toast" :class="modifier">
       <slot/>
     </div>

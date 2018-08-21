@@ -77,13 +77,16 @@ export default {
     CGridCell
   },
   computed: {
-    getStatus() {
-      return {
-
+    resetToast() {
+      if (this.submitted || this.error) {
+        setTimeout(() => {
+          this.submitted = false,
+          this.error = false,
+          this.status = ''
+        }, 3000)
       }
     }
   },
-
   methods: {
     getEmail() {
 
@@ -92,6 +95,7 @@ export default {
       if (!email || !validateEmail(email)) {
         this.error = true
         this.status = 'Please enter a valid email'
+        this.resetToast
         return
       }
 
@@ -102,13 +106,16 @@ export default {
         this.submitted = true
         this.error = false
         this.status = 'Thank you! Please check your email.'
+        this.resetToast
       }).catch((err) => {
         if (err.graphQLErrors.length >= 1) {
           this.error = true
           this.status = err.graphQLErrors[0].message
+          this.resetToast
         } else {
           this.error = true
           this.status = 'Something went wrong'
+          this.resetToast
         }
         throw new Error(err)
       })
