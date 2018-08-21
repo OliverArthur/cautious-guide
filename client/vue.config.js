@@ -8,8 +8,8 @@ module.exports = {
     loaderOptions: {
       sass: {
         data: `
-        @import "@/assets/scss/root/reset.scss";
         @import "@/assets/scss/variables.scss";
+        @import "@/assets/scss/root/reset.scss";
         `
       }
     }

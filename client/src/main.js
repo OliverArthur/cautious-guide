@@ -13,6 +13,10 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
+import CToast from '@/components/Toast'
+
+Vue.component('c-toast', CToast)
+
 Vue.config.productionTip = false
 
 const uri = `${process.env.VUE_APP_URI}/graphql`

@@ -45,6 +45,10 @@ body *::before {
   box-sizing: border-box;
 }
 
+a {
+  color: $picton-blue;
+}
+
 body {
   margin: 0;
   background-color: #F5F5F5;
