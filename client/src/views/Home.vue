@@ -1,40 +1,38 @@
 <template>
   <div class="home">
-    <c-header></c-header>
     <div class="container">
-    <c-grid>
-      <c-grid-inner>
-        <c-grid-cell
-          align="middle"
-          :span-desktop="6"
-          :span-phone="12"
-          :span-tablet="12">
-          <div class="container--column">
-            <h1>Easy way to have your task and project organize</h1>
-            <h2>
-              Logo is project and task management software that any team
-              can use to collaborate and share note efficiently.
-            </h2>
-            <router-link to="" class="btn btn-primary">Get Started!</router-link>
-          </div>
-        </c-grid-cell>
-        <c-grid-cell
-          align="middle"
-          :span-desktop="6"
-          :span-phone="12"
-          :span-tablet="12">
-          <div class="container--column">
-            image
-          </div>
-        </c-grid-cell>
-      </c-grid-inner>
-    </c-grid>
+      <c-grid>
+        <c-grid-inner>
+          <c-grid-cell
+            align="middle"
+            :span-desktop="6"
+            :span-phone="12"
+            :span-tablet="12">
+            <div class="container--column">
+              <h1>Easy way to have your task and project organize</h1>
+              <h2>
+                Logo is project and task management software that any team
+                can use to collaborate and share note efficiently.
+              </h2>
+              <router-link to="create-account" class="btn btn-primary">Get Started!</router-link>
+            </div>
+          </c-grid-cell>
+          <c-grid-cell
+            align="middle"
+            :span-desktop="6"
+            :span-phone="12"
+            :span-tablet="12">
+            <div class="container--column">
+              image
+            </div>
+          </c-grid-cell>
+        </c-grid-inner>
+      </c-grid>
     </div>
   </div>
 </template>
 
 <script>
-import CHeader from '@/components/Header'
 import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
@@ -42,7 +40,6 @@ import CGridCell from '@/components/GridCell'
 export default {
   name: 'home',
   components: {
-    CHeader,
     CGrid,
     CGridInner,
     CGridCell
