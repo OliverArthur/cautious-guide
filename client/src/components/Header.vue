@@ -5,7 +5,12 @@
         Logo
       </div>
       <div class="header__inner-item nav-section">
-        <router-link to="" class="btn btn--primary-outline">Log in</router-link>
+        <router-link
+          :to="{name: 'login'}"
+          v-if="this.$route.name == 'home'"
+          class="btn btn--primary-outline">
+          Log in
+      </router-link>
       </div>
     </div>
   </header>

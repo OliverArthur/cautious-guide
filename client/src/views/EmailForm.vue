@@ -32,7 +32,7 @@
               </div>
             </form>
             <div class="email-form--links">
-              <p>Already have a logo account? <router-link to="">Login</router-link></p>
+              <p>Already have a logo account? <router-link :to="{name: 'login'}">Login</router-link></p>
             </div>
           </div>
         </c-grid-cell>
