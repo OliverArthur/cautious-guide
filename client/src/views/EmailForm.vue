@@ -46,7 +46,7 @@
     </c-grid>
     <c-toast
       v-if="submitted || error"
-      :modifier="[error ? 'toast--error' : 'toast--success']">
+      :modifier="[error ? 'toast--error' : submitted ? 'toast--success' : '']">
       {{ status }}
     </c-toast>
   </article>
