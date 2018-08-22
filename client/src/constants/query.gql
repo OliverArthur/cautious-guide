@@ -45,6 +45,19 @@ fragment FolderFields on Folder {
   shareWith
 }
 
+fragment UserFields on User {
+  id
+  name
+  firstname
+  lastname
+  email
+  jobTitle
+  avatarColor
+  role
+  status
+  createdAt
+}
+
 query GetFolders($parent: String) {
   getFolders(parent: $parent) {
     ...FolderFields
@@ -80,4 +93,6 @@ mutation DeleteFolder($id: String!) {
   deleteFolder(id: $id)
 }
 
-
+query GetUser($id: String) {
+  getUser(id: $id) { ...UserFields }
+}

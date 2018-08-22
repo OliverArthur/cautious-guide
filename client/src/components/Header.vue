@@ -2,23 +2,25 @@
   <header class="header">
     <div class="header__inner">
       <div class="header__inner-item">
-        Logo
+        <CLogo/>
       </div>
       <div class="header__inner-item nav-section">
-        <router-link
-          :to="{name: 'login'}"
-          v-if="this.$route.name == 'home'"
-          class="btn btn--primary-outline">
-          Log in
-      </router-link>
+        <CNavigation :auth="true"/>
       </div>
     </div>
   </header>
 </template>
 
 <script>
+import CLogo from '@/components/Logo'
+import CNavigation from '@/components/Navigation'
+
 export default {
-  name: 'CHeader'
+  name: 'CHeader',
+  components: {
+    CLogo,
+    CNavigation
+  },
 }
 </script>
 
@@ -26,6 +28,7 @@ export default {
   @import "../assets/scss/components/buttons/button";
 
   .header {
+    box-shadow: $box-shadow;
     background-color: $white;
     height: 6.5rem;
     position: fixed;

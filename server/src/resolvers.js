@@ -22,16 +22,13 @@ const transporter = nodeMailer.createTransport({
   }
 })
 
-function randomColor(arr) {
+function randomChoice(arr) {
   return arr[Math.floor(arr.length * Math.random())]
 }
 
 const avatarColors = [
-  'D81B60', 'F06292', 'F48FB1', 'FFB74D',
-  'FF9800', 'F57C00', '00897B', '4DB6AC',
-  '80CBC4', '80DEEA', '4DD0E1', '00ACC1',
-  '9FA8DA', '7986CB', '3949AB', '8E24AA',
-  'BA68C8', 'CE93D8'
+  "D81B60","F06292","F48FB1","FFB74D","FF9800","F57C00","00897B","4DB6AC","80CBC4",
+  "80DEEA","4DD0E1","00ACC1","9FA8DA","7986CB","3949AB","8E24AA","BA68C8","CE93D8"
 ]
 
 async function deleteSubfolders(id) {
@@ -68,6 +65,19 @@ const resolvers = {
       }
     },
 
+    async getUsers(_, args, context) {
+      const userId = getUserId(context)
+      const team = (await User.findById(userId)).team
+      return await User.find({
+        team
+      })
+    },
+
+    async getUser(_, { id }, context) {
+      const userId = getUserId(context)
+      return await User.findById(id || userId)
+    },
+
     async getFolder (_, {id}, context) {
       const userId = getUserId(context)
       return await Folder.findById(id).populate('shareWith')
@@ -100,7 +110,7 @@ const resolvers = {
         firstname,
         lastname,
         name: `${firstname} ${lastname}`,
-        avatarColor: randomColor(avatarColors),
+        avatarColor: randomChoice(avatarColors),
         password: await bcrypt.hash(password, 10),
         status: 'Active'
       }
