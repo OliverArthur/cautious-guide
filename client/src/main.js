@@ -13,8 +13,10 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
+import CAvatar from '@/components/Avatar'
 import CToast from '@/components/Toast'
 
+Vue.component('c-avatar', CAvatar)
 Vue.component('c-toast', CToast)
 
 Vue.config.productionTip = false

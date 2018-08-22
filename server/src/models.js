@@ -42,7 +42,7 @@ module.exports.User = createModel('User', {
     type: String,
     default: ''
   },
-  evatarColor: String,
+  avatarColor: String,
   team: { type: ObjectId, ref: 'Team' },
   role: String,
   status: String

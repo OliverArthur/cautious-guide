@@ -5,12 +5,7 @@
         <CLogo/>
       </div>
       <div class="header__inner-item nav-section">
-        <router-link
-          :to="{name: 'login'}"
-          v-if="this.$route.name == 'home'"
-          class="btn btn--primary-outline">
-          Log in
-        </router-link>
+        <CNavigation :auth="true"/>
       </div>
     </div>
   </header>
@@ -18,12 +13,14 @@
 
 <script>
 import CLogo from '@/components/Logo'
+import CNavigation from '@/components/Navigation'
 
 export default {
   name: 'CHeader',
   components: {
-    CLogo
-  }
+    CLogo,
+    CNavigation
+  },
 }
 </script>
 
@@ -31,7 +28,7 @@ export default {
   @import "../assets/scss/components/buttons/button";
 
   .header {
-    border-bottom: 0.1rem solid $silver;
+    box-shadow: $box-shadow;
     background-color: $white;
     height: 6.5rem;
     position: fixed;

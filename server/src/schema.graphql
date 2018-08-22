@@ -2,6 +2,8 @@ scalar Date
 scalar JSON
 
 type Query {
+  getUsers: [User]
+  getUser(id: String): User
   getTeam: Team
   getFolders(parent: String): [Folder]
   getFolder(id: String!): Folder
@@ -54,6 +56,18 @@ type User {
   role: String
   status: String
   createdAt: Date
+}
+
+input UserInput {
+  name: String
+  firstname: String
+  lastname: String
+  email: String
+  avatarColor: String
+  jobTitle: String
+  team: String
+  role: String
+  status: String
 }
 
 type Team {
