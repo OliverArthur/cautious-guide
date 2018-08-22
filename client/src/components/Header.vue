@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__inner">
       <div class="header__inner-item">
-        Logo
+        <CLogo/>
       </div>
       <div class="header__inner-item nav-section">
         <router-link
@@ -10,15 +10,20 @@
           v-if="this.$route.name == 'home'"
           class="btn btn--primary-outline">
           Log in
-      </router-link>
+        </router-link>
       </div>
     </div>
   </header>
 </template>
 
 <script>
+import CLogo from '@/components/Logo'
+
 export default {
-  name: 'CHeader'
+  name: 'CHeader',
+  components: {
+    CLogo
+  }
 }
 </script>
 
@@ -26,6 +31,7 @@ export default {
   @import "../assets/scss/components/buttons/button";
 
   .header {
+    border-bottom: 0.1rem solid $silver;
     background-color: $white;
     height: 6.5rem;
     position: fixed;

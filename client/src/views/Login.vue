@@ -26,7 +26,7 @@
                   <label for="email" class="control-label">Your email address</label><i class="bar"></i>
                 </div>
                 <div class="form-group">
-                  <input id="password" type="text" v-model="form.password" autocomplete="current-password" required="required"/>
+                  <input id="password" type="password" v-model="form.password" autocomplete="current-password" required="required"/>
                   <label for="password" class="control-label">Password</label><i class="bar"></i>
                 </div>
                 <div class="button-container">
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { Login } from '../constants/query.gql'
 import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
@@ -80,8 +81,56 @@ export default {
     CGridInner,
     CGridCell
   },
+  computed: {
+    resetToast() {
+      if (this.submitted || this.error) {
+        setTimeout(() => {
+          this.submitted = false,
+          this.error = false,
+          this.status = ''
+        }, 3000)
+      }
+    }
+  },
   methods: {
-    login() {}
+    async login() {
+      this.$apollo.provider.clients.defaultClient.cache.reset()
+      const { email, password } = this.form
+      if (email && password) {
+        this.$apollo.mutate({
+          mutation: Login,
+          variables: {
+            email,
+            password
+          }
+        }).then(async (data) => {
+          const login = data.data.login
+          const id = login.user.id
+          const token = login.token
+          this.saveUserData(id, token)
+          this.submitted = true
+          this.status = 'Your has been login successfully'
+          this.resetToast
+          this.$router.push({name: 'workspace'})
+        }).catch((err) => {
+          if (err.graphQLErrors.length >= 1) {
+            this.error = true
+            this.status = err.graphQLErrors[0].message
+            this.resetToast
+          } else {
+            this.error = true
+            this.status = 'Invalid email or password'
+            this.resetToast
+          }
+          throw new Error(err)
+        })
+      }
+    },
+    saveUserData (id, token) {
+      localStorage.setItem('user-id', id)
+      localStorage.setItem('user-token', token)
+      this.$root.$data.userId = localStorage.getItem('user-id')
+    },
   }
 }
 </script>

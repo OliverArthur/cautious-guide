@@ -30,7 +30,7 @@
                   <label for="lastname" class="control-label">Your last name</label><i class="bar"></i>
                 </div>
                 <div class="form-group">
-                  <input id="password" type="text" v-model="form.password" autocomplete="current-password" required="required"/>
+                  <input id="password" type="password" v-model="form.password" autocomplete="current-password" required="required"/>
                   <label for="password" class="control-label">Password</label><i class="bar"></i>
                 </div>
                 <div class="button-container">
@@ -96,6 +96,8 @@ export default {
   },
   methods: {
     async signUp() {
+      this.$apollo.provider.clients.defaultClient.cache.reset()
+
       const { firstname, lastname, password } = this.form
       if (!(firstname && lastname && password)) {
         this.error = true
@@ -119,7 +121,7 @@ export default {
         this.submitted = true
         this.status = 'Your account has been created successfully'
         this.resetToast
-        // this.$router.push({name: 'workspace'})
+        this.$router.push({name: 'workspace'})
       }).catch((err) => {
         if (err.graphQLErrors.length >= 1) {
           this.error = true

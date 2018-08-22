@@ -12,7 +12,8 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        title: 'Logo'
+        title: 'Logo',
+        redirect: true
       }
     },
     {
@@ -47,8 +48,34 @@ const router = new Router({
       meta: {
         title: 'Logo | Log in'
       }
+    },
+    {
+      path: '/workspace',
+      name: 'workspace',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ './views/Workspace.vue'),
+      meta: {
+        title: 'Logo | workspace',
+        requiresAuth: true
+      }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const auth = localStorage.getItem('user-id')
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!auth) {
+      next('/login')
+    }
+  } else if (to.matched.some(record => record.meta.redirect)) {
+    if (auth && auth != null) {
+      next('/workspace')
+    }
+  }
+  next()
 })
 
 router.afterEach((to, from) => {
