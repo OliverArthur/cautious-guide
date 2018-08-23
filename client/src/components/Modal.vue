@@ -42,10 +42,7 @@ export default {
     return {
       form: {
         name: '',
-        shareWith: [],
-        owners: []
-      },
-      mode: this.config.mode
+      }
     }
   },
   mounted() {
@@ -55,22 +52,13 @@ export default {
     close() {
       this.$emit('close');
     },
-    create(mode) {
-      const { name, shareWith, owners } = this.form
-      if (!name) {
-        return
-      }
+    createFolder() {
+      const { name } = this.form
+      if (!name) return
       const parent = this.config.parent
-      if (mode === 'folder') {
-        this.createFolder(name, parent, shareWith)
-      } else {
-        this.createProject(name, parent, shareWith, owners)
-      }
-    },
-    createFolder(name, parent, shareWith) {
       this.$apollo.mutate({
         mutation: CreateFolder,
-        variables: { name, parent, shareWith },
+        variables: {name, parent},
         update: (store, { data: { createFolder } }) => {
           const variables = parent ? { parent } : {}
           try {
@@ -84,19 +72,17 @@ export default {
               variables,
               data
             })
-          } catch (err) {
-            throw new Error(err)
+          } catch(err) {
+            console.log(err)
           }
         }
       }).then(({ data: { createFolder } }) => {
         this.$emit('close')
-        console.log(createFolder.id)
         // this.$router.push({name: 'folder', params: {id: createFolder.id} })
-      }).catch(err => {
-        throw new Error(err)
+      }).catch((error) => {
+        console.log(error)
       })
-    },
-    createProject() {}
+    }
   }
 }
 </script>
