@@ -9,14 +9,6 @@ type Query {
   getFolder(id: String!): Folder
 }
 
-type Folder {
-  id: String
-  name: String
-  parent: String
-  description: String
-  shareWith: [JSON]
-}
-
 type Mutation {
   captureEmail(email: String!): User
   createFolder(parent: String, name: String!): Folder
@@ -44,6 +36,18 @@ input ShareInput {
   item: String
 }
 
+input UserInput {
+  name: String
+  firstname: String
+  lastname: String
+  email: String
+  avatarColor: String
+  jobTitle: String
+  team: String
+  role: String
+  status: String
+}
+
 type User {
   id: String
   name: String
@@ -58,16 +62,12 @@ type User {
   createdAt: Date
 }
 
-input UserInput {
+type Folder {
+  id: String
   name: String
-  firstname: String
-  lastname: String
-  email: String
-  avatarColor: String
-  jobTitle: String
-  team: String
-  role: String
-  status: String
+  parent: String
+  description: String
+  shareWith: [JSON]
 }
 
 type Team {

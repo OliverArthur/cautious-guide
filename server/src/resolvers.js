@@ -154,7 +154,6 @@ const resolvers = {
           item: (await User.findById(userId)).team
         }]
       })
-
       return await Folder.findById(folder.id).populate('shareWith.item')
     },
 
