@@ -32,19 +32,27 @@
           <section class="workspace__content"></section>
         </c-grid-inner>
       </c-grid>
+      <CModal @close="showModal=false" v-if="showModal" :config="modalConfig"/>
+      <c-plus-button @click="openModal" position="bottom-right">
+        <i class="material-icons">add</i>
+      </c-plus-button>
   </section>
 </template>
 
 <script>
+import { mapState } from  'vuex'
 import { GetTeam } from '../constants/query.gql'
 import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
+import CModal from '@/components/Modal'
 
 export default {
   name: 'Workspace',
   data() {
     return {
+      showModal: false,
+      modalConfig: {},
       getTeam: {}
     }
   },
@@ -53,11 +61,25 @@ export default {
       query: GetTeam,
     }
   },
+  computed: {
+    ...mapState(['activeWidget'])
+  },
   components: {
     CGrid,
     CGridInner,
-    CGridCell
+    CGridCell,
+    CModal
   },
+  methods: {
+    openModal() {
+      this.$store.dispatch('changeActiveWidget', null)
+      this.showModal = true
+    },
+    close() {
+      console.log('hello worls')
+      this.showModal = false
+    }
+  }
 }
 </script>
 
@@ -68,6 +90,7 @@ export default {
 
  .workspace {
   min-height: 100vh;
+  position: relative;
   .grid {
     padding-left: 0;
     padding-right: 0;
