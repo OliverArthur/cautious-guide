@@ -21,7 +21,7 @@
       <div class="modal--footer">
         <div class="button-container">
           <button class="btn btn-primary" @click="createFolder">
-            Create {{ mode }}
+            Create folder
           </button>
           <button class="btn btn-secondary" @click="$emit('close')">
             Close
@@ -52,6 +52,9 @@ export default {
     this.$refs.foldername.focus()
   },
   methods: {
+    close() {
+      this.$emit('close');
+    },
     create(mode) {
       const { name, shareWith, owners } = this.form
       if (!name) {

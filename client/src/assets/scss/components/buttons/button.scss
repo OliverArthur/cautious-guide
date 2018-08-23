@@ -122,10 +122,25 @@
   @include lighten-bg($picton-blue);
 }
 
-.btn--primary-outline {
+.btn-primary--outline {
   @include ripple-bg(darken($picton-blue, 5%));
   border: 0.2rem solid $picton-blue;
   color: $ebony;
+}
+
+.btn-icon {
+  -webkit-appearance: none;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  height: 6rem;
+  justify-content: center;
+  letter-spacing: 0.1rem;
+  width: 6rem;
 }
 
 .btn--primary-outline:focus,

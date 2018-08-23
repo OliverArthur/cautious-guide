@@ -32,7 +32,10 @@
           <section class="workspace__content"></section>
         </c-grid-inner>
       </c-grid>
-      <CModal :config="modalConfig"/>
+      <CModal @close="showModal=false" v-if="showModal" :config="modalConfig"/>
+      <c-plus-button @click="openModal" position="bottom-right">
+        <i class="material-icons">add</i>
+      </c-plus-button>
   </section>
 </template>
 
@@ -68,10 +71,13 @@ export default {
     CModal
   },
   methods: {
-    openModal(mode) {
+    openModal() {
       this.$store.dispatch('changeActiveWidget', null)
       this.showModal = true
-      this.modalConfig = { mode, parent: '' }
+    },
+    close() {
+      console.log('hello worls')
+      this.showModal = false
     }
   }
 }
@@ -84,6 +90,7 @@ export default {
 
  .workspace {
   min-height: 100vh;
+  position: relative;
   .grid {
     padding-left: 0;
     padding-right: 0;

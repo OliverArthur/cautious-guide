@@ -15,9 +15,11 @@ import './registerServiceWorker'
 
 import CAvatar from '@/components/Avatar'
 import CToast from '@/components/Toast'
+import CPlusButton from '@/components/PlusButton'
 
 Vue.component('c-avatar', CAvatar)
 Vue.component('c-toast', CToast)
+Vue.component('c-plus-button', CPlusButton)
 
 Vue.config.productionTip = false
 
