@@ -89,7 +89,7 @@ fieldset {
   padding-left: 0.125rem;
   z-index: 1;
   color: $tundora;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: normal;
   -webkit-transition: all 0.28s ease;
   transition: all 0.28s ease;
@@ -159,9 +159,9 @@ fieldset {
 .form-group textarea:valid~.control-label,
 .form-group textarea.form-file~.control-label,
 .form-group textarea.has-value~.control-label {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: $white;
-  top: -1rem;
+  top: -1.6rem;
   left: 0;
 }
 

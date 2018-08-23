@@ -32,19 +32,24 @@
           <section class="workspace__content"></section>
         </c-grid-inner>
       </c-grid>
+      <CModal :config="modalConfig"/>
   </section>
 </template>
 
 <script>
+import { mapState } from  'vuex'
 import { GetTeam } from '../constants/query.gql'
 import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
+import CModal from '@/components/Modal'
 
 export default {
   name: 'Workspace',
   data() {
     return {
+      showModal: false,
+      modalConfig: {},
       getTeam: {}
     }
   },
@@ -53,11 +58,22 @@ export default {
       query: GetTeam,
     }
   },
+  computed: {
+    ...mapState(['activeWidget'])
+  },
   components: {
     CGrid,
     CGridInner,
-    CGridCell
+    CGridCell,
+    CModal
   },
+  methods: {
+    openModal(mode) {
+      this.$store.dispatch('changeActiveWidget', null)
+      this.showModal = true
+      this.modalConfig = { mode, parent: '' }
+    }
+  }
 }
 </script>
 

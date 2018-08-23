@@ -105,6 +105,18 @@
   color: $white;
 }
 
+.btn-secondary {
+  @include ripple-bg(darken($au-chico, 5%));
+  background-color: $au-chico;
+  border-color: $au-chico;
+  color: $white;
+}
+
+.btn-secondary:focus,
+.btn-secondary:hover {
+  @include lighten-bg($au-chico);
+}
+
 .btn-primary:focus,
 .btn-primary:hover {
   @include lighten-bg($picton-blue);
