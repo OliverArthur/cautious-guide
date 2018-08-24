@@ -5,7 +5,7 @@
         <CLogo/>
       </div>
       <div class="header__inner-item nav-section">
-        <CNavigation :auth="true"/>
+        <CNavigation/>
       </div>
     </div>
   </header>
@@ -20,7 +20,7 @@ export default {
   components: {
     CLogo,
     CNavigation
-  },
+  }
 }
 </script>
 

@@ -6,7 +6,7 @@
         class="btn btn--primary-outline">
         Log in
     </router-link>
-    <ul class="navigation--menu" v-if="getUser.name">
+    <ul class="navigation--menu" v-else-if="auth">
       <li>
         <button class="btn btn-plain">
           <i class="material-icons">notifications</i>
@@ -32,7 +32,6 @@ import { GetUser } from '@/constants/query.gql'
 
 export default {
   name: 'CNavigation',
-  props: ['auth'],
   computed: {
     ...mapState(['activeWidget'])
   },
@@ -42,7 +41,8 @@ export default {
       route: this.$route.name,
       modalConfig: {},
       getTeam: {},
-      getUser: {}
+      getUser: {},
+      auth: false
     }
   },
   apollo: {
@@ -56,6 +56,13 @@ export default {
       localStorage.removeItem('user-id')
       localStorage.removeItem('user-token')
       this.$root.$data.userId = localStorage.getItem('user-id')
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        this.auth = true
+      }
     }
   }
 }

@@ -41,7 +41,7 @@
 
 <script>
 import { mapState } from  'vuex'
-import { GetTeam } from '../constants/query.gql'
+import { GetFolders, GetTeam } from '../constants/query.gql'
 import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
@@ -53,12 +53,19 @@ export default {
     return {
       showModal: false,
       modalConfig: {},
+      getFolders: [],
       getTeam: {}
     }
   },
   apollo: {
     getTeam: {
       query: GetTeam,
+    },
+    getFolders: {
+      query: GetFolders,
+      err(err) {
+        console.error(err)
+      }
     }
   },
   computed: {
