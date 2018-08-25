@@ -74,7 +74,7 @@ export default {
     }
     span {
       display: inline-block;
-      padding: 1.5rem;
+      padding: 0.8rem;
       font-size: 1.5rem;
     }
   }
