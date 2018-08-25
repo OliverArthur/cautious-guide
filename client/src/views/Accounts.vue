@@ -3,7 +3,7 @@
       <c-grid>
         <c-grid-inner>
           <c-grid-cell
-            align="middle"
+            align="top"
             :span-desktop="3"
             :span-phone="12"
             :span-tablet="12">
@@ -40,10 +40,32 @@
             </aside>
           </c-grid-cell>
           <c-grid-cell
-            align="middle"
+            align="top"
             :span-desktop="9"
             :span-phone="12"
             :span-tablet="12">
+            <section class="accounts__container">
+              <header class="accounts__container--header">
+                <div class="accounts__container--header-tab">
+                  <div class="accounts__container--header-tabItem">
+                    <strong class="accounts__container--title">
+                      <i class="material-icons">group_work</i> {{selectedGroup.name }}
+                      <span class="accounts__container--count">({{users.length}})</span>
+                    </strong>
+                  </div>
+                  <div v-show="selected === 0 || selected >= 2" class="accounts__container--header-tabItem">
+                    <button type="text" class="btn btn-icon `btn-plain">
+                      <span><i class="material-icons">person_add</i> Add users</span>
+                    </button>
+                  </div>
+                  <div v-show=" selected >= 2" class="accounts__container--header-tabItem">
+                    <button type="text" class="btn btn-icon `btn-plain">
+                      <span><i class="material-icons">settings</i> Group settings</span>
+                    </button>
+                  </div>
+                </div>
+              </header>
+            </section>
           </c-grid-cell>
         </c-grid-inner>
       </c-grid>
@@ -220,6 +242,56 @@ export default {
 
     &--count {
       padding: 0!important;
+    }
+  }
+
+  &__container {
+    margin-top: 6rem;
+    min-height: 100vh;
+
+    &--header-tab {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+
+    }
+
+    &--header-tabItem {
+      i {
+        margin-right: 0.5rem;
+      }
+      strong {
+        align-items: center;
+        display: flex;
+        padding: 1.5rem;
+      }
+      button {
+        border-radius: 0%;
+        color: $tundora;
+        font-weight: 500;
+        height: inherit;
+        padding: 1.5rem;
+        width: auto;
+        span {
+          align-items: center;
+          display: flex;
+          font-size: 1.5rem;
+        }
+
+        &:hover {
+          background-color: $white-gray;
+          color: $picton-blue;
+        }
+      }
+    }
+
+    &--title {
+      font-size: 1.6rem;
+      span {
+        display: inline-block;
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+      }
     }
   }
 }
