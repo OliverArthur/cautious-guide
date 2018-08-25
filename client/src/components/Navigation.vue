@@ -3,7 +3,7 @@
     <router-link
         :to="{name: 'login'}"
         v-if="this.$route.name == 'home'"
-        class="btn btn--primary-outline">
+        class="btn btn-primary--outline">
         Log in
     </router-link>
     <ul class="navigation--menu" v-else-if="auth">

@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const moment = require('moment')
 const nodeMailer = require('nodemailer')
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
 
 const { User, Team, Folder, Group } = require('./models')
 
@@ -47,22 +49,25 @@ const resolvers = {
       return await Team.findById(user.team)
     },
 
-    async getFolders (_, { parent }, context) {
+    async getFolders (_, {parent}, context) {
       const userId = getUserId(context)
       if (parent) {
-        return await Folder.find({ parent })
+        return await Folder.find({parent})
       } else {
         const user = await User.findById(userId)
-        const groups = Group.find( { users: ObjectId(userId)}, '_id')
+        const groups = await Group.find({users: ObjectId(userId)}, '_id')
         const ids = groups.map(o => o._id).concat(
           ['External User', 'Collaborator'].includes(user.role)
           ? [ObjectId(userId)]
           : [ObjectId(userId), user.team]
         )
-        return await Folder.find({
-          'shareWith.item': ids
-        }).populate('shareWith')
+        return await Folder.find({ 'shareWith.item': ids }).populate('shareWith')
       }
+    },
+
+    async getFolder (_, {id}, context) {
+      const userId = getUserId(context)
+      return await Folder.findById(id).populate('shareWith')
     },
 
     async getUsers(_, args, context) {
@@ -76,11 +81,6 @@ const resolvers = {
     async getUser(_, { id }, context) {
       const userId = getUserId(context)
       return await User.findById(id || userId)
-    },
-
-    async getFolder (_, {id}, context) {
-      const userId = getUserId(context)
-      return await Folder.findById(id).populate('shareWith')
     },
   },
 
