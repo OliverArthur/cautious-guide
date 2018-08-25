@@ -43,7 +43,7 @@ export default {
     }
   },
   computed: {
-    isFolder: function () {
+    isFolder () {
       return this.getFolders.length > 0
     },
     ...mapState(['activeWidget'])

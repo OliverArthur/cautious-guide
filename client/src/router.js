@@ -20,9 +20,9 @@ const router = new Router({
       path: '/create-account',
       name: 'create-account',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (emailForm.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/EmailForm.vue'),
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/EmailForm.vue'),
       meta: {
         title: 'Logo | Create Account'
       }
@@ -31,9 +31,9 @@ const router = new Router({
       path: '/signup/:id',
       name: 'signup',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (signup.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Signup.vue'),
+      component: () => import(/* webpackChunkName: "signup" */ './views/Signup.vue'),
       meta: {
         title: 'Logo | Signup'
       }
@@ -42,9 +42,9 @@ const router = new Router({
       path: '/login',
       name: 'login',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (login.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Login.vue'),
+      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
       meta: {
         title: 'Logo | Log in'
       }
@@ -53,11 +53,23 @@ const router = new Router({
       path: '/workspace',
       name: 'workspace',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (workspace.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Workspace.vue'),
+      component: () => import(/* webpackChunkName: "workspace" */ './views/Workspace.vue'),
       meta: {
         title: 'Logo | workspace',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/accounts',
+      name: 'accounts',
+      // route level code-splitting
+      // this generates a separate chunk (accounts.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "accounts" */ './views/Accounts.vue'),
+      meta: {
+        title: 'Logo | account',
         requiresAuth: true
       }
     }
