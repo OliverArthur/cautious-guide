@@ -45,7 +45,7 @@
             :span-phone="12"
             :span-tablet="12">
             <section class="accounts__container">
-              <header class="accounts__container--header">
+              <div class="accounts__container--header">
                 <div class="accounts__container--header-tab">
                   <div class="accounts__container--header-tabItem">
                     <strong class="accounts__container--title">
@@ -64,7 +64,12 @@
                     </button>
                   </div>
                 </div>
-              </header>
+              </div>
+              <div class="accounts__container--table">
+                <div class="accounts__container--table__header">
+                  <CLabel/>
+                </div>
+              </div>
             </section>
           </c-grid-cell>
         </c-grid-inner>
@@ -78,49 +83,17 @@ import { GetUser, GetUsers, GetGroups } from '../constants/query.gql'
 import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
+import CLabel from '@/components/Labels'
+import Data from '@/mixins/data-mixins'
 
 export default {
   name: 'Account',
+  mixins: [Data],
   components: {
     CGrid,
     CGridInner,
-    CGridCell
-  },
-  data() {
-    return {
-      selected: 0,
-      selectedRole: null,
-      selectedUser: null,
-      showGroupForm: false,
-      showGroupUpdateForm: false,
-      showInviteUserForm: false,
-      showAddUsersToGroupForm: false,
-      groups: [{
-        name: 'All users'
-      }, {
-        name: 'Ungrouped'
-      }],
-      usersOverviews: [{
-        name: 'Administrators',
-        filter: ['Owner', 'Administrator']
-      }, {
-        name: 'Regular Users',
-        filter: ['Regular User']
-      }, {
-        name: 'Collaborators',
-        filter: ['Collaborator']
-      }, {
-        name: 'External Users',
-        filter: ['External User']
-      }],
-      getUser: {},
-      getUsers: [],
-      getGroups: [],
-      styleObj: {
-        width: `${window.innerWidth}px`,
-        height: `${window.innerHeight - 52}px`
-      }
-    }
+    CGridCell,
+    CLabel
   },
   apollo: {
     getUser: {
@@ -171,11 +144,6 @@ export default {
     changeView(index) {
       this.selected = index
     },
-    changeRoleFilter(overview) {
-      this.selectedRole = !this.selectedRole
-        || this.selectedRole.name !== overview.name
-        ? overview : null
-    },
   }
 }
 </script>
@@ -191,7 +159,6 @@ export default {
 
   .grid {
     padding-left: 0;
-    padding-right: 0;
   }
   .grid, .grid__inner {
     min-height: 100vh;
@@ -263,7 +230,10 @@ export default {
       strong {
         align-items: center;
         display: flex;
-        padding: 1.5rem;
+        padding-bottom: 1.5rem;
+        padding-left: 0;
+        padding-right: 1.5rem;
+        padding-top: 1.5rem;
       }
       button {
         border-radius: 0%;
@@ -293,9 +263,12 @@ export default {
         margin-left: 0.5rem;
       }
     }
+
+    &--table__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
   }
 }
-
 </style>
-
-
