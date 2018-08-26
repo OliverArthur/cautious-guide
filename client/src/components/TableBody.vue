@@ -7,7 +7,14 @@
       </span>
       <span v-if="item.email" class="table-body--column">{{ item.email }}</span>
       <span v-if="item.role" class="table-body--column">{{ item.role }}</span>
-      <span v-if="item.status" class="table-body--column">{{ item.status }}</span>
+      <span
+        v-bind:class="[item.status ? 'active' : 'pending']"
+        v-if="item.status" class="table-body--column">
+        <strong>{{ item.status }}</strong>
+      </span>
+    </div>
+    <div class="table-body--row" v-if="!formatterData.length">
+      <span class="table-body--column">NOT USER</span>
     </div>
   </div>
 </template>
@@ -44,7 +51,11 @@ export default {
   &--row {
     display: flex;
     flex-direction: row;
-
+    strong {
+      display: inline-block;
+      font-size: 1.6rem;
+      font-weight: 300;
+    }
     span {
       display: flex;
       font-size: 1.6rem;
@@ -56,6 +67,18 @@ export default {
         position: absolute;
         top: 0.3rem;
       }
+      &.active strong {
+        background-color: $sushi;
+        border-radius: $border-radius;
+        color: $white;
+        padding: 0.5rem;
+      }
+      &.pending strong {
+        background-color: $cream-can;
+        border-radius: $border-radius;
+        padding: 0.5rem;
+      }
+
     }
   }
   &--column {

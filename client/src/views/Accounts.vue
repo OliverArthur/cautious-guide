@@ -67,7 +67,19 @@
               </div>
               <div class="accounts__main-content">
                 <div class="accounts__labels-container">
-                  <CLabel/>
+                    <div class="labels">
+                      <button
+                        v-bind:class="{active: selectedRole && selectedRole.name === obj.name}"
+                        v-for="obj in usersOverviews"
+                        :key="obj.name"
+                        @click="changeRoleFilter(obj)"
+                        class="btn btn-plain labels">
+                        <span>
+                          {{ obj.name }}
+                          <span>({{ users.filter(o => obj.filter.includes(o.role)).length }})</span>
+                        </span>
+                      </button>
+                    </div>
                 </div>
                 <div class="accounts__table">
                   <c-table>
@@ -261,6 +273,35 @@ export default {
         display: inline-block;
         font-size: 1.5rem;
         margin-left: 0.5rem;
+      }
+    }
+  }
+  .labels {
+    button {
+      box-shadow: $box-shadow;
+      margin-right: 1.5rem;
+      &:last-child {
+        margin-right: 0;
+      }
+      &.active{
+        background-color: $polo-blue;
+        color: $white;
+
+        &:hover {
+          background-color: $polo-blue;
+          color: $white;
+        }
+      }
+
+      &:hover {
+        background-color: $silver-clear;
+        color: $tundora;
+      }
+
+      span {
+        display: inline-block;
+        padding: 0.8rem;
+        font-size: 1.5rem;
       }
     }
   }

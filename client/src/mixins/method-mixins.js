@@ -1,9 +1,8 @@
 export default {
   methods: {
-    changeRoleFilter (overview) {
+    changeRoleFilter(obj) {
       this.selectedRole = !this.selectedRole ||
-        this.selectedRole.name !== overview.name ?
-        overview : null
+        this.selectedRole.name !== obj.name ? obj : null
     }
   }
 }

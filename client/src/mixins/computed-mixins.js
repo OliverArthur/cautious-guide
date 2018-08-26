@@ -14,6 +14,7 @@ export default {
       return this.labels
     },
     filteredUsers () {
+      console.log(this.selectedRole)
       return this.selectedRole
         ? this.users.filter(o => this.selectedRole.filter.includes(o.role))
         : this.users
