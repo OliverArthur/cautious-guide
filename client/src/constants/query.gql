@@ -58,6 +58,15 @@ fragment UserFields on User {
   createdAt
 }
 
+fragment GroupFields on Group {
+  id
+  team
+  name
+  initials
+  avatarColor
+  users
+}
+
 query GetFolders($parent: String) {
   getFolders(parent: $parent) {
     ...FolderFields
@@ -93,6 +102,18 @@ mutation DeleteFolder($id: String!) {
   deleteFolder(id: $id)
 }
 
+query GetUsers {
+  getUsers {
+    ...UserFields
+  }
+}
+
 query GetUser($id: String) {
   getUser(id: $id) { ...UserFields }
+}
+
+query GetGroups {
+  getGroups {
+    ...GroupFields
+  }
 }

@@ -2,7 +2,7 @@
   <nav class="navigation">
     <router-link
         :to="{name: 'login'}"
-        v-if="this.$route.name == 'home'"
+        v-if="!auth"
         class="btn btn-primary--outline">
         Log in
     </router-link>
@@ -14,13 +14,20 @@
       </li>
       <li class="has-dropdown" @click.stop="$store.dispatch('changeActiveWidget', 'account-menu')">
         <c-avatar :obj="getUser" :size="36"></c-avatar>
-        <div class="dropdown" v-show="activeWidget === 'account-menu'">
+        <nav class="dropdown" v-show="activeWidget === 'account-menu'">
           <div class="dropdown--inner">
-            <a @click="logout" :href="`${url}login`" title="logout">
-              Logout <i class="material-icons">exit_to_app</i>
-            </a>
+            <div class="dropdown--inner__item">
+              <a @click="logout" :href="`${url}login`" title="logout">
+                Logout <i class="material-icons">exit_to_app</i>
+              </a>
+            </div>
+            <div class="dropdown--inner__item">
+              <router-link :to="{name: 'accounts'}" title="Accounts">
+                Accounts <i class="material-icons">account_box</i>
+              </router-link>
+            </div>
           </div>
-        </div>
+        </nav>
       </li>
     </ul>
   </nav>
@@ -102,15 +109,20 @@ export default {
         z-index: 999;
 
         &--inner {
-          padding: 1.5rem;
-          a {
-            font-size: 1.6rem;
-            color: $tundora;
-            text-decoration: none;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
+          &__item {
+            a {
+              align-items: center;
+              color: $tundora;
+              display: flex;
+              flex-direction: row;
+              font-size: 1.5rem;
+              justify-content: space-between;
+              padding: 1.5rem;
+              text-decoration: none;
+            }
+            &:hover {
+              background-color: $silver-clear;
+            }
           }
         }
       }

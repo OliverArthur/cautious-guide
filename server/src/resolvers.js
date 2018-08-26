@@ -48,7 +48,17 @@ const resolvers = {
       const user = await User.findById(userId)
       return await Team.findById(user.team)
     },
-
+    async getGroups (_, args, context) {
+      const userId = getUserId(context)
+      const team = (await User.findById(userId)).team
+      return await Group.find({team}).sort({ createdAt: -1 })
+      return group
+    },
+    async getGroup (_, {id}, context) {
+      const userId = getUserId(context)
+      const group = await Group.findById(id).populate('users')
+      return group
+    },
     async getFolders (_, {parent}, context) {
       const userId = getUserId(context)
       if (parent) {
@@ -171,6 +181,52 @@ const resolvers = {
       await Folder.deleteOne({_id: id})
       deleteSubfolders(id)
       return true
+    },
+    async invite (_, {emails, groups, role}, context) {
+      const userId = getUserId(context)
+      const thisUser = await User.findById(userId)
+      const team = thisUser.team
+      const teamMembers = (await User.find({team}, 'email')).map(o => o.email)
+      const users = []
+      for (const email of emails) {
+        if (teamMembers.includes(email)) {
+        } else {
+          const user = await User.create({
+            email,
+            team,
+            role,
+            status: 'Pending'
+          })
+          users.push(user)
+          transporter.sendMail(invitationEmail(email, user, thisUser))
+        }
+      }
+      const userIds = users.map(o => o.id)
+      for (const id of groups) {
+        const group = await Group.findById(id)
+        group.users = userIds
+        await group.save()
+      }
+      return users
+    },
+    async createGroup (_, {name, initials, avatarColor, users}, context) {
+      const userId = getUserId(context)
+      const team = (await User.findById(userId)).team
+      return await Group.create({
+        name,
+        team,
+        initials,
+        avatarColor,
+        users
+      })
+    },
+    async addUsersToGroup (_, {id, users}, context) {
+      const userId = getUserId(context)
+      return await Group.findOneAndUpdate(
+        { _id: id },
+        { $push: { users: { $each: users } } },
+        { new: true }
+      )
     },
   },
 

@@ -5,13 +5,18 @@ type Query {
   getUsers: [User]
   getUser(id: String): User
   getTeam: Team
+  getGroups: [Group]
+  getGroup: Group
   getFolders(parent: String): [Folder]
   getFolder(id: String!): Folder
 }
 
 type Mutation {
   captureEmail(email: String!): User
+  invite(emails: [String], groups: [String], role: String): [User]
   createFolder(parent: String, name: String!): Folder
+  createGroup(name: String, initials: String, avatarColor: String, users: [String]): Group
+  addUsersToGroup(id: String!, users: [String]): Group
   updateFolder(id: String!, input: FolderInput): Folder
   deleteFolder(id: String!): Boolean
   signup(
@@ -73,6 +78,15 @@ type Folder {
 type Team {
   id: String
   name: String
+}
+
+type Group {
+  id: String
+  team: String
+  name: String
+  initials: String
+  avatarColor: String
+  users: [String]
 }
 
 type AuthPayload {
