@@ -53,17 +53,11 @@ import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
 import CFolderList from '@/components/FolderItem'
 import CModal from '@/components/Modal'
+import Data from '@/mixins/data-mixins'
 
 export default {
   name: 'Workspace',
-  data() {
-    return {
-      showModal: false,
-      modalConfig: {},
-      getFolders: [],
-      getTeam: {}
-    }
-  },
+  mixins: [Data],
   apollo: {
     getTeam: {
       query: GetTeam,

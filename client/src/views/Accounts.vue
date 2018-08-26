@@ -54,7 +54,7 @@
                     </strong>
                   </div>
                   <div v-show="selected === 0 || selected >= 2" class="accounts__container--header-tabItem">
-                    <button type="text" class="btn btn-icon `btn-plain">
+                    <button type="text" @click="openModal" class="btn btn-icon `btn-plain">
                       <span><i class="material-icons">person_add</i> Add users</span>
                     </button>
                   </div>
@@ -92,6 +92,7 @@
           </c-grid-cell>
         </c-grid-inner>
       </c-grid>
+      <CCreateUser @close="showModal=false" v-if="showModal" :config="modalConfig"/>
   </section>
 </template>
 
@@ -105,6 +106,7 @@ import CLabel from '@/components/Labels'
 import CTable from '@/components/Table'
 import CTableHeader from '@/components/TableHeader'
 import CTableBody from '@/components/TableBody'
+import CCreateUser from '@/components/CreateUser'
 import Data from '@/mixins/data-mixins'
 import ComputedMixins from '@/mixins/computed-mixins'
 import MethodMixins from '@/mixins/method-mixins'
@@ -119,7 +121,8 @@ export default {
     CLabel,
     CTable,
     CTableHeader,
-    CTableBody
+    CTableBody,
+    CCreateUser
   },
   apollo: {
     getUser: {
@@ -147,6 +150,14 @@ export default {
     changeView(index) {
       this.selected = index
     },
+    openModal() {
+      this.$store.dispatch('changeActiveWidget', null)
+      this.showModal = true
+    },
+    close() {
+      console.log('hello worls')
+      this.showModal = false
+    }
   }
 }
 </script>
