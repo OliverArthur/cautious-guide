@@ -85,10 +85,12 @@ import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
 import CLabel from '@/components/Labels'
 import Data from '@/mixins/data-mixins'
+import ComputedMixins from '@/mixins/computed-mixins'
+import MethodMixins from '@/mixins/method-mixins'
 
 export default {
   name: 'Account',
-  mixins: [Data],
+  mixins: [Data, ComputedMixins, MethodMixins],
   components: {
     CGrid,
     CGridInner,
@@ -108,29 +110,6 @@ export default {
     }
   },
   computed: {
-    users() {
-      if (this.selected === 0) {
-        return this.getUsers
-      } else if (this.selected === 1) {
-        return this.ungroupedUsers
-      } else {
-        return this.getUsers.filter(o => this.getGroups[this.selected-2].users.includes(o.id))
-      }
-    },
-    filteredUsers() {
-      return this.selectedRole
-        ? this.users.filter(o => this.selectedRole.filter.includes(o.role))
-        : this.users
-    },
-    ungroupedUsers() {
-      const members = [].concat(...this.getGroups.map(o => o.users))
-      return this.getUsers.filter(o => !members.includes(o.id))
-    },
-    selectedGroup() {
-      return this.selected < 2
-        ? this.groups[this.selected]
-        : this.getGroups[this.selected-2]
-    },
     ...mapState(['activeWidget'])
   },
   methods: {
@@ -201,9 +180,18 @@ export default {
         padding-top:1.5rem;
       }
 
-      &.selected, &:hover {
+      &.selected{
         background-color: $polo-blue;
         color: $white;
+
+        &:hover {
+          background-color: $polo-blue;
+          color: $white;
+        }
+      }
+
+      &:hover {
+        background-color: $silver-clear;
       }
     }
 

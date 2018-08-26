@@ -16,11 +16,13 @@
 
 <script>
 import Data from '@/mixins/data-mixins'
+import ComputedMixins from '@/mixins/computed-mixins'
+import MethodMixins from '@/mixins/method-mixins'
 import { GetUser, GetUsers, GetGroups } from '../constants/query.gql'
 
 export default {
   name: 'CLabel',
-  mixins: [Data],
+  mixins: [Data, ComputedMixins, MethodMixins],
   props: {
     obj: {
       type: Array
@@ -38,24 +40,6 @@ export default {
       query: GetGroups
     }
   },
-  computed: {
-    users() {
-      if (this.selected === 0) {
-        return this.getUsers
-      } else if (this.selected === 1) {
-        return this.ungroupedUsers
-      } else {
-        return this.getUsers.filter(o => this.getGroups[this.selected-2].users.includes(o.id))
-      }
-    }
-  },
-  methods: {
-    changeRoleFilter(overview) {
-      this.selectedRole = !this.selectedRole
-        || this.selectedRole.name !== overview.name
-        ? overview : null
-    },
-  }
 }
 </script>
 
@@ -68,10 +52,21 @@ export default {
     &:last-child {
       margin-right: 0;
     }
-    &:hover, &.active {
+    &.active{
       background-color: $polo-blue;
       color: $white;
+
+      &:hover {
+        background-color: $polo-blue;
+        color: $white;
+      }
     }
+
+    &:hover {
+      background-color: $silver-clear;
+      color: $tundora;
+    }
+
     span {
       display: inline-block;
       padding: 0.8rem;
