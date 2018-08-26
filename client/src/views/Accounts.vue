@@ -65,9 +65,15 @@
                   </div>
                 </div>
               </div>
-              <div class="accounts__container--table">
-                <div class="accounts__container--table__header">
+              <div class="accounts__main-content">
+                <div class="accounts__labels-container">
                   <CLabel/>
+                </div>
+                <div class="accounts__table">
+                  <c-table>
+                    <c-table-header slot="header" :label="allLabels"></c-table-header>
+                    <c-table-body slot="body" :data="filteredUsers"></c-table-body>
+                  </c-table>
                 </div>
               </div>
             </section>
@@ -84,6 +90,9 @@ import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
 import CLabel from '@/components/Labels'
+import CTable from '@/components/Table'
+import CTableHeader from '@/components/TableHeader'
+import CTableBody from '@/components/TableBody'
 import Data from '@/mixins/data-mixins'
 import ComputedMixins from '@/mixins/computed-mixins'
 import MethodMixins from '@/mixins/method-mixins'
@@ -95,7 +104,10 @@ export default {
     CGrid,
     CGridInner,
     CGridCell,
-    CLabel
+    CLabel,
+    CTable,
+    CTableHeader,
+    CTableBody
   },
   apollo: {
     getUser: {
@@ -110,7 +122,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['activeWidget'])
+    ...mapState(['activeWidget']),
   },
   methods: {
     openUserDetail(user, e) {
@@ -250,12 +262,6 @@ export default {
         font-size: 1.5rem;
         margin-left: 0.5rem;
       }
-    }
-
-    &--table__header {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
     }
   }
 }

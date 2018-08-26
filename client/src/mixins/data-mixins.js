@@ -27,6 +27,7 @@ export default {
         filter: ['External User']
       }],
       getUser: {},
+      labels: [],
       getUsers: [],
       getGroups: [],
       styleObj: {
