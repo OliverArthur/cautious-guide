@@ -209,6 +209,14 @@ const resolvers = {
       }
       return users
     },
+    async updateUser(_, {id, input}, context) {
+      const userId = getUserId(context)
+      return await User.findOneAndUpdate(
+        { _id: id },
+        { $set: input },
+        { new: true }
+      )
+    },
     async createGroup (_, {name, initials, avatarColor, users}, context) {
       const userId = getUserId(context)
       const team = (await User.findById(userId)).team

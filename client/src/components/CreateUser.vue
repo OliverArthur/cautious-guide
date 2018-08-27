@@ -6,20 +6,37 @@
       </div>
       <div class="create-user--content">
         <form method="POST" @submit.prevent>
-          <div class="form-group">
+          <div class="form-group"
+            v-for="(email, index) in form.email" :key="index">
             <input
               type="email"
               id="user"
               name="user"
-              v-model="form.email"
-              :autofocus="true" required="required"/>
+              v-model="form.email[index]"
+              :autofocus="true" required="required"
+              @keyup.esc="changeActiveWidget(null)"/>
             <label for="user" class="control-label">Add user email</label><i class="bar"></i>
+            <button
+              class="btn btn-icon btn-icon--small btn-secondary"
+              v-if="!disable"
+              @click="addUser">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+          <div class="form-group">
+            <select name="role" id="roles" v-model="form.role">
+              <option value="Administrator">Administrator</option>
+              <option value="Regular User">Regular User</option>
+              <option value="Collaborator">Collaborator</option>
+              <option value="External User">External User</option>
+            </select>
+            <label for="user" class="control-label">Role</label><i class="bar"></i>
           </div>
         </form>
       </div>
       <div class="create-user--footer">
         <div class="button-container">
-          <button class="btn btn-primary">
+          <button class="btn btn-primary" @click="invite">
             Save
           </button>
           <button class="btn btn-secondary" @click="$emit('close')">
@@ -32,22 +49,68 @@
 </template>
 
 <script>
-import { CreateFolder, GetFolders } from '../constants/query.gql'
+import { mapState } from 'vuex'
+import { Invite, GetUsers, GetGroups } from '../constants/query.gql'
+import { validateEmail } from '@/helpers/validation'
 
 export default {
   name: 'CCreateUser',
-  props: ['config'],
+  props: ['config', 'disable'],
   data() {
     return {
       form: {
-        email: '',
+        status: '',
+        email: [''],
+        role: 'Regular User'
       }
     }
   },
   methods: {
+    changeActiveWidget(key) {
+      this.$store.dispatch('changeActiveWidget', key)
+    },
     close() {
       this.$emit('close');
     },
+    addUser(email) {
+      const fields = this.form.email
+      fields.push(email)
+      if (fields.length >= 4) {
+        this.disable = true
+      }
+    },
+    invite() {
+      const emails = this.form.email.filter(o => !!o && validateEmail(o))
+
+     if (emails.length === 0) {
+        this.error = 'Please enter at least one valid email'
+        return
+      }
+      this.$apollo.mutate({
+        mutation: Invite,
+        variables: {
+          emails,
+          role: this.form.role
+        },
+        update: (store, { data: { invite } }) => {
+          try {
+            const data = store.readQuery({ query: GetUsers })
+            data.getUsers = data.getUsers.concat(invite)
+            store.writeQuery({
+              query: GetUsers,
+              data
+            })
+          } catch(err) {
+            console.log(err)
+          }
+        }
+      }).then(() => {
+        this.$emit('close')
+      }).catch((error) => {
+        this.error = 'Something went wrong'
+        console.log(error)
+      })
+    }
   }
 }
 </script>
@@ -100,6 +163,16 @@ export default {
             margin-right: 0;
           }
         }
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      input {
+        margin-right: 1rem;
       }
     }
 

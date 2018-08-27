@@ -144,6 +144,11 @@
   width: 6rem;
 }
 
+.btn-icon--small {
+  height: 4rem;
+  width: 4rem;
+}
+
 .btn--primary-outline:focus,
 .btn--primary-outline:hover {
   @include lighten-bg($picton-blue);

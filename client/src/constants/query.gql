@@ -5,6 +5,12 @@ mutation CaptureEmail($email: String!) {
   }
 }
 
+mutation Invite($emails: [String], $groups: [String], $role: String) {
+  invite(emails: $emails, groups: $groups, role: $role) {
+    ...UserFields
+  }
+}
+
 mutation Signup(
   $id: String!
   $firstname: String!
@@ -33,6 +39,12 @@ mutation Login($email: String!, $password: String!) {
       id
       email
     }
+  }
+}
+
+mutation UpdateUser($id: String!, $input: UserInput) {
+  updateUser(id: $id, input: $input) {
+    ...UserFields
   }
 }
 
