@@ -71,22 +71,12 @@ fieldset {
   resize: none;
 }
 
-.form-group select {
-  width: 100%;
-  font-size: 1.5rem;
-  height: 1.6rem;
-  padding: 0.125rem 0.125rem 0.0625rem;
-  background: none;
-  border: none;
-  line-height: 1.6;
-  box-shadow: none;
-}
-
 .form-group .control-label {
   position: absolute;
-  top: 0.25rem;
+  top: 2.2rem;
   pointer-events: none;
   padding-left: 0.125rem;
+  left: 1.5rem;
   z-index: 1;
   color: $tundora;
   font-size: 1.6rem;
@@ -95,39 +85,27 @@ fieldset {
   transition: all 0.28s ease;
 }
 
-.form-group .bar {
-  position: relative;
-  border-bottom: 0.1rem solid $tundora;
-  display: flex;
-}
-
-.form-group .bar::before {
-  content: '';
-  height: 0.125rem;
-  width: 0;
-  left: 50%;
-  bottom: -0.1rem;
-  position: absolute;
-  background: $picton-blue;
-  -webkit-transition: left 0.28s ease, width 0.28s ease;
-  transition: left 0.28s ease, width 0.28s ease;
-  z-index: 2;
-}
-
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   display: block;
+  border-radius: $border-radius;
   background: none;
-  padding: 0.125rem 0.125rem 0.0625rem;
+  padding: 2.8rem;
   font-size: 1.5rem;
-  border-width: 0;
-  border-color: transparent;
+  border: 0.1rem solid $tundora;
   line-height: 1.9;
   width: 100%;
   color: transparent;
   -webkit-transition: all 0.28s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   transition: all 0.28s ease;
   box-shadow: none;
+}
+
+.form-group select {
+  padding: 1.2rem;
 }
 
 .form-group input[type="file"] {
@@ -147,7 +125,10 @@ fieldset {
 .form-group textarea:valid,
 .form-group textarea.form-file,
 .form-group textarea.has-value {
+  background-color: $white;
   color: $tundora;
+  top: -0.75rem;
+  left: 1.5rem;
 }
 
 .form-group select~.control-label,
@@ -174,7 +155,10 @@ fieldset {
 .form-group select:focus~.control-label,
 .form-group input:focus~.control-label,
 .form-group textarea:focus~.control-label {
-  color: $picton-blue;
+  color: $tundora;
+  background-color: $white;
+  top: -0.75rem;
+  left: 1.5rem;
 }
 
 .form-group select:focus~.bar::before,

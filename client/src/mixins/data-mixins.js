@@ -30,6 +30,10 @@ export default {
       labels: [],
       getUsers: [],
       getGroups: [],
+      showModal: false,
+      modalConfig: {},
+      getFolders: [],
+      getTeam: {},
       styleObj: {
         width: `${window.innerWidth}px`,
         height: `${window.innerHeight - 52}px`

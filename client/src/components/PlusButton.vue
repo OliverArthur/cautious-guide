@@ -4,9 +4,14 @@
       <span class="plus-button--btn" v-show="activeWidget === 'show-menu'">
         <ul class="plus-button--inner">
           <li>
-            <p @click.stop="$emit('click')">
+            <p @click.stop="$emit('click', 'folder')">
               Create folder <i class="material-icons">folder</i>
             </p>
+          </li>
+          <li>
+            <router-link :to="{name: 'accounts'}">
+              Add user <i class="material-icons">person_add</i>
+            </router-link>
           </li>
           <li>
             <p>Create group <i class="material-icons">group_add</i>
@@ -16,7 +21,7 @@
       </span>
     </transition>
     <button class="btn btn-secondary btn-icon">
-      <slot/>
+      <i class="material-icons">add</i>
     </button>
   </span>
 </template>
@@ -61,7 +66,7 @@ export default {
     position: absolute;
     width: 16rem;
 
-    p {
+    p, a {
       align-items: center;
       cursor: pointer;
       display: flex;
@@ -69,6 +74,8 @@ export default {
       font-size: 1.5rem;
       justify-content: space-between;
       padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
     }
   }
 
