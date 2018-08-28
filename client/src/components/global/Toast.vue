@@ -18,6 +18,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/scss/components/toast/toast';
+@import '../../assets/scss/components/toast/toast';
 </style>
 

@@ -24,7 +24,7 @@
 <script>
 import { mapState } from 'vuex'
 import FolderItem from './FolderItem'
-import { GetFolders, DeleteFolder } from '../constants/query.gql'
+import { GetFolders, DeleteFolder } from '../../constants/query.gql'
 export default {
   name: 'folder',
   components: {

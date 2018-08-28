@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { CreateFolder, GetFolders } from '../constants/query.gql'
+import { CreateFolder, GetFolders } from '../../constants/query.gql'
 
 export default {
   name: 'CModalForm',
@@ -88,8 +88,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../assets/scss/components/buttons/button";
-  @import "../assets/scss/components/form/form";
+  @import "../../assets/scss/components/buttons/button";
+  @import "../../assets/scss/components/form/form";
 
   .modal-backdrop {
     align-items: center;

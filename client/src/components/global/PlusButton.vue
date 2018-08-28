@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/components/buttons/button";
+@import "../../assets/scss/components/buttons/button";
 .plus-button {
   &--btn {
     position: relative;

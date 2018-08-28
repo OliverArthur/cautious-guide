@@ -35,7 +35,7 @@
 
 <script>
 import { mapState } from  'vuex'
-import { GetUser } from '@/constants/query.gql'
+import { GetUser } from '../../constants/query.gql'
 
 export default {
   name: 'CNavigation',
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/components/buttons/button";
+@import "../../assets/scss/components/buttons/button";
 .navigation{
   &--menu {
     display:  flex;
