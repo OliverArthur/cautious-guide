@@ -82,7 +82,11 @@
                     </div>
                 </div>
                 <div class="accounts__table">
-                  <c-user-list></c-user-list>
+                  <c-user-list
+                    :is-odd="true"
+                    :data="filteredUsers"
+                    @click="openUserDetail">
+                  </c-user-list>
                 </div>
               </div>
             </section>
@@ -134,6 +138,7 @@ export default {
   },
   methods: {
     openUserDetail(user, e) {
+      console.log(user)
       if (this.activeWidget !== 'userDetail') {
         this.changeActiveWidget('userDetail')
       }
