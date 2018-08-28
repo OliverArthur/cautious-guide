@@ -10,18 +10,22 @@ const { User, Team, Folder, Group } = require('./models')
 
 const { getUserId } = require('./utils')
 
-const { welcomeEmail, notificationNewUser } = require('./emails')
+const { welcomeEmail, invitationEmail, notificationNewUser } = require('./emails')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
 const transporter = nodeMailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  host: 'smtp.office365.com',
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.FROM_EMAIL,
     pass: process.env.GMAIL_PASSWORD
-  }
+  },
+  tls: {
+    ciphers: 'SSLv3'
+  },
+  requireTLS: true
 })
 
 function randomChoice(arr) {
