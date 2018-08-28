@@ -13,9 +13,9 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
-import CAvatar from '@/components/Avatar'
-import CToast from '@/components/Toast'
-import CPlusButton from '@/components/PlusButton'
+import CAvatar from '@/components/global/Avatar'
+import CToast from '@/components/global/Toast'
+import CPlusButton from '@/components/global/PlusButton'
 
 Vue.component('c-avatar', CAvatar)
 Vue.component('c-toast', CToast)

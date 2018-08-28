@@ -18,7 +18,7 @@
 import Data from '@/mixins/data-mixins'
 import ComputedMixins from '@/mixins/computed-mixins'
 import MethodMixins from '@/mixins/method-mixins'
-import { GetUser, GetUsers, GetGroups } from '../constants/query.gql'
+import { GetUser, GetUsers, GetGroups } from '../../constants/query.gql'
 
 export default {
   name: 'CLabel',
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/components/buttons/button";
+@import "../../assets/scss/components/buttons/button";
 .labels {
   button {
     box-shadow: $box-shadow;

@@ -48,11 +48,11 @@
 <script>
 import { mapState } from  'vuex'
 import { GetFolders, GetTeam } from '../constants/query.gql'
-import CGrid from '@/components/Grid'
-import CGridInner from '@/components/GridInner'
-import CGridCell from '@/components/GridCell'
-import CFolderList from '@/components/FolderItem'
-import CModal from '@/components/Modal'
+import CGrid from '@/components/grid/Grid'
+import CGridInner from '@/components/grid/GridInner'
+import CGridCell from '@/components/grid/GridCell'
+import CFolderList from '@/components/folder/FolderItem'
+import CModal from '@/components/global/Modal'
 import Data from '@/mixins/data-mixins'
 
 export default {

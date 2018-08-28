@@ -60,9 +60,9 @@
 
 <script>
 import { Signup } from '../constants/query.gql'
-import CGrid from '@/components/Grid'
-import CGridInner from '@/components/GridInner'
-import CGridCell from '@/components/GridCell'
+import CGrid from '@/components/grid/Grid'
+import CGridInner from '@/components/grid/GridInner'
+import CGridCell from '@/components/grid/GridCell'
 
 export default {
   name: 'Signup',

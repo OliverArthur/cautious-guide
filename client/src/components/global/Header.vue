@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import CLogo from '@/components/Logo'
-import CNavigation from '@/components/Navigation'
+import CLogo from '@/components/global/Logo'
+import CNavigation from '@/components/global/Navigation'
 
 export default {
   name: 'CHeader',
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../assets/scss/components/buttons/button";
+  @import "../../assets/scss/components/buttons/button";
 
   .header {
     box-shadow: $box-shadow;

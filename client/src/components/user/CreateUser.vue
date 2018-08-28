@@ -50,7 +50,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { Invite, GetUsers, GetGroups } from '../constants/query.gql'
+import { Invite, GetUsers, GetGroups } from '../../constants/query.gql'
 import { validateEmail } from '@/helpers/validation'
 
 export default {
@@ -116,8 +116,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "../assets/scss/components/buttons/button";
-  @import "../assets/scss/components/form/form";
+  @import "../../assets/scss/components/buttons/button";
+  @import "../../assets/scss/components/form/form";
 
   .create-user-backdrop {
     align-items: center;

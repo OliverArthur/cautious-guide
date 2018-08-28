@@ -51,6 +51,10 @@ export default {
   &--row {
     display: flex;
     flex-direction: row;
+    padding: 1.5rem;
+    &:nth-child(odd) {
+      background-color: $silver-clear;
+    }
     strong {
       display: inline-block;
       font-size: 1.6rem;
@@ -60,12 +64,11 @@ export default {
       display: flex;
       font-size: 1.6rem;
       font-weight: 300;
-      padding: 1.5rem;
       .avatar {
         left: 0;
         padding: 0;
         position: absolute;
-        top: 0.3rem;
+        bottom: 0;
       }
       &.active strong {
         background-color: $sushi;
