@@ -82,10 +82,11 @@
                     </div>
                 </div>
                 <div class="accounts__table">
-                  <c-table>
-                    <c-table-header slot="header" :label="allLabels"></c-table-header>
-                    <c-table-body slot="body" :data="filteredUsers"></c-table-body>
-                  </c-table>
+                  <c-user-list
+                    :is-odd="true"
+                    :data="filteredUsers"
+                    @click="openUserDetail">
+                  </c-user-list>
                 </div>
               </div>
             </section>
@@ -103,9 +104,7 @@ import CGrid from '@/components/grid/Grid'
 import CGridInner from '@/components/grid/GridInner'
 import CGridCell from '@/components/grid/GridCell'
 import CLabel from '@/components/global/Labels'
-import CTable from '@/components/Table'
-import CTableHeader from '@/components/TableHeader'
-import CTableBody from '@/components/TableBody'
+import CUserList from '@/components/user/UserList'
 import CCreateUser from '@/components/user/CreateUser'
 import Data from '@/mixins/data-mixins'
 import ComputedMixins from '@/mixins/computed-mixins'
@@ -119,9 +118,7 @@ export default {
     CGridInner,
     CGridCell,
     CLabel,
-    CTable,
-    CTableHeader,
-    CTableBody,
+    CUserList,
     CCreateUser
   },
   apollo: {
@@ -141,6 +138,7 @@ export default {
   },
   methods: {
     openUserDetail(user, e) {
+      console.log(user)
       if (this.activeWidget !== 'userDetail') {
         this.changeActiveWidget('userDetail')
       }
