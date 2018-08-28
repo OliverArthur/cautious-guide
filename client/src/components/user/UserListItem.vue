@@ -3,17 +3,18 @@
     <li class="user-list-item"
       :dataList="dataList"
       v-for="user in dataList"
-      :key="user.id"
-      :elm-click="elmClick">
-      <span class="user-list-item--span">
-        <c-avatar class="avatar" :obj="user" :size="32"></c-avatar>
-        {{user.name}}
-      </span>
-      <span class="user-list-item--span">{{user.email}}</span>
-      <span class="user-list-item--span">{{user.role}}</span>
-      <span class="user-list-item--span">
-        <strong v-bind:class="user.status">{{user.status}}</strong>
-      </span>
+      :key="user.id">
+      <router-link :to="{ name: 'user', params: { userId: user.id }}" :title="`View ${user.name} profile`">
+        <span class="user-list-item--span">
+          <c-avatar class="avatar" :obj="user" :size="32"></c-avatar>
+          {{user.name}}
+        </span>
+        <span class="user-list-item--span">{{user.email}}</span>
+        <span class="user-list-item--span">{{user.role}}</span>
+        <span class="user-list-item--span">
+          <strong v-bind:class="user.status">{{user.status}}</strong>
+        </span>
+      </router-link>
     </li>
   </ul>
 </template>
@@ -28,15 +29,6 @@
           return {}
         }
       },
-      elmClick: {
-        type: Function
-      }
-    },
-    methods: {
-      handleClick(context) {
-        console.log(context)
-        this.$emit('openUserDetail', context)
-      }
     },
   }
 </script>
@@ -48,9 +40,16 @@
  }
 
  .user-list-item {
-  display: flex;
-  flex-direction: row;
-  padding: 1.5rem;
+    a {
+      color: $tundora;
+      display: flex;
+      flex-direction: row;
+      padding: 1.5rem;
+      text-decoration: none;
+    }
+    a:hover {
+      background-color: $silver-clear;
+    }
  }
 
  .user-list-item--span {

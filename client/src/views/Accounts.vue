@@ -84,8 +84,7 @@
                 <div class="accounts__table">
                   <c-user-list
                     :is-odd="true"
-                    :data="filteredUsers"
-                    @click="openUserDetail">
+                    :data="filteredUsers">
                   </c-user-list>
                 </div>
               </div>
@@ -137,6 +136,9 @@ export default {
     ...mapState(['activeWidget']),
   },
   methods: {
+    changeActiveWidget(key) {
+      this.$store.dispatch('changeActiveWidget', key)
+    },
     openUserDetail(user, e) {
       console.log(user)
       if (this.activeWidget !== 'userDetail') {
