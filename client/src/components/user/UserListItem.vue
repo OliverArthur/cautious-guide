@@ -4,7 +4,7 @@
       :dataList="dataList"
       v-for="user in dataList"
       :key="user.id">
-      <router-link :to="{ name: 'user', params: { userId: user.id }}" :title="`View ${user.name} profile`">
+      <router-link  :to="{ name: 'user', params: { userId: user.id }}" :title="`View ${user.name} profile`">
         <span class="user-list-item--span">
           <c-avatar class="avatar" :obj="user" :size="32"></c-avatar>
           {{user.name}}

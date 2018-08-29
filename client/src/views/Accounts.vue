@@ -140,7 +140,6 @@ export default {
       this.$store.dispatch('changeActiveWidget', key)
     },
     openUserDetail(user, e) {
-      console.log(user)
       if (this.activeWidget !== 'userDetail') {
         this.changeActiveWidget('userDetail')
       }
@@ -155,7 +154,6 @@ export default {
       this.showModal = true
     },
     close() {
-      console.log('hello worls')
       this.showModal = false
     }
   }
@@ -176,6 +174,12 @@ export default {
   }
   .grid, .grid__inner {
     min-height: 100vh;
+  }
+
+  &__table {
+    background-color: $white;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
   }
 
   &__aside {

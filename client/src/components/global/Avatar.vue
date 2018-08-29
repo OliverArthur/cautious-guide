@@ -1,5 +1,5 @@
 <template>
-  <span class="avatar">
+  <span class="avatar" :hasBorder="hasBorder" :class="[avatarStyle]">
     <span
       v-if="kind === 'unassigned'"
       v-bind:style="{
@@ -64,7 +64,7 @@
 <script>
 export default {
   name: 'CAvatar',
-  props: ['obj', 'number', 'kind', 'size', 'selected'],
+  props: ['obj', 'hasBorder', 'number', 'kind', 'size', 'selected'],
   computed: {
     getInitials() {
       if (this.obj.initials) {
@@ -77,6 +77,11 @@ export default {
       }
 
       return `${firstname[0]}${lastname[0]}`.toUpperCase()
+    },
+    avatarStyle() {
+      return {
+        'avatar-has-border': this.hasBorder
+      }
     }
   }
 }
@@ -96,6 +101,12 @@ export default {
       align-items: center;
       justify-content: center;
       letter-spacing: 0.1rem;
+    }
+  }
+
+  .avatar.avatar-has-border {
+    .avatar--core {
+    border: 0.1rem solid $white;
     }
   }
 </style>

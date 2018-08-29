@@ -109,7 +109,7 @@ export default {
   }
 
   &__aside {
-    border-right: 0.1rem solid rgba(0, 0, 0, 0.09);
+    border-right: 0.1rem solid rgba(0, 40, 100, 0.12);
     min-height: 100vh;
 
     nav {
@@ -119,7 +119,7 @@ export default {
     .team-name {
       align-content: center;
       align-items: center;
-      border-bottom: 0.1rem solid rgba(0, 0, 0, 0.09);
+      border-bottom: 0.1rem solid rgba(0, 40, 100, 0.12);
       display: flex;
       flex-direction: row;
       font-size: $heading-font-h6-xs;

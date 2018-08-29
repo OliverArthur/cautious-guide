@@ -28,7 +28,7 @@ export default {
   @import "../../assets/scss/components/buttons/button";
 
   .header {
-    box-shadow: $box-shadow;
+    border-bottom: 0.1rem solid rgba(0, 40, 100, 0.12);
     background-color: $white;
     height: 6.5rem;
     position: fixed;
