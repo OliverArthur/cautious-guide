@@ -54,7 +54,7 @@
               </div>
               <div class="user-card--body">
                 <div class="user-card--body-inner has-form">
-                  <form method="POST">
+                  <form method="POST" @submit.prevent>
                     <div class="form-group">
                       <input id="email" type="email" v-model="form.email" autocomplete="email"/>
                       <label for="email" class="control-label">Email</label>
@@ -122,7 +122,7 @@
 <script>
 import { mapState } from 'vuex'
 import moment from 'moment'
-import { GetUser, GetUsers, GetGroups } from '../constants/query.gql'
+import {UpdateUser, GetUser, GetUsers, GetGroups } from '../constants/query.gql'
 import CGrid from '@/components/grid/Grid'
 import CGridInner from '@/components/grid/GridInner'
 import CGridCell from '@/components/grid/GridCell'
@@ -138,10 +138,16 @@ export default {
     return {
       timeZone: '',
       form: {
+        createdAt: '',
         email: '',
-        role: '',
+        firstname: '',
         jobTitle: '',
-        password: ''
+        lastname: '',
+        name: '',
+        password: '',
+        role: '',
+        status: '',
+        team: ''
       }
     }
   },
@@ -178,7 +184,19 @@ export default {
       return moment(context).format('MMM DD, YYYY')
     },
 
-    updateUser() {}
+    updateUser() {
+      this.$apollo.mutate({
+        mutation: UpdateUser,
+        variables: {
+          id: this.getUser.id,
+          input: this.form
+        }
+      }).then((res) => {
+        console.log(res)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   }
 }
 </script>
