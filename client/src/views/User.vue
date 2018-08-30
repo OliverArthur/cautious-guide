@@ -116,6 +116,11 @@
         </c-grid-cell>
       </c-grid-inner>
     </c-grid>
+    <c-toast
+      v-if="submitted || error"
+      :modifier="[error ? 'toast--error' : submitted ? 'toast--success' : '']">
+      {{ status }}
+    </c-toast>
   </section>
 </template>
 
@@ -136,6 +141,9 @@ export default {
   },
   data() {
     return {
+      submitted: false,
+      error: false,
+      status: '',
       timeZone: '',
       form: {
         email: '',
@@ -175,6 +183,15 @@ export default {
     },
     getUserTimeZone () {
       return this.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    },
+    resetToast() {
+      if (this.submitted || this.error) {
+        setTimeout(() => {
+          this.submitted = false,
+          this.error = false,
+          this.status = ''
+        }, 3000)
+      }
     }
   },
   methods: {
@@ -190,9 +207,21 @@ export default {
           input: this.form
         }
       }).then((res) => {
-        console.log(res)
-      }).catch((error) => {
-        console.log(error)
+        this.submitted = true
+        this.error = false
+        this.status = 'Your account has been updated successfully.'
+        this.resetToast
+      }).catch((err) => {
+        if (err.graphQLErrors.length >= 1) {
+          this.error = true
+          this.status = err.graphQLErrors[0].message
+          this.resetToast
+        } else {
+          this.error = true
+          this.status = 'Something went wrong'
+          this.resetToast
+        }
+        throw new Error(err)
       })
     }
   }
