@@ -35,7 +35,7 @@
                 <div class="user-card--body-inner">
                   <h3><i class="material-icons">email</i> {{getUser.email}}</h3>
                   <strong><i class="material-icons">work</i> {{getData.jobTitle}}</strong>
-                  <em><i class="material-icons">calendar_today</i> Member since: {{dateTimeFormat(getData.createdAt)}}</em>
+                  <em><i class="material-icons">calendar_today</i> Member since: {{dateTimeFormat(getUser.createdAt)}}</em>
                 </div>
               </div>
             </div>
@@ -138,7 +138,6 @@ export default {
     return {
       timeZone: '',
       form: {
-        createdAt: '',
         email: '',
         firstname: '',
         jobTitle: '',
@@ -171,7 +170,6 @@ export default {
         avatarColor: this.getUser.avatarColor,
         role: this.getUser.role,
         jobTitle: this.getUser.jobTitle,
-        createdAt: this.getUser.createdAt,
         password: this.getUser.password
       }
     },
