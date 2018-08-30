@@ -121,7 +121,6 @@ export default {
         box-shadow: $box-shadow;
         border: 0.1rem solid $silver;
         font-size: 1.6rem;
-        min-height: 20.5rem;
         position: absolute;
         right: 0;
         text-align: left;
