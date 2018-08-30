@@ -141,7 +141,7 @@ const resolvers = {
         user.set(userDetails)
       }
       await user.save()
-      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET)
+      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1h' })
       return { token, user}
     },
 
@@ -154,7 +154,7 @@ const resolvers = {
       if (!valid) {
         throw new Error('Incorrect password')
       }
-      const token = jwt.sign({id: user.id, email}, JWT_SECRET)
+      const token = jwt.sign({id: user.id, email}, JWT_SECRET, { expiresIn: '1h' })
       return {token, user}
     },
 

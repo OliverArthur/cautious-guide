@@ -111,7 +111,7 @@ export default {
           this.submitted = true
           this.status = 'Your has been login successfully'
           this.resetToast
-          this.$router.push({name: 'workspace'})
+          await this.$router.push({name: 'workspace'})
         }).catch((err) => {
           if (err.graphQLErrors.length >= 1) {
             this.error = true

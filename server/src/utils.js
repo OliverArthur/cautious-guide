@@ -6,11 +6,19 @@ function getUserId(context) {
   if (Authorization && Authorization.length) {
     const token = Authorization.replace('Bearer ', '')
     const { id } = jwt.verify(token, process.env.JWT_SECRET)
-    return id
+    return id;
   }
-  throw new Error('Not authenticated')
+
+  throw new AuthError()
+}
+
+class AuthError extends Error {
+  constructor() {
+    super('Not authorized')
+  }
 }
 
 module.exports = {
-  getUserId,
+  AuthError,
+  getUserId
 }

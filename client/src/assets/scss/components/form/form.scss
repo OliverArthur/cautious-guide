@@ -91,7 +91,7 @@ fieldset {
   display: block;
   border-radius: $border-radius;
   background: none;
-  padding: 2.8rem;
+  padding: 2.8rem 1.5rem;
   font-size: 1.5rem;
   border: 0.1rem solid $tundora;
   line-height: 1.9;
@@ -140,10 +140,11 @@ fieldset {
 .form-group textarea:valid~.control-label,
 .form-group textarea.form-file~.control-label,
 .form-group textarea.has-value~.control-label {
+  background-color: $white;
+  color: $tundora;
   font-size: 1.5rem;
-  color: $white;
-  top: -1.6rem;
-  left: 0;
+  left: 1.5rem;
+  top: -0.75rem;
 }
 
 .form-group select:focus,

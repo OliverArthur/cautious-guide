@@ -13,7 +13,9 @@
         </button>
       </li>
       <li class="has-dropdown" @click.stop="$store.dispatch('changeActiveWidget', 'account-menu')">
-        <c-avatar :obj="getUser" :size="36"></c-avatar>
+
+        <c-avatar v-if="auth" :obj="getUser" :size="36"></c-avatar>
+
         <nav class="dropdown" v-show="activeWidget === 'account-menu'">
           <div class="dropdown--inner">
             <div class="dropdown--inner__item">
