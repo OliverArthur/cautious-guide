@@ -43,9 +43,11 @@ mutation Login($email: String!, $password: String!) {
 }
 
 mutation UpdateUser($id: String!, $input: UserInput) {
-  updateUser(id: $id, input: $input) {
-    ...UserFields
-  }
+  updateUser(id: $id, input: $input) { ...UserFields }
+}
+
+mutation DeleteUser($id: String!) {
+  deleteUser(id: $id)
 }
 
 

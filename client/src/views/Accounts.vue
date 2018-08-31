@@ -84,8 +84,7 @@
                 <div class="accounts__table">
                   <c-user-list
                     :is-odd="true"
-                    :data="filteredUsers"
-                    @click="openUserDetail">
+                    :data="filteredUsers">
                   </c-user-list>
                 </div>
               </div>
@@ -137,8 +136,10 @@ export default {
     ...mapState(['activeWidget']),
   },
   methods: {
+    changeActiveWidget(key) {
+      this.$store.dispatch('changeActiveWidget', key)
+    },
     openUserDetail(user, e) {
-      console.log(user)
       if (this.activeWidget !== 'userDetail') {
         this.changeActiveWidget('userDetail')
       }
@@ -153,7 +154,6 @@ export default {
       this.showModal = true
     },
     close() {
-      console.log('hello worls')
       this.showModal = false
     }
   }
@@ -174,6 +174,12 @@ export default {
   }
   .grid, .grid__inner {
     min-height: 100vh;
+  }
+
+  &__table {
+    background-color: $white;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
   }
 
   &__aside {

@@ -72,6 +72,18 @@ const router = new Router({
         title: 'Logo | account',
         requiresAuth: true
       }
+    },
+    {
+      path: '/user/:userId',
+      name: 'user',
+      // route level code-splitting
+      // this generates a separate chunk (accounts.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "User" */ './views/User.vue'),
+      meta: {
+        title: 'Logo | user',
+        requiresAuth: true
+      }
     }
   ]
 })

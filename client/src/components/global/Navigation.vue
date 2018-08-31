@@ -2,7 +2,7 @@
   <nav class="navigation">
     <router-link
         :to="{name: 'login'}"
-        v-if="!auth"
+        v-if="!auth && $route.name !== 'login'"
         class="btn btn-primary--outline">
         Log in
     </router-link>
@@ -13,18 +13,39 @@
         </button>
       </li>
       <li class="has-dropdown" @click.stop="$store.dispatch('changeActiveWidget', 'account-menu')">
-        <c-avatar :obj="getUser" :size="36"></c-avatar>
+
+        <c-avatar v-if="auth" :obj="getUser" :size="36"></c-avatar>
+
         <nav class="dropdown" v-show="activeWidget === 'account-menu'">
           <div class="dropdown--inner">
+            <div class="dropdown--inner__item">
+              <router-link
+                v-if="$route.name !== 'workspace'"
+                :to="{name: 'workspace'}"
+                title="Home">
+                Home <i class="material-icons">home</i>
+              </router-link>
+            </div>
+            <div class="dropdown--inner__item">
+              <router-link
+                v-if="['Owner', 'Administrator'].includes(getUser.role) && $route.name !== 'accounts'"
+                :to="{name: 'accounts'}"
+                title="Accounts">
+                Accounts <i class="material-icons">people</i>
+              </router-link>
+            </div>
+            <div class="dropdown--inner__item">
+              <router-link
+                v-if="$route.name !== 'user'"
+                :to="{ name: 'user', params: { userId: getUser.id }}"
+                title="user profile">
+                My profile <i class="material-icons">account_box</i>
+              </router-link>
+            </div>
             <div class="dropdown--inner__item">
               <a @click="logout" :href="`${url}login`" title="logout">
                 Logout <i class="material-icons">exit_to_app</i>
               </a>
-            </div>
-            <div class="dropdown--inner__item">
-              <router-link :to="{name: 'accounts'}" title="Accounts">
-                Accounts <i class="material-icons">account_box</i>
-              </router-link>
             </div>
           </div>
         </nav>
@@ -100,7 +121,6 @@ export default {
         box-shadow: $box-shadow;
         border: 0.1rem solid $silver;
         font-size: 1.6rem;
-        min-height: 20.5rem;
         position: absolute;
         right: 0;
         text-align: left;

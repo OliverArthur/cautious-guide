@@ -1,8 +1,8 @@
 <template>
   <div class="user-list">
-    <div class="user-list--content" :data="data">
+    <div class="user-list--content" :isOdd="isOdd" :data="data">
       <CUserListHeader :label="allLabels"/>
-      <c-user-list-item :dataList="data" :elmClick="handleClick"></c-user-list-item>
+      <c-user-list-item :dataList="data"></c-user-list-item>
     </div>
   </div>
 </template>
@@ -39,12 +39,6 @@
           role: item.role,
           status: item.status,
         }))
-      }
-    },
-    methods: {
-      handleClick(context) {
-        console.log(context)
-        this.$emit('openUserDetail', context)
       }
     },
     components: {

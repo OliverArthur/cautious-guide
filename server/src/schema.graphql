@@ -18,6 +18,7 @@ type Mutation {
   createGroup(name: String, initials: String, avatarColor: String, users: [String]): Group
   addUsersToGroup(id: String!, users: [String]): Group
   updateUser(id: String! input: UserInput): User
+  deleteUser(id: String!): Boolean
   updateFolder(id: String!, input: FolderInput): Folder
   deleteFolder(id: String!): Boolean
   signup(

@@ -10,18 +10,22 @@ const { User, Team, Folder, Group } = require('./models')
 
 const { getUserId } = require('./utils')
 
-const { welcomeEmail, notificationNewUser } = require('./emails')
+const { welcomeEmail, invitationEmail, notificationNewUser } = require('./emails')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
 const transporter = nodeMailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  host: 'smtp.office365.com',
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.FROM_EMAIL,
     pass: process.env.GMAIL_PASSWORD
-  }
+  },
+  tls: {
+    ciphers: 'SSLv3'
+  },
+  requireTLS: true
 })
 
 function randomChoice(arr) {
@@ -137,7 +141,7 @@ const resolvers = {
         user.set(userDetails)
       }
       await user.save()
-      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET)
+      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1h' })
       return { token, user}
     },
 
@@ -150,7 +154,7 @@ const resolvers = {
       if (!valid) {
         throw new Error('Incorrect password')
       }
-      const token = jwt.sign({id: user.id, email}, JWT_SECRET)
+      const token = jwt.sign({id: user.id, email}, JWT_SECRET, { expiresIn: '1h' })
       return {token, user}
     },
 
@@ -216,6 +220,11 @@ const resolvers = {
         { $set: input },
         { new: true }
       )
+    },
+    async deleteUser(_, {id}, context) {
+      const userId = getUserId(context)
+      await User.deleteOne({_id: id})
+      return true
     },
     async createGroup (_, {name, initials, avatarColor, users}, context) {
       const userId = getUserId(context)

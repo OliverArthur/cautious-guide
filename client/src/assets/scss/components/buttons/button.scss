@@ -87,7 +87,7 @@
 
 .btn-plain {
   -webkit-appearance: none;
-  background: none;
+  background-color: transparent;
   border: none;
   cursor: pointer;
   color: $tundora;
@@ -113,9 +113,21 @@
   color: $white;
 }
 
+.btn-danger {
+  @include ripple-bg(darken($mojo, 5%));
+  background-color: $mojo;
+  border-color: $mojo;
+  color: $white;
+}
+
 .btn-secondary:focus,
 .btn-secondary:hover {
   @include lighten-bg($au-chico);
+}
+
+.btn-danger:focus,
+.btn-danger:hover {
+  @include lighten-bg($mojo);
 }
 
 .btn-primary:focus,
@@ -149,7 +161,22 @@
   width: 4rem;
 }
 
+.btn-icon--notRadius {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
 .btn--primary-outline:focus,
 .btn--primary-outline:hover {
   @include lighten-bg($picton-blue);
+}
+
+.btn-plain:focus,
+.btn-plain:hover {
+  background-color: transparent !important;
+  @include lighten-bg($tundora);
+  color: $tundora;
 }
