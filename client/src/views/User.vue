@@ -112,6 +112,21 @@
               </div>
             </div>
           </div>
+          <div class="user-card other-card">
+            <div class="user-card--header">
+              <div class="user-card--header-inner">
+                <h3>Delete Account</h3>
+              </div>
+            </div>
+            <div class="user-card--body">
+              <div class="user-card--body-inner">
+                <button class="btn btn-danger btn-icon--notRadius" @click="deleteAccount(getUser.id)">
+                  <i class="material-icons">delete</i>
+                  Delete account
+                </button>
+              </div>
+            </div>
+          </div>
 
         </c-grid-cell>
       </c-grid-inner>
@@ -127,7 +142,7 @@
 <script>
 import { mapState } from 'vuex'
 import moment from 'moment'
-import {UpdateUser, GetUser, GetUsers, GetGroups } from '../constants/query.gql'
+import {UpdateUser, DeleteUser, GetUser, GetUsers, GetGroups } from '../constants/query.gql'
 import CGrid from '@/components/grid/Grid'
 import CGridInner from '@/components/grid/GridInner'
 import CGridCell from '@/components/grid/GridCell'
@@ -198,7 +213,6 @@ export default {
     dateTimeFormat(context) {
       return moment(context).format('MMM DD, YYYY')
     },
-
     updateUser() {
       this.$apollo.mutate({
         mutation: UpdateUser,
@@ -210,6 +224,29 @@ export default {
         this.submitted = true
         this.error = false
         this.status = 'Your account has been updated successfully.'
+        this.resetToast
+      }).catch((err) => {
+        if (err.graphQLErrors.length >= 1) {
+          this.error = true
+          this.status = err.graphQLErrors[0].message
+          this.resetToast
+        } else {
+          this.error = true
+          this.status = 'Something went wrong'
+          this.resetToast
+        }
+        throw new Error(err)
+      })
+    },
+    deleteAccount() {
+      const id = this.$route.params.userId
+      this.$apollo.mutate({
+        mutation: DeleteUser,
+        variables: { id },
+      }).then((res) => {
+        this.submitted = true
+        this.error = false
+        this.status = 'User has been deleted successfully.'
         this.resetToast
       }).catch((err) => {
         if (err.graphQLErrors.length >= 1) {

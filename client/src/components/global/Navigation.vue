@@ -2,7 +2,7 @@
   <nav class="navigation">
     <router-link
         :to="{name: 'login'}"
-        v-if="!auth"
+        v-if="!auth && $route.name !== 'login'"
         class="btn btn-primary--outline">
         Log in
     </router-link>

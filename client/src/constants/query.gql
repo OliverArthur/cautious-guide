@@ -46,6 +46,10 @@ mutation UpdateUser($id: String!, $input: UserInput) {
   updateUser(id: $id, input: $input) { ...UserFields }
 }
 
+mutation DeleteUser($id: String!) {
+  deleteUser(id: $id)
+}
+
 
 fragment FolderFields on Folder {
   id

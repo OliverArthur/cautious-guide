@@ -221,6 +221,11 @@ const resolvers = {
         { new: true }
       )
     },
+    async deleteUser(_, {id}, context) {
+      const userId = getUserId(context)
+      await User.deleteOne({_id: id})
+      return true
+    },
     async createGroup (_, {name, initials, avatarColor, users}, context) {
       const userId = getUserId(context)
       const team = (await User.findById(userId)).team
