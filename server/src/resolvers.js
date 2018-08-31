@@ -37,14 +37,6 @@ const avatarColors = [
   "80DEEA","4DD0E1","00ACC1","9FA8DA","7986CB","3949AB","8E24AA","BA68C8","CE93D8"
 ]
 
-async function deleteSubfolders(id) {
-  const folders = await Folder.find({parent: id})
-  for (const folder of folders) {
-    await deleteSubfolders(folder.id)
-    await Folder.deleteOne({_id: folder.id})
-  }
-}
-
 const resolvers = {
   Query: {
     async getTeam(_, args, context) {
@@ -158,34 +150,6 @@ const resolvers = {
       return {token, user}
     },
 
-    async createFolder(_, {parent, name}, context) {
-      const userId = getUserId(context)
-      const folder = await Folder.create({
-        name,
-        parent: parent || undefined,
-        shareWith: parent ? [] : [{
-          kind: 'Team',
-          item: (await User.findById(userId)).team
-        }]
-      })
-      return await Folder.findById(folder.id).populate('shareWith.item')
-    },
-
-    async updateFolder(_, {id, input}, context) {
-      const userId = getUserId(context)
-      return await Folder.findOneAndUpdate(
-        { _id: id },
-        { $set: input },
-        { new: true }
-      ).populate('shareWith')
-    },
-
-    async deleteFolder(_, {id}, context) {
-      const userId = getUserId(context)
-      await Folder.deleteOne({_id: id})
-      deleteSubfolders(id)
-      return true
-    },
     async invite (_, {emails, groups, role}, context) {
       const userId = getUserId(context)
       const thisUser = await User.findById(userId)
