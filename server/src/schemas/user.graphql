@@ -1,0 +1,25 @@
+type User {
+  id: String
+  name: String
+  firstname: String
+  lastname: String
+  email: String
+  avatarColor: String
+  jobTitle: String
+  team: String
+  role: String
+  status: String
+  createdAt: Date
+}
+
+input UserInput {
+  name: String
+  firstname: String
+  lastname: String
+  email: String
+  avatarColor: String
+  jobTitle: String
+  team: String
+  role: String
+  status: String
+}

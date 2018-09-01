@@ -1,0 +1,8 @@
+type Group {
+  id: String
+  team: String
+  name: String
+  initials: String
+  avatarColor: String
+  users: [String]
+}

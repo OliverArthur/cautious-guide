@@ -8,3 +8,5 @@ const TeamSchema = FolderSchema.discriminator('Team', new Schema({}, {
 }))
 
 module.exports = mongoose.model('Team')
+
+module.exports.TeamSchema = TeamSchema
