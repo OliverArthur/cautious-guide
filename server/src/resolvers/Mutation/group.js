@@ -1,7 +1,6 @@
-const { User, Group } = require('../../models')
-const mongoose = require('mongoose')
-const ObjectId = mongoose.Types.ObjectId
-const { getUserId } = require('../../utils')
+const UserSchema = require('../../models/user')
+const GroupSchema = require('../../models/group')
+const getUserId = require('../../utils')
 
 
 const GroupMutation = {
@@ -15,8 +14,8 @@ const GroupMutation = {
    */
   async createGroup (_, {name, initials, avatarColor, users}, context) {
     const userId = getUserId(context)
-    const team = (await User.findById(userId)).team
-    return await Group.create({
+    const team = (await UserSchema.findById(userId)).team
+    return await GroupSchema.create({
       name,
       team,
       initials,
@@ -34,7 +33,7 @@ const GroupMutation = {
    */
   async addUsersToGroup (_, {id, users}, context) {
     const userId = getUserId(context)
-    return await Group.findOneAndUpdate(
+    return await GroupSchema.findOneAndUpdate(
       { _id: id },
       { $push: { users: { $each: users } } },
       { new: true }

@@ -9,16 +9,9 @@ function getUserId(context) {
     return id;
   }
 
-  throw new AuthError()
-}
-
-class AuthError extends Error {
-  constructor() {
-    super('Not authorized')
-  }
+  throw new Error('Not authenticated')
 }
 
 module.exports = {
-  AuthError,
-  getUserId
+  getUserId,
 }

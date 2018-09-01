@@ -1,9 +1,8 @@
-const { User, Folder } = require('../../models')
+const UserSchema = require('../../models/user')
+const FolderSchema = require('../../models/folder')
 const { getUserId } = require('../../utils')
-const mongoose = require('mongoose')
-const ObjectId = mongoose.Types.ObjectId
 
- const FolderMutation = {
+const FolderMutation = {
   /**
    * Method will use to create a folder which
    * will be only visible for a member of the team or
@@ -16,15 +15,15 @@ const ObjectId = mongoose.Types.ObjectId
    */
   async createFolder(_, {parent, name}, context) {
     const userId = getUserId(context)
-    const folder = await Folder.create({
+    const folder = await FolderSchema.create({
       name,
       parent: parent || undefined,
       shareWith: parent ? [] : [{
         kind: 'Team',
-        item: (await User.findById(userId)).team
+        item: (await UserSchema.findById(userId)).team
       }]
     })
-    return await Folder.findById(folder.id).populate('shareWith.item')
+    return await FolderSchema.findById(folder.id).populate('shareWith.item')
   },
   /**
    * Method to update a single folder and only
@@ -38,7 +37,7 @@ const ObjectId = mongoose.Types.ObjectId
    */
   async updateFolder(_, {id, input}, context) {
     const userId = getUserId(context)
-    return await Folder.findOneAndUpdate(
+    return await FolderSchema.findOneAndUpdate(
       { _id: id },
       { $set: input },
       { new: true }
@@ -54,7 +53,7 @@ const ObjectId = mongoose.Types.ObjectId
    */
   async deleteFolder(_, {id}, context) {
     const userId = getUserId(context)
-    await Folder.deleteOne({_id: id})
+    await FolderSchema.deleteOne({_id: id})
     deleteSubfolders(id)
     return true
   },
