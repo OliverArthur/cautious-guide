@@ -16,7 +16,6 @@ const GroupQuery = {
     const userId = getUserId(context)
     const team = (await UserSchema.findById(userId)).team
     return await GroupSchema.find({team}).sort({ createdAt: -1 })
-    return group
   },
   /**
    * Method to get a single group
