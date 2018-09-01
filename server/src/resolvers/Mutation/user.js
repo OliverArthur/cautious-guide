@@ -1,10 +1,11 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {randomChoice, avatarColors} = require('../../helper/avatar')
-const mongoose = require('mongoose')
-const ObjectId = mongoose.Types.ObjectId
-const { User, Team, Group } = require('../../models')
 
+const UserSchema = require('../../models/user')
+const TeamSchema = require('../../models/team')
+const GroupSchema = require('../../models/group')
+
+const {randomChoice, avatarColors} = require('../../helper/avatar')
 const { getUserId } = require('../../utils')
 const { welcomeEmail, invitationEmail, notificationNewUser } = require('../../emails')
 const { Transporter } = require('../../config/transporter')
@@ -23,13 +24,13 @@ const UserMutation = {
    * @returns Object
    */
   async captureEmail(_, {email}) {
-    const isEmailUsed = await User.findOne({email})
+    const isEmailUsed = await UserSchema.findOne({email})
 
     if (isEmailUsed) {
       throw new Error('This email is already taken')
     }
 
-    const user = await User.create({
+    const user = await UserSchema.create({
       email,
       role: 'Owner',
       status: 'Pending'
@@ -50,7 +51,7 @@ const UserMutation = {
    * @returns Object
    */
   async signup(_, { id, firstname, lastname, password }){
-    const user = await User.findById(id)
+    const user = await UserSchema.findById(id)
     const userDetails = {
       firstname,
       lastname,
@@ -60,7 +61,7 @@ const UserMutation = {
       status: 'Active'
     }
     if (user.role === 'Owner') {
-      const team = await Team.create({
+      const team = await TeamSchema.create({
         name: `${userDetails.name}'s Team`
       })
       user.set({
@@ -87,7 +88,7 @@ const UserMutation = {
    * @returns String
    */
   async login(_, { email, password }){
-    const user = await User.findOne({ email })
+    const user = await UserSchema.findOne({ email })
     if (!user) {
       throw new Error('No user with that email')
     }
@@ -109,14 +110,14 @@ const UserMutation = {
    */
   async invite (_, {emails, groups, role}, context) {
     const userId = getUserId(context)
-    const thisUser = await User.findById(userId)
+    const thisUser = await UserSchema.findById(userId)
     const team = thisUser.team
-    const teamMembers = (await User.find({team}, 'email')).map(o => o.email)
+    const teamMembers = (await UserSchema.find({team}, 'email')).map(o => o.email)
     const users = []
     for (const email of emails) {
       if (teamMembers.includes(email)) {
       } else {
-        const user = await User.create({
+        const user = await UserSchema.create({
           email,
           team,
           role,
@@ -128,7 +129,7 @@ const UserMutation = {
     }
     const userIds = users.map(o => o.id)
     for (const id of groups) {
-      const group = await Group.findById(id)
+      const group = await GroupSchema.findById(id)
       group.users = userIds
       await group.save()
     }
@@ -145,7 +146,7 @@ const UserMutation = {
    */
   async updateUser(_, {id, input}, context) {
     const userId = getUserId(context)
-    return await User.findOneAndUpdate(
+    return await UserSchema.findOneAndUpdate(
       { _id: id },
       { $set: input },
       { new: true }

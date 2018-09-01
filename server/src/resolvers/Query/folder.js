@@ -1,7 +1,10 @@
-const { User, Folder, Group } = require('../../models')
-const { getUserId } = require('../../utils')
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
+
+const UserSchema = require('../../models/user')
+const FolderSchema = require('../../models/folder')
+const GroupSchema = require('../../models/group')
+const { getUserId } = require('../../utils')
 
 const FolderQuery = {
    /**
@@ -14,16 +17,16 @@ const FolderQuery = {
   async getFolders (_, {parent}, context) {
     const userId = getUserId(context)
     if (parent) {
-      return await Folder.find({parent})
+      return await FolderSchema.find({parent})
     } else {
-      const user = await User.findById(userId)
-      const groups = await Group.find({users: ObjectId(userId)}, '_id')
+      const user = await UserSchema.findById(userId)
+      const groups = await GroupSchema.find({users: ObjectId(userId)}, '_id')
       const ids = groups.map(o => o._id).concat(
         ['External User', 'Collaborator'].includes(user.role)
         ? [ObjectId(userId)]
         : [ObjectId(userId), user.team]
       )
-      return await Folder.find({ 'shareWith.item': ids }).populate('shareWith')
+      return await FolderSchema.find({ 'shareWith.item': ids }).populate('shareWith')
     }
   },
   /**
@@ -36,7 +39,7 @@ const FolderQuery = {
    */
   async getFolder (_, {id}, context) {
     const userId = getUserId(context)
-    return await Folder.findById(id).populate('shareWith')
+    return await FolderSchema.findById(id).populate('shareWith')
   },
 }
 

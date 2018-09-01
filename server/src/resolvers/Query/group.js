@@ -1,5 +1,7 @@
-const { User, Group } = require('../../models')
 const { getUserId } = require('../../utils')
+
+const UserSchema = require('../../models/user')
+const GroupSchema = require('../../models/group')
 
 const GroupQuery = {
   /**
@@ -12,8 +14,8 @@ const GroupQuery = {
    */
   async getGroups (_, args, context) {
     const userId = getUserId(context)
-    const team = (await User.findById(userId)).team
-    return await Group.find({team}).sort({ createdAt: -1 })
+    const team = (await UserSchema.findById(userId)).team
+    return await GroupSchema.find({team}).sort({ createdAt: -1 })
     return group
   },
   /**
@@ -26,7 +28,7 @@ const GroupQuery = {
    */
   async getGroup (_, {id}, context) {
     const userId = getUserId(context)
-    const group = await Group.findById(id).populate('users')
+    const group = await GroupSchema.findById(id).populate('users')
     return group
   },
 }
