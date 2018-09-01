@@ -14,7 +14,7 @@
                   @click.left.stop="$route.push({name: 'folder', params: {id: getTeam.id }})"
                   class="workspace__aside--teamName">
                   <div v-bind:class="{active: $route.params.id === getTeam.id}">
-                    <span class="team-name">{{ getTeam.name }} <i class="material-icons">add_circle</i></span>
+                    <span class="team-name">{{ getTeam.name }} <i class="material-icons">arrow_back</i></span>
                   </div>
                 </div>
               </div>
@@ -70,7 +70,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['activeWidget'])
+    ...mapState(['activeWidget', 'activeSideBar'])
   },
   components: {
     CGrid,
@@ -84,8 +84,11 @@ export default {
       this.$store.dispatch('changeActiveWidget', null)
       this.showModal = true
     },
+    toggelSideBar() {
+      this.$store.dispatch('changeActiveSideBar', null)
+      this.showSideBar ? true : false
+    },
     close() {
-      console.log('hello worls')
       this.showModal = false
     }
   }

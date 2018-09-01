@@ -31,6 +31,7 @@ export default {
       getUsers: [],
       getGroups: [],
       showModal: false,
+      showSideBar: false,
       modalConfig: {},
       getFolders: [],
       getTeam: {},
