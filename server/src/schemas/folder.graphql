@@ -1,0 +1,15 @@
+type Folder {
+  id: String
+  name: String
+  parent: String
+  description: String
+  shareWith: [JSON]
+}
+
+
+input FolderInput {
+  name: String
+  parent: String
+  description: String
+  shareWith: [ShareInput]
+}

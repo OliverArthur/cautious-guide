@@ -1,3 +1,9 @@
+# import { User, UserInput} from "./schemas/user.graphql"
+# import {Folder, FolderInput } from "./schemas/folder.graphql"
+# import Team from "./schemas/team.graphql"
+# import Group from "./schemas/group.graphql"
+# import AuthPayload from "./schemas/auth.graphql"
+
 scalar Date
 scalar JSON
 
@@ -21,77 +27,11 @@ type Mutation {
   deleteUser(id: String!): Boolean
   updateFolder(id: String!, input: FolderInput): Folder
   deleteFolder(id: String!): Boolean
-  signup(
-    id: String!,
-    firstname: String!,
-    lastname: String!,
-    password: String!
-  ): AuthPayload!
+  signup(id: String!, firstname: String!, lastname: String!, password: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-}
-
-
-input FolderInput {
-  name: String
-  parent: String
-  description: String
-  shareWith: [ShareInput]
 }
 
 input ShareInput {
   kind: String
   item: String
-}
-
-input UserInput {
-  name: String
-  firstname: String
-  lastname: String
-  email: String
-  avatarColor: String
-  jobTitle: String
-  team: String
-  role: String
-  status: String
-}
-
-type User {
-  id: String
-  name: String
-  firstname: String
-  lastname: String
-  email: String
-  avatarColor: String
-  jobTitle: String
-  team: String
-  role: String
-  status: String
-  createdAt: Date
-}
-
-type Folder {
-  id: String
-  name: String
-  parent: String
-  description: String
-  shareWith: [JSON]
-}
-
-type Team {
-  id: String
-  name: String
-}
-
-type Group {
-  id: String
-  team: String
-  name: String
-  initials: String
-  avatarColor: String
-  users: [String]
-}
-
-type AuthPayload {
-  token: String!
-  user: User!
 }

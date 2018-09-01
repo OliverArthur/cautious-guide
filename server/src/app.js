@@ -1,5 +1,5 @@
 require('dotenv').config()
-
+const { importSchema } = require('graphql-import')
 const { GraphQLServer } = require('graphql-yoga')
 const mongoose = require('mongoose')
 
@@ -17,7 +17,7 @@ db.once('open', callback => {
 })
 
 const server = new GraphQLServer({
-  typeDefs: 'src/schema.graphql',
+  typeDefs: importSchema('src/schema.graphql'),
   resolvers,
   context: req => req
 })
@@ -26,7 +26,8 @@ const options = {
   port: process.env.PORT || 5500,
   endpoint: '/graphql',
   subscriptions: '/subscriptions',
-  playground: '/playground'
+  playground: '/playground',
+  debug: process.env.DEBUG
 }
 
 server.start(options, ({ port }) => console.log(`Server is running on port ${port}`))
