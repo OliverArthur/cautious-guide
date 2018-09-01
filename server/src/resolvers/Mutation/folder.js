@@ -1,7 +1,9 @@
 const { User, Folder } = require('../../models')
 const { getUserId } = require('../../utils')
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
 
- const Folder = {
+ const FolderMutation = {
   /**
    * Method will use to create a folder which
    * will be only visible for a member of the team or
@@ -58,4 +60,4 @@ const { getUserId } = require('../../utils')
   },
 }
 
-module.exports = { Folder }
+module.exports = { FolderMutation }
