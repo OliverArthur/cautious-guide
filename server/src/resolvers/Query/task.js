@@ -16,7 +16,7 @@ const TaskQuery = {
     if (parent) {
       return await populateTask(TaskSchema.find({ parent })).sort({ createdAt: 1 })
     } else {
-      return await populateTask(Task.find({ folders: folder })).sort({ createdAt: -1 })
+      return await populateTask(TaskSchema.find({ folders: folder })).sort({ createdAt: -1 })
     }
   },
   /**
