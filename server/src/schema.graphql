@@ -1,8 +1,9 @@
-# import { User, UserInput} from "./schemas/user.graphql"
-# import { Folder, FolderInput } from "./schemas/folder.graphql"
-# import Team from "./schemas/team.graphql"
-# import Group from "./schemas/group.graphql"
 # import AuthPayload from "./schemas/auth.graphql"
+# import Group from "./schemas/group.graphql"
+# import { Task, TaskInput} from "./schemas/task.graphql"
+# import Team from "./schemas/team.graphql"
+# import { Folder, FolderInput } from "./schemas/folder.graphql"
+# import { User, UserInput} from "./schemas/user.graphql"
 
 scalar Date
 scalar JSON
@@ -19,11 +20,15 @@ type Query {
   #Folders
   getFolders(parent: String): [Folder]
   getFolder(id: String!): Folder
+  #Tasks
+  getTasks(folder: String, parent: String): [Task]
+  getTask(id: String!): Task
 }
 
 type Mutation {
   #Auth
   captureEmail(email: String!): User
+  decline(id: String!): Boolean
   signup(id: String!, firstname: String!, lastname: String!, password: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   invite(emails: [String], groups: [String], role: String): [User]
@@ -37,9 +42,8 @@ type Mutation {
   #Groups
   createGroup(name: String, initials: String, avatarColor: String, users: [String]): Group
   addUsersToGroup(id: String!, users: [String]): Group
-}
-
-input ShareInput {
-  kind: String
-  item: String
+  #Tasks
+  createTask(folder: String, parent: String, name: String!): Task
+  updateTask(id: String!, input: TaskInput): Task
+  deleteTask(id: String!): Boolean
 }
