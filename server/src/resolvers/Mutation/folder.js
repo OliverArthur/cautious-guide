@@ -1,6 +1,7 @@
+const UserSchema = require('../../models/user')
 const FolderSchema = require('../../models/folder')
 const { getUserId } = require('../../utils')
-const { deleteSubfolders, folderCommon } = require('../../helper')
+const { deleteSubfolders } = require('../../helper')
 
 const FolderMutation = {
   /**
@@ -14,7 +15,15 @@ const FolderMutation = {
    * @returns will return the folder Object
    */
   async createFolder(_, {parent, name}, context) {
-    const folder = await FolderSchema.create(await folderCommon(context, parent, name, shareWith))
+    const userId = getUserId(context)
+    const folder = await FolderSchema.create({
+      name,
+      parent: parent || undefined,
+      shareWith: parent ? [] : [{
+        kind: 'Team',
+        item: (await UserSchema.findById(userId)).team
+      }]
+    })
     return await FolderSchema.findById(folder.id).populate('shareWith.item')
   },
   /**
