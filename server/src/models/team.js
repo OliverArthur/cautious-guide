@@ -3,7 +3,9 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 const FolderSchema = require('./folder')
 
-const TeamSchema = FolderSchema.discriminator('Team', new Schema({}, {
+const TeamSchema = FolderSchema.discriminator('Team', new Schema({
+  _id: ObjectId
+}, {
   timestamps: true
 }))
 
