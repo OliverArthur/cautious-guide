@@ -29,6 +29,6 @@ const UserSchema = new mongoose.Schema({
   team: { type: ObjectId, ref: 'Team' },
   role: String,
   status: String
-})
+}, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema)
