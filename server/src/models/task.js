@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
+mongoose.set('useCreateIndex', true)
+
 const TaskSchema = new mongoose.Schema({
   folders: [{ type: ObjectId, ref: 'Folder' }],
   parent: { type: ObjectId, ref: 'Task' },

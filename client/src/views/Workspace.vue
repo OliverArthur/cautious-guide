@@ -10,9 +10,7 @@
             <aside class="workspace__aside">
               <div class="workspace__aside--team">
                 <div
-                  v-if="getTeam.id"
-                  @click.left.stop="$route.push({name: 'folder', params: {id: getTeam.id }})"
-                  class="workspace__aside--teamName">
+                  v-if="getTeam.id" class="workspace__aside--teamName">
                   <div v-bind:class="{active: $route.params.id === getTeam.id}">
                     <span class="team-name">{{ getTeam.name }} <i class="material-icons">arrow_back</i></span>
                   </div>
@@ -28,12 +26,52 @@
             </aside>
           </c-grid-cell>
           <c-grid-cell
-            align="middle"
+            align="top"
             :span-desktop="9"
             :span-phone="12"
             :span-tablet="12">
             <section class="workspace__content">
-              <router-view :key="$route.fullPath"></router-view>
+              <dic class="workspace__content--intro">
+                <p>
+                  Hi {{ getUser.firstname }}, welcome back!
+                  <i class="material-icons">mood</i>
+                </p>
+                <div class="workspace__content--action">
+                  <div class="action--item">
+                    <router-link class="btn btn-icon--notRadius btn-primary--outline" to="">
+                      Invita an user
+                      <i class="material-icons">person_add</i>
+                    </router-link>
+                  </div>
+                  <div class="action--item">
+                    <button class="btn btn-icon--notRadius btn-primary--outline" @click="openModal">
+                      Create a folder
+                      <i class="material-icons">folder</i>
+                    </button>
+                  </div>
+                  <div class="action--item">
+                    <button class="btn btn-icon--notRadius btn-primary--outline">
+                      Create group
+                      <i class="material-icons">group_add</i>
+                    </button>
+                  </div>
+                </div>
+              </dic>
+              <!-- <div class="workspace__content--empty">
+                <div class="intro">
+                  <p>Hi {{ getUser.firstname }}, I think you may be experiencing one of these two things:</p>
+                  <ul>
+                    <li>
+                      Maybe you do not have the right permission to be able to see the content
+                      <i class="material-icons">block</i>
+                    </li>
+                    <li>
+                      Or around here there is nothing yet.
+                      <i class="material-icons">sentiment_very_dissatisfied</i>
+                    </li>
+                  </ul>
+                </div> -->
+              </div>
             </section>
           </c-grid-cell>
         </c-grid-inner>
@@ -47,7 +85,7 @@
 
 <script>
 import { mapState } from  'vuex'
-import { GetFolders, GetTeam } from '../constants/query.gql'
+import { GetFolders, GetTeam, GetUser } from '../constants/query.gql'
 import CGrid from '@/components/grid/Grid'
 import CGridInner from '@/components/grid/GridInner'
 import CGridCell from '@/components/grid/GridCell'
@@ -59,8 +97,17 @@ export default {
   name: 'Workspace',
   mixins: [Data],
   apollo: {
+    getUser: {
+      query: GetUser,
+      err(err) {
+        console.error(err)
+      }
+    },
     getTeam: {
       query: GetTeam,
+      err(err) {
+        console.error(err)
+      }
     },
     getFolders: {
       query: GetFolders,
@@ -130,6 +177,71 @@ export default {
       padding: 7.5rem 1.5rem 2.5rem 1.5rem;
       vertical-align: middle;
       cursor: pointer;
+    }
+  }
+
+  &__content {
+    margin-top: 7.8rem;
+  }
+
+  &__content--empty {
+    .intro {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      font-size: $heading-font-h1;
+      ul {
+        margin-top: 2rem;
+      }
+      ul li {
+        align-items: center;
+        display: flex
+      }
+      ul li:first-child i {
+        font-size: 2.8rem;
+        color: $mojo;
+        font-weight: 500;
+      }
+      ul li:second-child i {
+        font-size: 2.8rem;
+        font-weight: 500;
+      }
+    }
+    p {
+      font-weight: 200;
+      text-align: center;
+    }
+  }
+
+  &__content--intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      font-size: $heading-font-h2;
+      font-weight: 200;
+    }
+  }
+
+  &__content--action {
+    margin-top: $heading-font-h1;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    .action--item {
+      margin-right: 1.5rem;
+      .btn {
+        min-height: 10rem;
+      }
+      .btn i {
+        margin-left: 0.8rem;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
  }

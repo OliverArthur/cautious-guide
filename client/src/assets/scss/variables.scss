@@ -51,10 +51,8 @@ $font-size-root: 62.5%;
 // Definining rems as 10px = 16px * 0.625
 $font-size: $font-size-root !default;
 $font-color: $tundora !default;
-$font-family: "Roboto",
-sans-serif !default;
-$font-family-pre: Courier,
-monospace !default;
+$font-family: "Roboto", sans-serif !default;
+$font-family-pre: Courier, monospace !default;
 $font-size-base: 1.6em !default; // 16px by default
 $font-size-base-rem: 1.6rem !default;
 $font-weight: 300 !default;
