@@ -1,3 +1,5 @@
+scalar JSON
+
 type Folder {
   id: String
   name: String
@@ -12,4 +14,9 @@ input FolderInput {
   parent: String
   description: String
   shareWith: [ShareInput]
+}
+
+input ShareInput {
+  kind: String
+  item: String
 }

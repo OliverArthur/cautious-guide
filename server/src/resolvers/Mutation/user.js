@@ -136,6 +136,20 @@ const UserMutation = {
     return users
   },
   /**
+   * Method to decline an invitation
+   *
+   * @param {*} _
+   * @param {String} {id}
+   * @returns Boolean
+   */
+  async decline (_, {id}) {
+    await UserSchema.findOneAndUpdate(
+      { _id: id },
+      { $set: { status: 'Declined' } },
+    )
+    return true
+  },
+  /**
    * Method to allow user to update profile and only
    * admin and the owner of the profile can update profiles.
    *
