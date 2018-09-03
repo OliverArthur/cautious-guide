@@ -1,12 +1,14 @@
 <template>
   <div class="folder">
     <div class="folder--item">
-      <div class="folder--item-folder" v-bind:class="{active: $route.params.id === model.id}">
-        <span class="no-select-color">
-          <i class="material-icons" v-if="!open">folder</i>
-          <i class="material-icons" v-else>folder_open</i>
-          {{ model.name }}
-        </span>
+      <div class="folder--item-folder" :model="model" :team="team" v-bind:class="{active: $route.params.id === model.id}">
+        <router-link :to="{name: 'board', params:{ id: model.id }}">
+          <span class="no-select-color">
+            <i class="material-icons" v-if="!open">folder</i>
+            <i class="material-icons" v-else>folder_open</i>
+            {{ model.name }}
+          </span>
+        </router-link>
       </div>
       <ul class="folder--secondLevel" v-show="open" v-if="isFolder">
         <folder
@@ -24,7 +26,7 @@
 <script>
 import { mapState } from 'vuex'
 import FolderItem from './FolderItem'
-import { GetFolders, DeleteFolder } from '../../constants/query.gql'
+import { GetFolders, DeleteFolder, GetTeam } from '../../constants/query.gql'
 export default {
   name: 'folder',
   components: {
@@ -49,6 +51,9 @@ export default {
     ...mapState(['activeWidget'])
   },
   apollo: {
+    getTeam: {
+      query: GetTeam,
+    },
     getFolders: {
       query: GetFolders,
       variables() {
@@ -84,11 +89,20 @@ export default {
   .folder {
     &--item-folder {
       padding: 0.9rem 1.5rem;
+      &:hover {
+        background-color: $silver-clear;
+      }
     }
     &--item-folder {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+      &.active {
+        background-color: $picton-blue;
+        a{
+          color: $white;
+        }
+      }
       span {
         display: flex;
         align-items: center;
@@ -96,6 +110,10 @@ export default {
         i {
           padding-right: 1.2rem;
         }
+      }
+      a {
+        color: $tundora;
+        text-decoration: none;
       }
     }
   }

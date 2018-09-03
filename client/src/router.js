@@ -59,7 +59,20 @@ const router = new Router({
       meta: {
         title: 'Logo | workspace',
         requiresAuth: true
-      }
+      },
+      children: [{
+        name: 'board',
+        path: 'board/:id',
+        // route level code-splitting
+        // this generates a separate chunk (workspace.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "board" */ './views/Board.vue'),
+        props: true,
+        meta: {
+          title: 'Logo | board',
+          requiresAuth: true
+        },
+      }]
     },
     {
       path: '/accounts',

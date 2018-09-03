@@ -31,47 +31,35 @@
             :span-phone="12"
             :span-tablet="12">
             <section class="workspace__content">
-              <dic class="workspace__content--intro">
+              <transition name="workspace" mode="out-in">
+                <router-view :key="$route.fullPath"></router-view>
+              </transition>
+              <!-- <div class="workspace__content--intro">
                 <p>
                   Hi {{ getUser.firstname }}, welcome back!
                   <i class="material-icons">mood</i>
                 </p>
                 <div class="workspace__content--action">
                   <div class="action--item">
-                    <router-link class="btn btn-icon--notRadius btn-primary--outline" to="">
-                      Invita an user
+                    <router-link class="btn btn-icon--notRadius" to="">
+                      Invite an user
                       <i class="material-icons">person_add</i>
                     </router-link>
                   </div>
                   <div class="action--item">
-                    <button class="btn btn-icon--notRadius btn-primary--outline" @click="openModal">
+                    <button class="btn btn-icon--notRadius" @click="openModal">
                       Create a folder
                       <i class="material-icons">folder</i>
                     </button>
                   </div>
                   <div class="action--item">
-                    <button class="btn btn-icon--notRadius btn-primary--outline">
+                    <button class="btn btn-icon--notRadius">
                       Create group
                       <i class="material-icons">group_add</i>
                     </button>
                   </div>
                 </div>
-              </dic>
-              <!-- <div class="workspace__content--empty">
-                <div class="intro">
-                  <p>Hi {{ getUser.firstname }}, I think you may be experiencing one of these two things:</p>
-                  <ul>
-                    <li>
-                      Maybe you do not have the right permission to be able to see the content
-                      <i class="material-icons">block</i>
-                    </li>
-                    <li>
-                      Or around here there is nothing yet.
-                      <i class="material-icons">sentiment_very_dissatisfied</i>
-                    </li>
-                  </ul>
-                </div> -->
-              </div>
+              </div> -->
             </section>
           </c-grid-cell>
         </c-grid-inner>
@@ -234,6 +222,9 @@ export default {
     .action--item {
       margin-right: 1.5rem;
       .btn {
+        background-color: $silver-clear;
+        border: none;
+        color: $tundora;
         min-height: 10rem;
       }
       .btn i {
@@ -245,5 +236,15 @@ export default {
     }
   }
  }
+
+.workspace-enter-active,
+.workspace-leave-active {
+  transition: opacity 0.35s, transform 0.35s;
+}
+.workspace-enter,
+.workspace-leave-to {
+  opacity: 0;
+  transform: translateX(-30%);
+}
 </style>
 
