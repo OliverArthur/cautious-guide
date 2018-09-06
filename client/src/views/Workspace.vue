@@ -34,7 +34,7 @@
               <transition name="workspace" mode="out-in">
                 <router-view :key="$route.fullPath"></router-view>
               </transition>
-              <!-- <div class="workspace__content--intro">
+              <div  v-if="$route.name !== 'board'" class="workspace__content--intro">
                 <p>
                   Hi {{ getUser.firstname }}, welcome back!
                   <i class="material-icons">mood</i>
@@ -59,7 +59,7 @@
                     </button>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </section>
           </c-grid-cell>
         </c-grid-inner>
@@ -140,7 +140,6 @@ export default {
   position: relative;
   .grid {
     padding-left: 0;
-    padding-right: 0;
   }
   .grid, .grid__inner {
     min-height: 100vh;
