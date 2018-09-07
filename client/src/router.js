@@ -16,17 +16,17 @@ const router = new Router({
         redirect: true
       }
     },
-    // {
-    //   path: '/create-account',
-    //   name: 'create-account',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (emailForm.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import(/* webpackChunkName: "emailForm" */ './views/EmailForm.vue'),
-    //   meta: {
-    //     title: 'Logo | Create Account'
-    //   }
-    // },
+    {
+      path: '/create-account',
+      name: 'create-account',
+      // route level code-splitting
+      // this generates a separate chunk (emailForm.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/Email.vue'),
+      meta: {
+        title: 'Logo | Create Account'
+      }
+    },
   ]
 })
 
