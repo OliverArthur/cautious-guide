@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <c-header></c-header>
+    <c-header
+      :is-fixed-top="true">
+      <c-logo slot="logo"></c-logo>
+      <c-navigation slot="navigation"></c-navigation>
+    </c-header>
     <transition name="page" mode="out-in">
       <router-view/>
     </transition>
@@ -8,13 +12,12 @@
 </template>
 
 <script>
-import CHeader from '@/components/global/Header'
+import CLogo from '@/components/Logo'
+import CNavigation from '@/components/Navigation'
 
 export default {
   name: 'App',
-  components: {
-    CHeader
-  },
+  components: { CLogo, CNavigation }
 }
 </script>
 

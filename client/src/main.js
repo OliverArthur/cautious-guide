@@ -13,13 +13,15 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
-import CAvatar from '@/components/global/Avatar'
-import CToast from '@/components/global/Toast'
-import CPlusButton from '@/components/global/PlusButton'
+// import CAvatar from '@/components/global/Avatar'
+// import CToast from '@/components/global/Toast'
+// import CPlusButton from '@/components/global/PlusButton'
+import CHeader from '@/components/Header'
 
-Vue.component('c-avatar', CAvatar)
-Vue.component('c-toast', CToast)
-Vue.component('c-plus-button', CPlusButton)
+// Vue.component('c-avatar', CAvatar)
+// Vue.component('c-toast', CToast)
+// Vue.component('c-plus-button', CPlusButton)
+Vue.component('c-header', CHeader)
 
 Vue.config.productionTip = false
 
