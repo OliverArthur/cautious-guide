@@ -14,16 +14,16 @@ import store from './store'
 import './registerServiceWorker'
 
 // import CAvatar from '@/components/global/Avatar'
-// import CToast from '@/components/global/Toast'
 // import CPlusButton from '@/components/global/PlusButton'
+import CToast from '@/components/Toast'
 import CHeader from '@/components/Header'
 import CGrid from '@/components/Grid'
 import CGridInner from '@/components/GridInner'
 import CGridCell from '@/components/GridCell'
 
 // Vue.component('c-avatar', CAvatar)
-// Vue.component('c-toast', CToast)
 // Vue.component('c-plus-button', CPlusButton)
+Vue.component('c-toast', CToast)
 Vue.component('c-header', CHeader)
 Vue.component('c-grid', CGrid)
 Vue.component('c-grid-inner', CGridInner)
