@@ -9,12 +9,12 @@
           Login
         </router-link>
       </li>
-      <li class="links--item" v-if="auth">
+      <li class="links--item" v-if="$route.meta.requiresAuth">
         <button class="btn btn--plain">
           <i class="material-icons">notifications</i>
         </button>
       </li>
-      <li class="links--item has-dropdown" v-if="auth">
+      <li class="links--item has-dropdown" v-if="!$route.meta.requiresAuth">
         <!-- TODO: Add the avatar component here -->
         <div class="navigation__dropdown">
           <ul class="navigation__dropdown--inner">

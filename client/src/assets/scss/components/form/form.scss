@@ -121,14 +121,21 @@ fieldset {
 .form-group input:valid,
 .form-group input.form-file,
 .form-group input.has-value,
+.form-group textarea:focus {
+  background-color: $white;
+  color: $tundora;
+  top: -0.75rem;
+  left: 1.5rem;
+}
+
 .form-group textarea:focus,
 .form-group textarea:valid,
 .form-group textarea.form-file,
 .form-group textarea.has-value {
   background-color: $white;
   color: $tundora;
-  top: -0.75rem;
-  left: 1.5rem;
+  top: -0.15rem;
+  left: 0;
 }
 
 .form-group select~.control-label,
