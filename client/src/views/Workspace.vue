@@ -16,7 +16,7 @@
           :span-phone="12"
           :span-tablet="12">
           <div class="workspace__content">
-            <div class="conversation__box" v-if="show">
+            <!-- <div class="conversation__box" v-if="show">
               <form method="POST" @submit.prevent>
                 <div class="form-group">
                   <input type="text" name="subject" id="subject" required="required" autofocus="true">
@@ -32,7 +32,7 @@
                   </button>
                 </div>
               </form>
-            </div>
+            </div> -->
             <div class="workspace__intro">
               <div class="intro--header">
                 <h4>Welcome Oliver</h4>
@@ -54,7 +54,7 @@
           :span-phone="12"
           :span-tablet="12">
           <div class="workspace__content">
-            <aside class="workspace__sidebar sidebar--right">
+            <aside class="workspace__sidebar sidebar--rigth">
               <div class="team__mission separation">
                 <div class="team__mission--title">
                   <p>Team mission</p>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="project__tree--body">
                   <p>Sorry, There aren't any project at the moment</p>
-                  <button class="btn btn--plain new__msg">
+                  <button class="btn btn--plain new__msg" @click="openModal">
                     Create project
                     <i class="material-icons">add</i>
                   </button>
@@ -82,12 +82,64 @@
         </c-grid-cell>
       </c-grid-inner>
     </c-grid>
+    <c-add-project
+      @close="showModal=false"
+      v-if="showModal"
+      :config="modalConfig">
+    </c-add-project>
   </section>
 </template>
 
 <script>
+import { mapState } from  'vuex'
+import { GetFolders, GetTeam, GetUser } from '../constants/query.gql'
+import Data from '@/mixins/data-mixins'
+
+
+import CAddProject from '@/components/AddProject'
+
 export default {
-  name: 'workspace'
+  name: 'workspace',
+  mixins: [Data],
+  apollo: {
+    getUser: {
+      query: GetUser,
+      err(err) {
+        console.error(err)
+      }
+    },
+    getTeam: {
+      query: GetTeam,
+      err(err) {
+        console.error(err)
+      }
+    },
+    getFolders: {
+      query: GetFolders,
+      err(err) {
+        console.error(err)
+      }
+    }
+  },
+  computed: {
+    ...mapState(['activeWidget', 'activeSideBar'])
+  },
+  components: {
+    CAddProject
+  },
+  methods: {
+    openModal() {
+      this.$store.dispatch('changeActiveWidget', null)
+      this.showModal = true
+    },
+    toggelSideBar() {
+      this.$store.dispatch('changeActiveSideBar', null)
+      this.showSideBar ? true : false
+    },
+    close() {
+      this.showModal = false
+    }
+  }
 }
 </script>
 
@@ -103,6 +155,7 @@ export default {
 
 .workspace .grid {
   padding-left: 0;
+  padding-right: 0;
 }
 
 .workspace__sidebar {
@@ -115,6 +168,7 @@ export default {
 }
 
 .sidebar--rigth {
+  padding: 1.5rem;
   border-left: 0.1rem solid rgba(0, 40, 100, 0.12);
 }
 
