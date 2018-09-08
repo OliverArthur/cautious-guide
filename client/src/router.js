@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/Home'
 
 Vue.use(Router)
 
@@ -13,6 +13,7 @@ const router = new Router({
       component: Home,
       meta: {
         title: 'Logo',
+        requiresAuth: false,
         redirect: true
       }
     },
@@ -24,7 +25,8 @@ const router = new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "emailForm" */ './views/Email.vue'),
       meta: {
-        title: 'Logo | Create Account'
+        title: 'Logo | Create Account',
+        requiresAuth: true
       }
     },
     {
@@ -35,7 +37,8 @@ const router = new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "emailForm" */ './views/Signup.vue'),
       meta: {
-        title: 'Logo | Signup'
+        title: 'Logo | Signup',
+        requiresAuth: false
       }
     },
     {
@@ -46,7 +49,20 @@ const router = new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "emailForm" */ './views/Login.vue'),
       meta: {
-        title: 'Logo | Login'
+        title: 'Logo | Login',
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/workspace',
+      name: 'workspace',
+      // route level code-splitting
+      // this generates a separate chunk (emailForm.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/Workspace.vue'),
+      meta: {
+        title: 'Logo | Workspace',
+        requiresAuth: true
       }
     },
   ]
@@ -60,7 +76,7 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.matched.some(record => record.meta.redirect)) {
     if (auth && auth != null) {
-      next('/')
+      next('/workspace')
     }
   }
   next()
