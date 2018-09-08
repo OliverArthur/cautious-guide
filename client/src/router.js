@@ -38,6 +38,17 @@ const router = new Router({
         title: 'Logo | Signup'
       }
     },
+    {
+      path: '/login',
+      name: 'login',
+      // route level code-splitting
+      // this generates a separate chunk (emailForm.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/Login.vue'),
+      meta: {
+        title: 'Logo | Login'
+      }
+    },
   ]
 })
 

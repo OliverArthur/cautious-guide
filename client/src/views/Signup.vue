@@ -94,6 +94,8 @@ export default {
   },
   methods: {
     async signUp() {
+
+      // clean the apollo cache before do it anything
       this.$apollo.provider.clients.defaultClient.cache.reset()
 
       const { firstname, lastname, password } = this.form
