@@ -3,6 +3,7 @@
     <ul class="navigation__links">
       <li class="links--item">
         <router-link
+          v-if="($route.name === 'home' || $route.name === 'create-account')"
           :to="{name: 'login'}"
           class="btn btn--outline">
           Login

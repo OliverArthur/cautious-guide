@@ -96,6 +96,9 @@ export default {
      * @returns *
      */
     getUserEmail () {
+      // clean the apollo cache before do it anything
+      this.$apollo.provider.clients.defaultClient.cache.reset()
+
       const { email } = this.form
 
       if (!email || !validateEmail(email)) {
