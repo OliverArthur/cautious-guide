@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/Home'
 
 Vue.use(Router)
 
@@ -13,6 +13,7 @@ const router = new Router({
       component: Home,
       meta: {
         title: 'Logo',
+        requiresAuth: false,
         redirect: true
       }
     },
@@ -22,69 +23,48 @@ const router = new Router({
       // route level code-splitting
       // this generates a separate chunk (emailForm.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "emailForm" */ './views/EmailForm.vue'),
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/Email.vue'),
       meta: {
-        title: 'Logo | Create Account'
+        title: 'Logo | Create Account',
+        requiresAuth: true
       }
     },
     {
       path: '/signup/:id',
       name: 'signup',
       // route level code-splitting
-      // this generates a separate chunk (signup.[hash].js) for this route
+      // this generates a separate chunk (emailForm.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "signup" */ './views/Signup.vue'),
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/Signup.vue'),
       meta: {
-        title: 'Logo | Signup'
+        title: 'Logo | Signup',
+        requiresAuth: false
       }
     },
     {
       path: '/login',
       name: 'login',
       // route level code-splitting
-      // this generates a separate chunk (login.[hash].js) for this route
+      // this generates a separate chunk (emailForm.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/Login.vue'),
       meta: {
-        title: 'Logo | Log in'
+        title: 'Logo | Login',
+        requiresAuth: false
       }
     },
     {
       path: '/workspace',
       name: 'workspace',
       // route level code-splitting
-      // this generates a separate chunk (workspace.[hash].js) for this route
+      // this generates a separate chunk (emailForm.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "workspace" */ './views/Workspace.vue'),
+      component: () => import(/* webpackChunkName: "emailForm" */ './views/Workspace.vue'),
       meta: {
-        title: 'Logo | workspace',
+        title: 'Logo | Workspace',
         requiresAuth: true
       }
     },
-    {
-      path: '/accounts',
-      name: 'accounts',
-      // route level code-splitting
-      // this generates a separate chunk (accounts.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "accounts" */ './views/Accounts.vue'),
-      meta: {
-        title: 'Logo | account',
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/user/:userId',
-      name: 'user',
-      // route level code-splitting
-      // this generates a separate chunk (accounts.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "User" */ './views/User.vue'),
-      meta: {
-        title: 'Logo | user',
-        requiresAuth: true
-      }
-    }
   ]
 })
 
@@ -105,5 +85,4 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from) => {
   document.title = to.meta.title
 })
-
 export default router

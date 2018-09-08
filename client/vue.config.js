@@ -10,6 +10,7 @@ module.exports = {
         data: `
         @import "@/assets/scss/variables.scss";
         @import "@/assets/scss/root/reset.scss";
+        @import "@/assets/scss/components/grid/grid.scss";
         `
       }
     }
