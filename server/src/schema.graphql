@@ -43,7 +43,7 @@ type Mutation {
   createGroup(name: String, initials: String, avatarColor: String, users: [String]): Group
   addUsersToGroup(id: String!, users: [String]): Group
   #Tasks
-  createTask(folder: String, parent: String, name: String!): Task
+  createTask(folder: String, parent: String, name: String!, description: String!): Task
   updateTask(id: String!, input: TaskInput): Task
   deleteTask(id: String!): Boolean
 }

@@ -11,10 +11,11 @@ const TaskMutation = {
    * @param {Object} context
    * @returns Object
    */
-  async createTask(_, { folder, parent, name }, context) {
+  async createTask(_, { folder, parent, name, description}, context) {
     const userId = getUserId(context)
     const task = await TaskSchema.create({
       name,
+      description,
       parent,
       folder: folder ? [folder] : [],
       create: userId
