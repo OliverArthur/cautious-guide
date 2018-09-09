@@ -88,7 +88,7 @@ export default {
       this.$apollo.mutate({
         mutation: CreateTask,
         variables: {
-          folders,
+          folder,
           parent,
           name: this.form.name,
           description: this.form.description,
