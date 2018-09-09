@@ -41,7 +41,9 @@ export default {
   data () {
     return {
       form: {
-        name: ''
+        name: '',
+        shareWith: [],
+        owners: []
       }
     }
   },
@@ -53,7 +55,7 @@ export default {
       this.$emit('close');
     },
     createFolder() {
-      const { name } = this.form
+      const { name, shareWith, owners } = this.form
       if (!name) return
       const parent = this.config.parent
       this.$apollo.mutate({

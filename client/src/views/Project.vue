@@ -13,6 +13,12 @@
                   <span>{{ project.name }} <i class="material-icons">arrow_back</i></span>
               </div>
             </div>
+            <nav class="sidebar__nav">
+              <ul>
+                <li><router-link :to="{name: 'workspace'}"><span><i class="material-icons">keyboard_arrow_left</i> Back</span></router-link></li>
+                <li @click="openModal"><span>New task <i class="material-icons">add</i></span></li>
+              </ul>
+            </nav>
           </aside>
         </c-grid-cell>
         <c-grid-cell
@@ -24,7 +30,7 @@
             <div class="intro--header">
               <h4>Hi {{ userName }}</h4>
             </div>
-            <div class="intro--body">
+            <div class="intro--body" >
               <strong>I think you may be experiencing one of these two things:</strong>
               <p>
                 Maybe you do not have the right permission to be able to see the content
@@ -34,7 +40,7 @@
                 Or around here there is nothing yet.
                 <i class="material-icons">sentiment_very_dissatisfied</i>
               </p>
-              <button class="btn btn--plain new__task">
+              <button class="btn btn--plain new__task" @click="openModal">
                 New task
                 <i class="material-icons">add</i>
               </button>
@@ -43,15 +49,24 @@
         </c-grid-cell>
       </c-grid-inner>
     </c-grid>
+    <c-add-task
+      @close="showModal=false"
+      v-if="showModal"
+      :parentId="$route.params.id"
+      :config="modalConfig">
+    </c-add-task>
   </section>
 </template>
 
 <script>
 import { mapState } from  'vuex'
 import { GetUser, GetTasks, GetTask, CreateTask, GetFolder } from '@/constants/query.gql'
+import Data from '@/mixins/data-mixins'
+import CAddTask from '@/components/AddTask'
 
 export default {
   name: 'Project',
+  mixins: [Data],
   data () {
     return {
       user: '',
@@ -60,9 +75,9 @@ export default {
       project: {
         sharedWith: []
       },
-      getTasks: []
     }
   },
+  components: { CAddTask },
   apollo: {
     getUser: {
       query: GetUser,
@@ -86,6 +101,19 @@ export default {
       }
     }
   },
+  methods: {
+    openModal() {
+      this.$store.dispatch('changeActiveWidget', null)
+      this.showModal = true
+    },
+    toggelSideBar() {
+      this.$store.dispatch('changeActiveSideBar', null)
+      this.showSideBar ? true : false
+    },
+    close() {
+      this.showModal = false
+    }
+  }
 }
 </script>
 

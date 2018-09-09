@@ -82,3 +82,37 @@
   font-weight: 300;
   text-align: center;
 }
+
+
+.sidebar__nav li:nth-child(1){
+  background-color: $white;
+}
+
+.sidebar__nav li:nth-child(2){
+  margin-top: 2.6rem;
+}
+
+.sidebar__nav li {
+  cursor: pointer;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 0.1rem solid rgba(0, 40, 100, 0.12);
+
+  &:hover {
+    background-color: $silver;
+  }
+}
+
+.sidebar__nav a {
+  color: $tundora;
+  text-decoration: none;
+}
+
+.sidebar__nav span {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+
+  i {
+    padding-right: 1.2rem;
+  }
+}

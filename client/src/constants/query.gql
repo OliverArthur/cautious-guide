@@ -51,6 +51,39 @@ mutation DeleteUser($id: String!) {
 }
 
 
+fragment TaskFields on Task {
+  id
+  name
+  parent {
+    id
+    name
+  }
+  folders {
+    id
+    name
+  }
+  assignees {
+    id
+    name
+    firstname
+    lastname
+    avatarColor
+  }
+  creator {
+    id
+    name
+    firstname
+    lastname
+  }
+  description
+  startDate
+  finishDate
+  duration
+  importance
+  status
+  createdAt
+}
+
 fragment FolderFields on Folder {
   id
   name
@@ -116,6 +149,22 @@ mutation DeleteFolder($id: String!) {
   deleteFolder(id: $id)
 }
 
+mutation CreateTask($folder: String, $parent: String, $name: String!, $description: String!) {
+  createTask(folder: $folder, parent: $parent, name: $name, description: $description) {
+    ...TaskFields
+  }
+}
+
+mutation UpdateTask($id: String!, $input: TaskInput) {
+  updateTask(id: $id, input: $input) {
+    ...TaskFields
+  }
+}
+
+mutation DeleteTask($id: String!) {
+  deleteTask(id: $id)
+}
+
 query GetUsers {
   getUsers {
     ...UserFields
@@ -129,5 +178,17 @@ query GetUser($id: String) {
 query GetGroups {
   getGroups {
     ...GroupFields
+  }
+}
+
+query GetTasks($parent: String, $folder: String) {
+  getTasks(parent: $parent, folder: $folder) {
+    ...TaskFields
+  }
+}
+
+query GetTask($id: String!) {
+  getTask(id: $id) {
+    ...TaskFields
   }
 }

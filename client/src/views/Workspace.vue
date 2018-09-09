@@ -81,7 +81,7 @@
                   <p>Projects</p>
                 </div>
                 <div class="project__tree--body">
-                  <p v-if="!getFolders && getFolders.length === 0">Sorry, There aren't any project at the moment</p>
+                  <p v-if="!getFolders">Sorry, There aren't any project at the moment</p>
                   <CProject v-else :projectData="getFolders" :teamData="getTeam"/>
                   <button class="btn btn--plain new__msg" @click="openModal">
                     Create project
@@ -143,6 +143,9 @@ export default {
     openModal() {
       this.$store.dispatch('changeActiveWidget', null)
       this.showModal = true
+      this.modalConfig = {
+        parent: ''
+      }
     },
     toggelSideBar() {
       this.$store.dispatch('changeActiveSideBar', null)
