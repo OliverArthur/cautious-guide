@@ -1,10 +1,10 @@
 <template>
-  <div class="modal-backdrop">
-    <div class="modal">
-      <div class="modal--header">
-        <h3>Create folder</h3>
+  <div class="add-project modal-backdrop">
+    <div class="add-poject__content modal">
+      <div class="add-project__header modal--header">
+        <h3>Create project</h3>
       </div>
-      <div class="modal--content">
+      <div class="add-project__body modal--content">
         <form method="POST" @submit.prevent>
           <div class="form-group">
             <input
@@ -14,16 +14,16 @@
               ref="foldername"
               v-model="form.name"
               :autofocus="true" required="required"/>
-            <label for="folder" class="control-label">Create a folder</label><i class="bar"></i>
+            <label for="folder" class="control-label">Project name</label><i class="bar"></i>
           </div>
         </form>
       </div>
-      <div class="modal--footer">
+      <div class="add-project__footer modal--footer">
         <div class="button-container">
-          <button class="btn btn-primary" @click="createFolder">
-            Create folder
+          <button class="btn btn--primary" @click="createFolder">
+            Create project
           </button>
-          <button class="btn btn-secondary" @click="$emit('close')">
+          <button class="btn btn--secondary" @click="$emit('close')">
             Close
           </button>
         </div>
@@ -33,15 +33,15 @@
 </template>
 
 <script>
-import { CreateFolder, GetFolders } from '../../constants/query.gql'
+import { CreateFolder, GetFolders } from '../constants/query.gql'
 
 export default {
-  name: 'CModalForm',
+  name: 'AddProject',
   props: ['config'],
-  data() {
+  data () {
     return {
       form: {
-        name: '',
+        name: ''
       }
     }
   },
@@ -83,64 +83,12 @@ export default {
         console.log(error)
       })
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  @import "../../assets/scss/components/buttons/button";
-  @import "../../assets/scss/components/form/form";
-
-  .modal-backdrop {
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: -8rem;
-    z-index: 4444;
-  }
-
-  .modal {
-    background: $white;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    display: flex;
-    flex-direction: column;
-    min-width: 45rem;
-    overflow-x: auto;
-
-    &--header {
-      display: flex;
-      justify-content: space-between;
-      padding: 1.5rem;
-      h3 {
-        font-size: $heading-font-h3;
-        font-weight: 300;
-      }
-    }
-
-    &--footer {
-      display: flex;
-      justify-content: flex-end;
-      padding: 1.5rem;
-
-      .button-container {
-        button {
-          margin-right: 1.5rem;
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-      }
-    }
-
-    &--content {
-      padding: 1.5rem;
-      position: relative;
-    }
-  }
+@import "../assets/scss/components/buttons/button";
+@import "../assets/scss/components/form/form";
+@import "../assets/scss/components/modal/modal";
 </style>

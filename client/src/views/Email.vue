@@ -1,5 +1,5 @@
 <template>
-  <article class="email-form">
+  <section class="email">
     <c-grid>
       <c-grid-inner>
         <c-grid-cell
@@ -13,25 +13,23 @@
           :span-desktop="4"
           :span-phone="12"
           :span-tablet="12">
-          <div class="email-form--column">
+          <div class="email__form">
             <strong>Try Logo for free. No credit card needed.!</strong>
             <h3>
               Enter your email address to start using Logo
             </h3>
-          </div>
-          <div class="email-form--column">
             <form method="POST" @submit.prevent>
               <div class="form-group">
                 <input id="email" type="email" v-model="form.email" autocomplete="email" required="required"/>
                 <label for="email" class="control-label">Email</label><i class="bar"></i>
               </div>
               <div class="button-container">
-                <button class="btn btn-primary" @click="getEmail">
+                <button class="btn btn--primary" @click="getUserEmail">
                   Create my logo account!
                 </button>
               </div>
             </form>
-            <div class="email-form--links">
+            <div class="email--links">
               <p>Already have a logo account? <router-link :to="{name: 'login'}">Login</router-link></p>
             </div>
           </div>
@@ -46,22 +44,19 @@
     </c-grid>
     <c-toast
       v-if="submitted || error"
-      :modifier="[error ? 'toast--error' : submitted ? 'toast--success' : '']">
+      :type="[error ? 'error' : submitted ? 'success' : '']">
       {{ status }}
     </c-toast>
-  </article>
+  </section>
 </template>
 
 <script>
-import CGrid from '@/components/grid/Grid'
-import CGridInner from '@/components/grid/GridInner'
-import CGridCell from '@/components/grid/GridCell'
 import { CaptureEmail } from '../constants/query.gql'
 import { validateEmail } from '@/helpers/validation'
 
 export default {
-  name: 'EmailForm',
-  data() {
+  name: 'email',
+  data () {
     return {
       submitted: false,
       error: false,
@@ -71,13 +66,13 @@ export default {
       }
     }
   },
-  components: {
-    CGrid,
-    CGridInner,
-    CGridCell
-  },
   computed: {
-    resetToast() {
+    /**
+     * Method to reset the toast value after the promise has been completed
+     *
+     * TODO: move this to a helper function or use `bus` event
+     */
+    resetToast () {
       if (this.submitted || this.error) {
         setTimeout(() => {
           this.submitted = false,
@@ -85,12 +80,26 @@ export default {
           this.status = ''
         }, 3000)
       }
-    }
+    },
   },
   methods: {
-    getEmail() {
+    /**
+     * @method getUserEmail
+     *
+     * @description Method to get the email address for a new joiner
+     * if the email are not use it, apollo will make the capture email
+     * and send the email confirmation to the new user with the link
+     * for the second step
+     *
+     * @memberOf Email
+     *
+     * @returns *
+     */
+    getUserEmail () {
+      // clean the apollo cache before do it anything
+      this.$apollo.provider.clients.defaultClient.cache.reset()
 
-      const {email} = this.form
+      const { email } = this.form
 
       if (!email || !validateEmail(email)) {
         this.error = true
@@ -101,7 +110,7 @@ export default {
 
       this.$apollo.mutate({
         mutation: CaptureEmail,
-        variables: { email },
+        variables: { email }
       }).then(({ data }) => {
         this.submitted = true
         this.error = false
@@ -117,6 +126,7 @@ export default {
           this.status = 'Something went wrong'
           this.resetToast
         }
+
         throw new Error(err)
       })
     }
@@ -125,47 +135,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/components/grid/grid";
 @import "../assets/scss/components/buttons/button";
 @import "../assets/scss/components/form/form";
 
-.email-form{
+.email,
+.email .grid,
+.email .grid__inner {
   min-height: 100vh;
-  .grid, .grid__inner {
-    min-height: 100vh;
-  }
-
-  &--column {
-    strong {
-      display: inline-block;
-      margin-bottom: $heading-font-h6;
-      font-size: $heading-font-h6;
-      font-weight: 300;
-    }
-
-    h3 {
-      font-size: $heading-font-h6-xs;
-      font-weight: 300;
-    }
-
-  }
-
-  &--links {
-    margin-top: 2.4rem;
-    text-align: center;
-    p {
-      font-size: 1.6rem;
-      display: inline-block;
-      a {
-        font-size: 1.6rem;
-        margin-left: 0.5rem;
-      }
-    }
-  }
-
-  .btn {
-    width: 100%;
-  }
-
 }
+
+.email h3 {
+  font-size: $heading-font-h6-xs;
+  font-weight: 300;
+}
+
+.email strong {
+  display: inline-block;
+  margin-bottom: $heading-font-h6;
+  font-size: $heading-font-h6;
+  font-weight: 300;
+}
+
+.email--links {
+  margin-top: 2.4rem;
+  text-align: center;
+}
+
+.email--links p {
+  font-size: 1.6rem;
+  display: inline-block;
+}
+
+.email--links a {
+  font-size: 1.6rem;
+  margin-left: 0.5rem;
+}
+
+.btn {
+  width: 100%;
+}
+
 </style>

@@ -1,6 +1,5 @@
 <template>
-  <article class="login">
-    <div class="login__body">
+  <section class="login">
       <c-grid>
         <c-grid-inner>
           <c-grid-cell
@@ -19,7 +18,7 @@
                 Log in
               </h3>
             </div>
-            <div class="login__body--column">
+            <div class="login__form">
               <form method="POST" @submit.prevent>
                 <div class="form-group">
                   <input id="email" type="text" v-model="form.email" autocomplete="email" required="required"/>
@@ -30,12 +29,12 @@
                   <label for="password" class="control-label">Password</label><i class="bar"></i>
                 </div>
                 <div class="button-container">
-                  <button class="btn btn-primary" @click="login">
+                  <button class="btn btn--primary" @click="login">
                     Log in!
                   </button>
                 </div>
               </form>
-              <div class="login__body--links">
+              <div class="login__links">
                 <p>Don't have an account? <router-link :to="{name: 'create-account'}">Create account</router-link></p>
               </div>
             </div>
@@ -48,24 +47,15 @@
           </c-grid-cell>
         </c-grid-inner>
       </c-grid>
-      <c-toast
-        v-if="submitted || error"
-        :modifier="[error ? 'toast--error' : submitted ? 'toast--success' : '']">
-        {{ status }}
-      </c-toast>
-    </div>
-  </article>
+  </section>
 </template>
 
 <script>
 import { Login } from '../constants/query.gql'
-import CGrid from '@/components/grid/Grid'
-import CGridInner from '@/components/grid/GridInner'
-import CGridCell from '@/components/grid/GridCell'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       submitted: false,
       error: false,
@@ -76,12 +66,12 @@ export default {
       }
     }
   },
-  components: {
-    CGrid,
-    CGridInner,
-    CGridCell
-  },
   computed: {
+    /**
+     * Method to reset the toast value after the promise has been completed
+     *
+     * TODO: move this to a helper function or use `bus` event
+     */
     resetToast() {
       if (this.submitted || this.error) {
         setTimeout(() => {
@@ -93,9 +83,12 @@ export default {
     }
   },
   methods: {
-    async login() {
+    async login () {
+      // clean the apollo cache before do it anything
       this.$apollo.provider.clients.defaultClient.cache.reset()
+
       const { email, password } = this.form
+
       if (email && password) {
         this.$apollo.mutate({
           mutation: Login,
@@ -136,38 +129,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/components/grid/grid";
 @import "../assets/scss/components/buttons/button";
 @import "../assets/scss/components/form/form";
 
-.login{
+.login,
+.login .grid,
+.login .grid__inner {
   min-height: 100vh;
-  .grid, .grid__inner {
-    min-height: 100vh;
-  }
+}
 
-  h3 {
-    font-size: $heading-font-h5-xs;
-    font-weight: 400;
-  }
+.login h3 {
+  font-size: $heading-font-h5-xs;
+  font-weight: 400;
+}
 
-  &__body {
-    &--links {
-      margin-top: 2.4rem;
-      text-align: center;
-      p {
-        font-size: 1.6rem;
-        display: inline-block;
-        a {
-          font-size: 1.6rem;
-          margin-left: 0.5rem;
-        }
-      }
-    }
-  }
+.login .btn {
+  width: 100%;
+}
 
-  .btn {
-    width: 100%;
-  }
+.login__links {
+  margin-top: 2.4rem;
+  text-align: center;
+}
+
+.login__links p {
+  font-size: 1.6rem;
+  display: inline-block;
+}
+
+.login__links a {
+  font-size: 1.6rem;
+  margin-left: 0.5rem;
 }
 </style>

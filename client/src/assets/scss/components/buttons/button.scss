@@ -77,15 +77,16 @@
 }
 
 
-// Modifiers: block, plain
+// Modifiers: block, plain, primary, seconday
+// notRadius, small, danger
 // ********************************************************
-.btn-block {
+.btn--block {
   display: block;
   max-width: none;
   width: 100%;
 }
 
-.btn-plain {
+.btn--plain {
   -webkit-appearance: none;
   background-color: transparent;
   border: none;
@@ -99,49 +100,49 @@
 }
 
 
-.btn-primary {
+.btn--primary {
   @include ripple-bg(darken($picton-blue, 5%));
   background-color: $picton-blue;
   border-color: $picton-blue;
   color: $white;
 }
 
-.btn-secondary {
+.btn--secondary {
   @include ripple-bg(darken($au-chico, 5%));
   background-color: $au-chico;
   border-color: $au-chico;
   color: $white;
 }
 
-.btn-danger {
+.btn--danger {
   @include ripple-bg(darken($mojo, 5%));
   background-color: $mojo;
   border-color: $mojo;
   color: $white;
 }
 
-.btn-secondary:focus,
-.btn-secondary:hover {
+.btn--secondary:focus,
+.btn--secondary:hover {
   @include lighten-bg($au-chico);
 }
 
-.btn-danger:focus,
-.btn-danger:hover {
+.btn--danger:focus,
+.btn--danger:hover {
   @include lighten-bg($mojo);
 }
 
-.btn-primary:focus,
-.btn-primary:hover {
+.btn--primary:focus,
+.btn--primary:hover {
   @include lighten-bg($picton-blue);
 }
 
-.btn-primary--outline {
+.btn--outline {
   @include ripple-bg(darken($picton-blue, 5%));
   border: 0.2rem solid $picton-blue;
   color: $ebony;
 }
 
-.btn-icon {
+.btn--icon {
   -webkit-appearance: none;
   align-items: center;
   border-radius: 50%;
@@ -156,12 +157,12 @@
   width: 6rem;
 }
 
-.btn-icon--small {
+.btn--small {
   height: 4rem;
   width: 4rem;
 }
 
-.btn-icon--notRadius {
+.btn--notRadius {
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -169,13 +170,13 @@
   width: 100%;
 }
 
-.btn--primary-outline:focus,
-.btn--primary-outline:hover {
+.btn--outline:focus,
+.btn--outline:hover {
   @include lighten-bg($picton-blue);
 }
 
-.btn-plain:focus,
-.btn-plain:hover {
+.btn--plain:focus,
+.btn--plain:hover {
   background-color: transparent !important;
   @include lighten-bg($tundora);
   color: $tundora;
