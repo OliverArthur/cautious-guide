@@ -1,7 +1,7 @@
 <template>
   <li
     class="project-list">
-    <router-link to="">
+    <router-link :to="{name: 'project', params: {id: project.id}}">
       <span class="project-list__label"><i class="material-icons">folder</i> {{ project.name }}</span>
     </router-link>
     <ul v-if="project.parent && project.parent.length">

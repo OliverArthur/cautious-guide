@@ -33,9 +33,9 @@ const router = new Router({
       path: '/signup/:id',
       name: 'signup',
       // route level code-splitting
-      // this generates a separate chunk (emailForm.[hash].js) for this route
+      // this generates a separate chunk (signup.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "emailForm" */ './views/Signup.vue'),
+      component: () => import(/* webpackChunkName: "signup" */ './views/Signup.vue'),
       meta: {
         title: 'Logo | Signup',
         requiresAuth: false
@@ -45,9 +45,9 @@ const router = new Router({
       path: '/login',
       name: 'login',
       // route level code-splitting
-      // this generates a separate chunk (emailForm.[hash].js) for this route
+      // this generates a separate chunk (login.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "emailForm" */ './views/Login.vue'),
+      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
       meta: {
         title: 'Logo | Login',
         requiresAuth: false
@@ -57,11 +57,24 @@ const router = new Router({
       path: '/workspace',
       name: 'workspace',
       // route level code-splitting
-      // this generates a separate chunk (emailForm.[hash].js) for this route
+      // this generates a separate chunk (workspace.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "emailForm" */ './views/Workspace.vue'),
+      component: () => import(/* webpackChunkName: "workspace" */ './views/Workspace.vue'),
       meta: {
         title: 'Logo | Workspace',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/project/:id',
+      name: 'project',
+      // route level code-splitting
+      // this generates a separate chunk (project.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "project" */ './views/Project.vue'),
+      props: true,
+      meta: {
+        title: 'Logo | Project',
         requiresAuth: true
       }
     },
