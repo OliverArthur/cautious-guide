@@ -8,6 +8,17 @@
           :span-phone="12"
           :span-tablet="12">
           <aside class="workspace__sidebar sidebar--left">
+            <div class="team__name">
+              <div
+                v-if="getTeam.id" class="workspace__sidebar--team">
+                <div v-bind:class="{active: $route.params.id === getTeam.id}">
+                  <span>{{ getTeam.name }} <i class="material-icons">arrow_back</i></span>
+                </div>
+              </div>
+            </div>
+            <div class="workspace__project-list">
+              <CProject :projectData="getFolders" :teamData="getTeam"/>
+            </div>
           </aside>
         </c-grid-cell>
         <c-grid-cell
@@ -70,7 +81,8 @@
                   <p>Projects</p>
                 </div>
                 <div class="project__tree--body">
-                  <p>Sorry, There aren't any project at the moment</p>
+                  <p v-if="!getFolders && getFolders.length === 0">Sorry, There aren't any project at the moment</p>
+                  <CProject v-else :projectData="getFolders" :teamData="getTeam"/>
                   <button class="btn btn--plain new__msg" @click="openModal">
                     Create project
                     <i class="material-icons">add</i>
@@ -94,9 +106,8 @@
 import { mapState } from  'vuex'
 import { GetFolders, GetTeam, GetUser } from '../constants/query.gql'
 import Data from '@/mixins/data-mixins'
-
-
 import CAddProject from '@/components/AddProject'
+import CProject from '@/components/Project'
 
 export default {
   name: 'workspace',
@@ -125,7 +136,8 @@ export default {
     ...mapState(['activeWidget', 'activeSideBar'])
   },
   components: {
-    CAddProject
+    CAddProject,
+    CProject
   },
   methods: {
     openModal() {
@@ -146,122 +158,7 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/scss/components/buttons/button";
 @import "../assets/scss/components/form/form";
-
-.workspace,
-.workspace .grid,
-.workspace .grid__inner {
-  min-height: 100vh;
-}
-
-.workspace .grid {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.workspace__sidebar {
-  min-height: 100vh;
-}
-
-.sidebar--left {
-  background-color: $silver-clear;
-  border-right: 0.1rem solid rgba(0, 40, 100, 0.12);
-}
-
-.sidebar--rigth {
-  padding: 1.5rem;
-  border-left: 0.1rem solid rgba(0, 40, 100, 0.12);
-}
-
-.conversation__box,
-.team__mission,
-.workspace__intro,
-.project__tree{
-  padding: 1.5rem;
-  background-color: $white;
-  border: 0.1rem solid rgba(0, 40, 100, 0.12);
-}
-
-.workspace__intro {
-  margin-top: 7rem;
-  line-height: 2;
-  text-align: center;
-}
-
-.intro--body {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-.intro--body button {
-  margin: 1.5rem 0;
-}
-
-.intro--body p{
-  font-size: 1.5rem;
-}
-
-.new__msg {
-  align-items: center;
-  color: $picton-blue;
-  display: flex;
-  flex-direction: row;
-  font-size: 1.5rem;
-  justify-content: center;
-  width: auto;
-}
-
-.workspace__intro h4 {
-  font-size: $heading-font-h4-xs;
-  font-weight: 300;
-  text-align: center;
-}
-
-.conversation__box .button-container {
-  text-align: right;
-}
-.conversation__box .form-group input[type="text"],
-.form-group .label--bold {
-  font-weight: 500;
-}
-
-.form-group .label--bold {
-  font-size: $heading-font-h6;
-}
-
-.conversation__box textarea {
-  padding-bottom: 1.5rem;
-  padding-top: 1.5rem;
-}
-
-.team__mission .form-group {
-  margin-bottom: 0;
-  margin-top: 0;
-}
-.team__mission {
-  margin-top: 7rem;
-}
-.team__mission--title p,
-.project__tree--title p {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-.team__mission textarea {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  line-height: 1.2;
-}
-
-.project__tree--body p {
-  font-size: 1.5rem;
-  font-weight: 200;
-}
-.project__tree--body button {
-  margin: 1.5rem 0;
-}
-
-.separation {
-  margin-bottom: 3rem;
-}
+@import "../assets/scss/views/workspace";
 </style>
 
 
