@@ -96,7 +96,7 @@ const UserMutation = {
     if (!valid) {
       throw new Error('Incorrect password')
     }
-    const token = jwt.sign({id: user.id, email}, JWT_SECRET, { expiresIn: '1h' })
+    const token = jwt.sign({id: user.id, email}, JWT_SECRET, { expiresIn: '8h' })
     return {token, user}
   },
   /**

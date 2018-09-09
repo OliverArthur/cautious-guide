@@ -1,0 +1,84 @@
+.project,
+.project .grid,
+.project .grid__inner {
+  min-height: 100vh;
+}
+
+.project .grid {
+  padding-left: 0;
+}
+
+.project__sidebar {
+  min-height: 100vh;
+}
+
+.project__sidebar {
+  background-color: $silver-clear;
+  border-right: 0.1rem solid rgba(0, 40, 100, 0.12);
+  min-height: 100vh;
+}
+
+.project__name {
+  background-color: $polo-blue;
+}
+
+.project__name span {
+  align-content: center;
+  align-items: center;
+  border-bottom: 0.1rem solid rgba(0, 40, 100, 0.12);
+  color: $white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-size: $heading-font-h6;
+  justify-content: space-between;
+  padding: 7.5rem 1.5rem 2.5rem 1.5rem;
+  text-transform: capitalize;
+  vertical-align: middle;
+}
+
+.project__intro {
+  padding: 1.5rem;
+  background-color: $white;
+  border: 0.1rem solid rgba(0, 40, 100, 0.12);
+}
+
+.project__intro {
+  margin-top: 7rem;
+  line-height: 2;
+  text-align: center;
+}
+
+.intro--body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro--body button {
+  margin: 1.5rem 0;
+}
+
+.intro--body strong {
+  font-size: $heading-font-h6-xs;
+}
+
+.intro--body p {
+  font-size: 1.5rem;
+}
+
+.new__task {
+  align-items: center;
+  color: $picton-blue;
+  display: flex;
+  flex-direction: row;
+  font-size: 1.5rem;
+  justify-content: center;
+  width: auto;
+}
+
+.project__intro h4 {
+  font-size: $heading-font-h4-xs;
+  font-weight: 300;
+  text-align: center;
+}
