@@ -26,7 +26,7 @@
           :span-desktop="9"
           :span-phone="12"
           :span-tablet="12">
-          <div class="project__intro">
+          <div class="project__intro" v-if="!getTasks">
             <div class="intro--header">
               <h4>Hi {{ userName }}</h4>
             </div>
@@ -46,6 +46,7 @@
               </button>
             </div>
           </div>
+          <CTask :taskData="getTasks"/>
         </c-grid-cell>
       </c-grid-inner>
     </c-grid>
@@ -63,6 +64,7 @@ import { mapState } from  'vuex'
 import { GetUser, GetTasks, GetTask, CreateTask, GetFolder } from '@/constants/query.gql'
 import Data from '@/mixins/data-mixins'
 import CAddTask from '@/components/AddTask'
+import CTask from '@/components/Task'
 
 export default {
   name: 'Project',
@@ -77,7 +79,7 @@ export default {
       },
     }
   },
-  components: { CAddTask },
+  components: { CAddTask, CTask },
   apollo: {
     getUser: {
       query: GetUser,
@@ -88,6 +90,12 @@ export default {
         this.user = getUser
         this.userName = this.user.firstname
       }
+    },
+    getTasks: {
+      query: GetTasks,
+      variables() {
+        return {parent: this.$route.params.id}
+      },
     },
     getFolder: {
       query: GetFolder,
