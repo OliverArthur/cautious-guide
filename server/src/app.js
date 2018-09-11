@@ -2,13 +2,22 @@ require('dotenv').config()
 
 const express = require('express')
 const cors = require('cors')
+const helmet = require('helmet')
+
 const { ApolloServer } = require('apollo-server-express');
 const { importSchema } = require('graphql-import')
 
-// Express settings
+// New express instance
 const app = express();
-const allowedOrigins = ['http://localhost:8080'];
 
+app.disabled('x-powered-by')
+app.use(helmet())
+
+// Cors settings
+const allowedOrigins = [
+  'http://localhost:8080',
+  'http://localhost:5500'
+];
 app.use(cors({
   origin: (origin, callback) => {
     // allow requests with no origin
