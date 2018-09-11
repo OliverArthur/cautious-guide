@@ -1,10 +1,32 @@
 require('dotenv').config()
+
+const express = require('express')
+const cors = require('cors')
+const { ApolloServer } = require('apollo-server-express');
 const { importSchema } = require('graphql-import')
-const { GraphQLServer } = require('graphql-yoga')
-const mongoose = require('mongoose')
+
+// Express settings
+const app = express();
+const allowedOrigins = ['http://localhost:8080'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // allow requests with no origin
+    // (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      var msg = 'The CORS policy for this site does not ' +
+        'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 const resolvers = require('./resolvers')
 
+// Mongoose settings
+const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 const db = mongoose.connection
 
@@ -16,18 +38,17 @@ db.once('open', callback => {
   console.info('Connection Succeeded!!')
 })
 
-const server = new GraphQLServer({
+// Graphql settings
+const server = new ApolloServer({
   typeDefs: importSchema('src/schema.graphql'),
   resolvers,
   context: req => req
-})
+});
 
-const options = {
-  port: process.env.PORT || 5500,
-  endpoint: '/graphql',
-  subscriptions: '/subscriptions',
-  playground: '/playground',
-  debug: process.env.DEBUG
-}
+server.applyMiddleware({ app, path: '/graphql' });
 
-server.start(options, ({ port }) => console.log(`Server is running on port ${port}`))
+app.listen({ port: process.env.PORT || 5500 }, () => {
+  console.log('Apollo Server on http://localhost:5500/graphql');
+});
+
+// app.listen(options, ({ port }) => console.log(`Server is running on port ${port}`))
