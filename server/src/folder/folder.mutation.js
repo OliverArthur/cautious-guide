@@ -1,7 +1,7 @@
-const UserSchema = require('../../models/user')
-const FolderSchema = require('../../models/folder')
-const { getUserId } = require('../../utils')
-const { deleteSubfolders } = require('../../helper')
+const UserSchema = require('../user/user.model')
+const FolderSchema = require('../folder/folder.model')
+const { getUserId } = require('../utils')
+const { deleteSubfolders } = require('../helper')
 
 const FolderMutation = {
   /**

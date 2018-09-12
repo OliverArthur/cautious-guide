@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId
 
-const UserSchema = require('../../models/user')
-const FolderSchema = require('../../models/folder')
-const GroupSchema = require('../../models/group')
-const { getUserId } = require('../../utils')
+const UserSchema = require('../user/user.model')
+const FolderSchema = require('../folder/folder.model')
+const GroupSchema = require('../group/group.model')
+const { getUserId } = require('../utils')
 
 const FolderQuery = {
    /**

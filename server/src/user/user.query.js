@@ -1,6 +1,6 @@
-const { getUserId } = require('../../utils')
+const { getUserId } = require('../utils')
 
-const UserSchema = require('../../models/user')
+const UserSchema = require('./user.model')
 
 const UserQuery = {
   async getUsers(_, args, context) {

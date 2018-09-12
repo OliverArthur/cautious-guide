@@ -1,6 +1,6 @@
-const UserSchema = require('../../models/user')
-const GroupSchema = require('../../models/group')
-const { getUserId } = require('../../utils')
+const UserSchema = require('../user/user.model')
+const GroupSchema = require('../group/group.model')
+const { getUserId } = require('../utils')
 
 
 const GroupMutation = {
