@@ -8,7 +8,11 @@ const options = {
   endpoint: '/graphql',
   subscriptions: '/subscriptions',
   playground: '/playground',
-  debug: process.env.DEBUG
+  debug: process.env.DEBUG,
+  cors: {
+    origin: ['localhost:8080', 'localhost:5500'],
+    optionsSuccessStatus: 204
+  }
 }
 
 const server = new GraphQLServer({
