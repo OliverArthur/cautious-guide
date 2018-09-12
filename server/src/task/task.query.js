@@ -1,6 +1,6 @@
-const { getUserId } = require('../../utils')
-const TaskSchema = require('../../models/task')
-const { populateTask } = require('../../helper')
+const { getUserId } = require('../utils')
+const { populateTask } = require('../helper')
+const TaskSchema = require('../task/task.model')
 
 const TaskQuery = {
   /**

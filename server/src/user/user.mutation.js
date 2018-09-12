@@ -1,14 +1,14 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const UserSchema = require('../../models/user')
-const TeamSchema = require('../../models/team')
-const GroupSchema = require('../../models/group')
+const UserSchema = require('./user.model')
+const TeamSchema = require('../team/team.model')
+const GroupSchema = require('../group/group.model')
 
-const {randomChoice, avatarColors} = require('../../helper/avatar')
-const { getUserId } = require('../../utils')
-const { welcomeEmail, invitationEmail, notificationNewUser } = require('../../emails')
-const { Transporter } = require('../../config/transporter')
+const {randomChoice, avatarColors} = require('../helper/avatar')
+const { getUserId } = require('../utils')
+const { welcomeEmail, invitationEmail, notificationNewUser } = require('../emails')
+const { Transporter } = require('../config/transporter')
 const JWT_SECRET = process.env.JWT_SECRET
 
 const UserMutation = {

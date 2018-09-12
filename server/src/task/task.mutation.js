@@ -1,6 +1,6 @@
-const TaskSchema = require('../../models/task')
-const { getUserId } = require('../../utils')
-const { populateTask, deleteSubTask } = require('../../helper')
+const TaskSchema = require('./task.model')
+const { getUserId } = require('../utils')
+const { populateTask, deleteSubTask } = require('../helper')
 
 const TaskMutation = {
   /**

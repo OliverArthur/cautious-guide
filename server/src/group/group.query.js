@@ -1,7 +1,7 @@
-const { getUserId } = require('../../utils')
+const { getUserId } = require('../utils')
 
-const UserSchema = require('../../models/user')
-const GroupSchema = require('../../models/group')
+const UserSchema = require('../user/user.model')
+const GroupSchema = require('../group/group.model')
 
 const GroupQuery = {
   /**

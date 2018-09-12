@@ -2,17 +2,17 @@
 const { GraphQLScalarType } = require('graphql')
 
 // Querys
-const { FolderQuery } = require('./Query/folder')
-const { GroupQuery } = require('./Query/group')
-const { TaskQuery } = require('./Query/task')
-const { TeamQuery } = require('./Query/team')
-const { UserQuery } = require('./Query/user')
+const { FolderQuery } = require('../folder/folder.query')
+const { GroupQuery } = require('../group/group.query')
+const { TaskQuery } = require('../task/task.query')
+const { TeamQuery } = require('../team/team.query')
+const { UserQuery } = require('../user/user.query')
 
 // Mutations
-const { FolderMutation } = require('./Mutation/folder')
-const { GroupMutation } = require('./Mutation/group')
-const { UserMutation } = require('./Mutation/user')
-const { TaskMutation } = require('./Mutation/task')
+const { FolderMutation } = require('../folder/folder.mutation')
+const { GroupMutation } = require('../group/group.mutation')
+const { UserMutation } = require('../user/user.mutation')
+const { TaskMutation } = require('../task/task.mutation')
 
 module.exports = {
   Query: {

@@ -1,7 +1,7 @@
 const { getUserId } = require('../utils')
-const UserSchema = require('../models/user')
-const FolderSchema = require('../models/folder')
-const TaskSchema = require('../models/task')
+const UserSchema = require('../user/user.model')
+const FolderSchema = require('../folder/folder.model')
+const TaskSchema = require('../task/task.model')
 
 
 /**

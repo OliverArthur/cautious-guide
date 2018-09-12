@@ -1,9 +1,9 @@
-# import AuthPayload from "./schemas/auth.graphql"
-# import Group from "./schemas/group.graphql"
-# import { Task, TaskInput} from "./schemas/task.graphql"
-# import Team from "./schemas/team.graphql"
-# import { Folder, FolderInput } from "./schemas/folder.graphql"
-# import { User, UserInput} from "./schemas/user.graphql"
+# import AuthPayload from "./auth/auth.graphql"
+# import Group from "./group/group.graphql"
+# import { Task, TaskInput} from "./task/task.graphql"
+# import Team from "./team/team.graphql"
+# import { Folder, FolderInput } from "./folder/folder.graphql"
+# import { User, UserInput} from "./user/user.graphql"
 
 scalar Date
 scalar JSON
