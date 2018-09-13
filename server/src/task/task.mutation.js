@@ -27,7 +27,7 @@ const TaskMutation = {
    * Method to update a single task
    *
    * @param {*} _
-   * @param {String} {id, input}
+   * @param { String } {id, input}
    * @param { Object } context
    * @returns Object
    */

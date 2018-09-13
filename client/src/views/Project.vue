@@ -26,7 +26,7 @@
           :span-desktop="9"
           :span-phone="12"
           :span-tablet="12">
-          <div class="project__intro" v-if="getTasks">
+          <div class="project__intro" v-if="!getTasks">
             <div class="intro--header">
               <h4>Hi {{ userName }}</h4>
             </div>

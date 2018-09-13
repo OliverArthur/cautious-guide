@@ -33,9 +33,7 @@
         </div>
       </div>
     </div>
-    <c-toast
-      v-if="submitted || error"
-      :type="[error ? 'error' : submitted ? 'success' : '']">
+    <c-toast v-if="submitted || error" class="toast">
       {{ status }}
     </c-toast>
   </div>
@@ -76,7 +74,6 @@ export default {
   },
   methods: {
     addTask () {
-      this.$apollo.provider.clients.defaultClient.cache.reset()
 
       const { name, description } = this.form
 
@@ -84,7 +81,6 @@ export default {
 
       const parent = this.parentId
       const folder = parent ? undefined : this.$route.params.id
-      console.log(folder)
       this.$apollo.mutate({
         mutation: CreateTask,
         variables: {
@@ -97,16 +93,16 @@ export default {
           try {
             const data = store.readQuery({
               query: GetTasks,
-              variables: {folder, parent}
+              variables: {parent, folder}
             })
             if (parent) {
-              data.getTasks.push(createTask)
-            } else {
               data.getTasks.unshift(createTask)
+            } else {
+              data.getTasks.push(createTask)
             }
             store.writeQuery({
               query: GetTasks,
-              variables: {folder, parent},
+              variables: {parent},
               data
             })
           } catch (err) {
@@ -114,15 +110,20 @@ export default {
           }
         }
       }).then(() => {
-        console.log(data, 'test')
         this.submitted = true
         this.error = false
         this.status = 'Task created successfully.'
         this.resetToast
       }).catch((error) => {
-        this.error = true
-        this.status = 'Something went wrong'
-        this.resetToast
+        if (err.graphQLErrors.length >= 1) {
+          this.error = true
+          this.status = err.graphQLErrors[0].message
+          this.resetToast
+        } else {
+          this.error = true
+          this.status = 'Something went wrong'
+          this.resetToast
+        }
       })
     }
   }

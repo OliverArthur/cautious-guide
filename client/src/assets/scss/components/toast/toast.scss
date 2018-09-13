@@ -2,9 +2,9 @@ $toast-width: 100vw;
 $toast-width-md: 100vw / 2;
 
 .toast {
-  background-color: $white;
+  background-color: $tundora;
   bottom: 0;
-  color: $sky-blue;
+  color: $white;
   position: fixed;
   width: $toast-width;
   padding: 1.5rem;
