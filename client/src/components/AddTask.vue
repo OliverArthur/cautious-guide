@@ -115,9 +115,15 @@ export default {
         this.status = 'Task created successfully.'
         this.resetToast
       }).catch((error) => {
-        this.error = true
-        this.status = 'Something went wrong'
-        this.resetToast
+        if (err.graphQLErrors.length >= 1) {
+          this.error = true
+          this.status = err.graphQLErrors[0].message
+          this.resetToast
+        } else {
+          this.error = true
+          this.status = 'Something went wrong'
+          this.resetToast
+        }
       })
     }
   }
