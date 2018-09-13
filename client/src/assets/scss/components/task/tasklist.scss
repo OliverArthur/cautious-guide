@@ -12,7 +12,7 @@
   }
 
   &:hover span{
-    color: $white;
+    color: $tundora
   }
 }
 
@@ -56,11 +56,15 @@
   align-items: flex-end;
 }
 
-.task-list .unassigned {
+.task-list .task-list__label.unassigned {
   padding: 1rem;
   background-color: $cosmos;
   color: $white;
   border-radius: $border-radius;
+
+  &:hover {
+    color: $white;
+  }
 }
 
 .project-list__label {

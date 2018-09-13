@@ -10,7 +10,7 @@ const options = {
   playground: '/playground',
   debug: process.env.DEBUG,
   cors: {
-    origin: ['localhost:8080', 'localhost:5500'],
+    origin: '*',
     optionsSuccessStatus: 204
   }
 }
