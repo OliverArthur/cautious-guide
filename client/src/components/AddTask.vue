@@ -33,9 +33,7 @@
         </div>
       </div>
     </div>
-    <c-toast
-      v-if="submitted || error"
-      :type="[error ? 'error' : submitted ? 'success' : '']">
+    <c-toast v-if="submitted || error" class="toast">
       {{ status }}
     </c-toast>
   </div>
@@ -83,7 +81,6 @@ export default {
 
       const parent = this.parentId
       const folder = parent ? undefined : this.$route.params.id
-      console.log(folder)
       this.$apollo.mutate({
         mutation: CreateTask,
         variables: {
@@ -113,7 +110,6 @@ export default {
           }
         }
       }).then(() => {
-        console.log(data, 'test')
         this.submitted = true
         this.error = false
         this.status = 'Task created successfully.'
