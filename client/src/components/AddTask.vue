@@ -76,7 +76,6 @@ export default {
   },
   methods: {
     addTask () {
-      this.$apollo.provider.clients.defaultClient.cache.reset()
 
       const { name, description } = this.form
 
@@ -97,16 +96,16 @@ export default {
           try {
             const data = store.readQuery({
               query: GetTasks,
-              variables: {folder, parent}
+              variables: {parent, folder}
             })
             if (parent) {
-              data.getTasks.push(createTask)
-            } else {
               data.getTasks.unshift(createTask)
+            } else {
+              data.getTasks.push(createTask)
             }
             store.writeQuery({
               query: GetTasks,
-              variables: {folder, parent},
+              variables: {parent},
               data
             })
           } catch (err) {
