@@ -15,9 +15,15 @@
         </button>
       </li>
 
-      <li class="links--item has-dropdown" v-if="$route.meta.requiresAuth">
-        <!-- TODO: Add the avatar component here -->
-        <div class="navigation__dropdown">
+      <li class="links--item has-dropdown"
+        @click.stop="$store.dispatch('changeActiveWidget', 'account-menu')"
+        v-if="$route.meta.requiresAuth">
+        <c-avatar
+          v-if="$route.meta.requiresAuth"
+          :obj="getUser" :size="36">
+        </c-avatar>
+        <div class="navigation__dropdown"
+          v-show="activeWidget === 'account-menu'">
           <ul class="navigation__dropdown--inner">
             <li
               v-if="$route.name !== 'workspace'"
@@ -28,26 +34,24 @@
                 Home <i class="material-icons">home</i>
               </router-link>
             </li>
-            <!-- TODO: only show this links is admin or owner user -->
             <li class="dropdown--item">
               <router-link
+                v-if="['Owner', 'Administrator'].includes(getUser.role) && $route.name !== 'accounts'"
                 :to="{name: 'accounts'}"
                 title="Accounts">
                 Accounts <i class="material-icons">people</i>
               </router-link>
             </li>
-            <!-- TODO: pass the user id as params to get the user details -->
             <li class="dropdown--item"
               v-if="$route.name !== 'user'">
               <router-link
-                :to="{name: 'profile'}"
+                :to="{ name: 'user', params: { userId: getUser.id }}"
                 title="My profile">
                 My profile <i class="material-icons">account_box</i>
               </router-link>
             </li>
             <li class="dropdown--item">
-              <!-- TODO: create logout method and add the login url -->
-              <a title="logout">
+              <a @click="logout" :href="`${url}login`" title="logout">
                 Logout <i class="material-icons">exit_to_app</i>
               </a>
             </li>
@@ -59,6 +63,9 @@
 </template>
 
 <script>
+import { mapState } from  'vuex'
+import { GetUser } from '@/constants/query.gql'
+
 export default {
   name: 'CNavigation',
   props: {
@@ -95,18 +102,36 @@ export default {
       type: Boolean,
       default: false
     }
-  }
+  },
+  data () {
+    return {
+      url: process.env.BASE_URL,
+      route: this.$route.name,
+      modalConfig: {},
+      getTeam: {},
+      getUser: {}
+    }
+  },
+  computed: {
+    ...mapState(['activeWidget'])
+  },
+  apollo: {
+    getUser: {
+      query: GetUser,
+      variables: {}
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('user-id')
+      localStorage.removeItem('user-token')
+      this.$root.$data.userId = localStorage.getItem('user-id')
+    }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/components/buttons/button";
-
-.navigation {
-  display: flex;
-}
-
-.navigation__links {
-  padding: 1.5rem;
-}
+@import "../assets/scss/components/navigation/navigation";
 </style>
