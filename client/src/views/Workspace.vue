@@ -46,7 +46,7 @@
             </div> -->
             <div class="workspace__intro">
               <div class="intro--header">
-                <h4>Welcome Oliver</h4>
+                <h4>Welcome {{ getUser.firstname }}</h4>
               </div>
               <div class="intro--body">
                 <p>Start a team conversation to make announcements,

@@ -56,14 +56,17 @@
       :parentId="$route.params.id"
       :config="modalConfig">
     </c-add-task>
+    <CTaskPreview @close="openTask=false" v-if="openTask"/>
   </section>
 </template>
 
 <script>
 import { mapState } from  'vuex'
 import { GetUser, GetTasks, GetTask, CreateTask, GetFolder } from '@/constants/query.gql'
+import { EventBus } from '@/helpers/eventBus'
 import Data from '@/mixins/data-mixins'
 import CAddTask from '@/components/AddTask'
+import CTaskPreview from '@/components/TaskPreview'
 import CTask from '@/components/Task'
 
 export default {
@@ -71,6 +74,7 @@ export default {
   mixins: [Data],
   data () {
     return {
+      openTask: false,
       user: '',
       userName: '',
       projectName: '',
@@ -79,7 +83,7 @@ export default {
       },
     }
   },
-  components: { CAddTask, CTask },
+  components: { CAddTask, CTask, CTaskPreview },
   apollo: {
     getUser: {
       query: GetUser,
@@ -109,6 +113,12 @@ export default {
       }
     }
   },
+  created() {
+    EventBus.$on('open-modal', (isOpen) => {
+      this.$store.dispatch('changeActiveWidget', null)
+      this.openTask = isOpen;
+    });
+  },
   methods: {
     openModal() {
       this.$store.dispatch('changeActiveWidget', null)
@@ -119,7 +129,7 @@ export default {
       this.showSideBar ? true : false
     },
     close() {
-      this.showModal = false
+      this.openTask = false
     }
   }
 }

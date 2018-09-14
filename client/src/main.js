@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { sync } from 'vuex-router-sync'
 
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
@@ -33,6 +34,10 @@ Vue.config.productionTip = false
 
 const uri = `${process.env.VUE_APP_URI}/graphql`
 const httpLink = new HttpLink({uri})
+
+const unsync = sync(store, router)
+
+unsync()
 
 const cache = new InMemoryCache({
   cacheRedirects: {
