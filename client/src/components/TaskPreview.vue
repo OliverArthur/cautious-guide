@@ -30,6 +30,48 @@
               :span-desktop="3"
               :span-phone="12"
               :span-tablet="12">
+              <aside class="task-preview__statebar">
+                <div class="task-preview--status separation">
+                  <strong>Status:</strong>
+                  <div
+                    @click.stop="$store.dispatch('setTaskWidget', 'task-status')"
+                    v-bind:style="{backgroundColor: labelColor[task.status]}"
+                    class="task-preview--status has-dropdown">
+                    <div class="task-preview--contentLabel">
+                      <p class="task-preview-label">{{task.status}}</p>
+                    </div>
+                  </div>
+                  <div
+                    class="dropdown-content"
+                    v-if="changeStatus === 'task-status'">
+                    <ul>
+                      <li
+                        v-for="status in statusList"
+                        :key="status"
+                        @click="changeTaskStatus(status)"
+                        v-bind:class="{ 'active-status': task.status === status }">
+                        <span
+                          class="status-type"
+                          v-bind:style="{
+                            borderLeft: `4px solid ${backgroundColorMap[status]}`,
+                            color: '${backgroundColorMap[status]}'
+                          }">
+                          {{status}}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="task-preview--labels separation">
+                  <strong>Labels:</strong>
+                </div>
+                <div class="task-preview--assigned separation">
+                  <strong>Assigned to:</strong>
+                </div>
+                <div class="task-preview--date separation">
+                  <strong>Due Date:</strong>
+                </div>
+              </aside>
             </c-grid-cell>
           </c-grid-inner>
         </c-grid>
@@ -51,12 +93,23 @@
 <script>
 import moment from 'moment'
 import { mapState } from 'vuex'
-import { GetTask, GetTasks, GetUsers} from '@/constants/query.gql'
+import { GetTask, GetTasks, UpdateTask, GetUsers} from '@/constants/query.gql'
+import { backgroundColorMap} from '@/helpers'
+
 
 export default {
   name: 'TaskPreview',
   data () {
     return {
+      statusList: ['New', 'In Progress', 'Done', 'Blocked', 'Cancelled'],
+      backgroundColorMap,
+      labelColor: {
+        New: '#84aacd',
+        'In Progress': '#989164',
+        Done: '#86b249',
+        'Blocked': '#f6cd62',
+        Cancelled: '#c75343',
+      },
       task: {
         description: '',
         comment: '',
@@ -74,7 +127,29 @@ export default {
     }
   },
   computed: {
-    ...mapState(['taskId'])
+    ...mapState(['taskId', 'changeStatus'])
+  },
+  methods: {
+    changeTaskStatus(status) {
+      if (this.task.status === status) return
+      this.updateTask({status})
+    },
+    updateTask(input) {
+      this.$apollo.mutate({
+        mutation: UpdateTask,
+        variables: {
+          id: this.task.id,
+          input
+        },
+      }).then(() => {
+        this.$store.dispatch('setTaskWidget', null)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    changeActiveWidget(key) {
+      this.$store.dispatch('setTaskWidget', key)
+    },
   },
   apollo: {
     getTask: {
@@ -109,7 +184,7 @@ export default {
 @import "../assets/scss/components/buttons/button";
 
 .task-preview__content.modal {
-  width: 70.6rem;
+  width: 80.6rem;
 }
 
 .task-preview__body /deep/ .grid {
@@ -118,6 +193,44 @@ export default {
 
 .task-preview__comments textarea {
   height: 4.5rem;
+}
+
+.task-preview__statebar strong {
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.separation {
+  margin-top: 1.5rem;
+}
+
+.task-preview--status {
+  position: relative;
+  border-radius: $border-radius;
+}
+
+.dropdown-content {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  height: auto;
+  left: 0;
+  position: absolute;
+  width: 17.5rem;
+}
+
+.dropdown-content span {
+  display: flex;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.task-preview--contentLabel p {
+  padding: 1rem;
+  font-size: 1.4rem;
+  color: $white;
 }
 
 </style>
