@@ -225,6 +225,10 @@ export default {
   display: flex;
   padding: 1.5rem;
   font-size: 1.5rem;
+  cursor: pointer;
+  &:hover {
+    background-color: $silver-clear;
+  }
 }
 
 .task-preview--contentLabel p {
