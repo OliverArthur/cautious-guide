@@ -118,6 +118,11 @@ export default {
       }).then(( {data: {signup}}) => {
         const id = signup.user.id
         const token = signup.token
+        this.$store.dispatch({
+          type: 'setUser',
+          firstname:  this.form.firstname,
+          lastname:  this.form.lastname
+        })
         this.saveUserData(id, token)
         this.submitted = true
         this.status = 'Your account has been created successfully'

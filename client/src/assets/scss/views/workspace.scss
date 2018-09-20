@@ -135,7 +135,7 @@
 }
 
 .project__tree--body /deep/ .project {
-  height: 20rem;
+  max-height: 20rem;
   overflow-y: auto;
 }
 

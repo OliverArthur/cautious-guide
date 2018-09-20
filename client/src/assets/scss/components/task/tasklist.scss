@@ -1,4 +1,4 @@
-.task-list {
+.task-list a{
   align-items: center;
   border-bottom: 0.1rem solid rgba(0, 40, 100, 0.12);
   cursor: pointer;
@@ -36,21 +36,27 @@
 }
 
 .task-list span:nth-child(2) {
-  width: 20%;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-}
-
-.task-list span:nth-child(3) {
   width: 10%;
   text-align: center;
   justify-content: center;
   align-items: center;
 }
 
+.task-list span:nth-child(3) {
+  width: 20%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
 .task-list span:nth-child(4) {
-  width: 30%;
+  width: 10%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.task-list span:nth-child(5) {
+  width: 20%;
   text-align: right;
   justify-content: flex-end;
   align-items: flex-end;
@@ -59,6 +65,17 @@
 .task-list .task-list__label.unassigned {
   padding: 1rem;
   background-color: $cosmos;
+  color: $white;
+  border-radius: $border-radius;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.task-list .task-list__label.assigned {
+  padding: 1rem 0.5rem;
+  background-color: $sushi;
   color: $white;
   border-radius: $border-radius;
 

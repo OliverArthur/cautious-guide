@@ -18,7 +18,7 @@ const TaskMutation = {
       description,
       parent,
       folder: folder ? [folder] : [],
-      create: userId
+      creator: userId
     })
     return await populateTask(TaskSchema.findById(task.id))
   },

@@ -3,6 +3,7 @@
     <div class="task__header">
       <span>Title</span>
       <span>Status</span>
+      <span>Created by</span>
       <span>Assigned to</span>
       <span>Created</span>
     </div>
