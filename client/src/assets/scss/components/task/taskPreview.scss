@@ -1,0 +1,110 @@
+.task-preview__content.modal {
+  width: 100.7rem;
+}
+
+.task-preview__body /deep/ .grid {
+  padding: 0;
+}
+
+.task-preview__comments textarea {
+  height: inherit;
+}
+
+.task-preview__statebar strong {
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.separation {
+  margin-top: 1.5rem;
+}
+
+.task-preview--status {
+  position: relative;
+  border-radius: $border-radius;
+}
+
+.dropdown-content {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  height: auto;
+  left: 0;
+  position: absolute;
+  width: 22.8rem;
+}
+
+.dropdown-content span {
+  display: flex;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  &:hover {
+    background-color: $silver-clear;
+  }
+}
+
+.task-preview--contentLabel p {
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: $white;
+}
+
+.task-preview--assigned {
+  position: relative;
+}
+
+.is-assigned-to {
+  background-color: $silver-clear;
+  border-radius: $border-radius;
+}
+.assigned-to {
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.assigned-dropdown {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  height: auto;
+  left: 0;
+  position: absolute;
+  width: 22.8rem;
+}
+
+.assigned-dropdown--user {
+  padding: 1rem;
+}
+
+.assigned-dropdown--user .form-group {
+  margin: 0;
+}
+
+.assigned-dropdown--user input {
+  padding: 2rem;
+}
+
+.assigned-list li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1.5rem 0;
+}
+
+.assigned-list .assigned-list--details {
+  display: flex;
+  flex-direction: column;
+}
+
+.assigned-list--details span {
+  margin-left: 0.5rem;
+  line-height: 1.5;
+  display: flex;
+  font-size: 1.3rem;
+  font-weight: 500;
+}

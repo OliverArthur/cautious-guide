@@ -117,15 +117,14 @@ export default {
   },
   apollo: {
     getUser: {
-      query: GetUser,
-      variables: {}
+      query: GetUser
     },
   },
   methods: {
     logout() {
       localStorage.removeItem('user-id')
       localStorage.removeItem('user-token')
-      this.$root.$data.userId = localStorage.getItem('user-id')
+      // this.$root.$data.userId = localStorage.getItem('user-id')
     }
   },
 }

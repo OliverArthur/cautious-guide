@@ -3,10 +3,11 @@
       <a role="button" @click="setTaskID(task.id); openModal();">
         <span class="task-list__label">{{ task.name }}</span>
         <span class="task-list__label">{{ task.status }}</span>
+        <span class="task-list__label">{{ task.creator.firstname }} {{ task.creator.lastname }}</span>
         <span
           class="task-list__label"
           :class="(task.assignees.length === 0 ?  'unassigned' : 'assigned')">
-          {{ (task.assignees.length ?  task.assignees : 'unassigned') }}
+          {{ (task.assignees.length ?  task.assignees[0].name : 'unassigned') }}
         </span>
         <span class="task-list__label">{{ dateTimeFormat(task.createdAt) }}</span>
       </a>

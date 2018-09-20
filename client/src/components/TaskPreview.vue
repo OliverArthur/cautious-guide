@@ -34,7 +34,7 @@
                 <div class="task-preview--status separation">
                   <strong>Status:</strong>
                   <div
-                    @click.stop="$store.dispatch('setTaskWidget', 'task-status')"
+                    @click.stop="$store.dispatch('changeActiveWidget', 'task-status')"
                     v-bind:style="{backgroundColor: labelColor[task.status]}"
                     class="task-preview--status has-dropdown">
                     <div class="task-preview--contentLabel">
@@ -43,18 +43,18 @@
                   </div>
                   <div
                     class="dropdown-content"
-                    v-if="changeStatus === 'task-status'">
+                    v-if="activeWidget === 'task-status'">
                     <ul>
                       <li
                         v-for="status in statusList"
                         :key="status"
-                        @click="changeTaskStatus(status)"
+                        @click="changeActiveWidget(status)"
                         v-bind:class="{ 'active-status': task.status === status }">
                         <span
                           class="status-type"
                           v-bind:style="{
                             borderLeft: `4px solid ${backgroundColorMap[status]}`,
-                            color: '${backgroundColorMap[status]}'
+                            fontWeight: 500
                           }">
                           {{status}}
                         </span>
@@ -67,6 +67,42 @@
                 </div>
                 <div class="task-preview--assigned separation">
                   <strong>Assigned to:</strong>
+                  <div class="assigned-dropdown">
+                    <div 
+                      @click.stop="changeActiveWidget('addAssigneeTooltip')"  class="is-assigned-to">
+                      <pre>{{ searchUser }}</pre>
+                      <p class="assigned-to unassigened">
+                        {{ (assignees.length ? assignees : 'unassigned') }}
+                      </p>
+                    </div>
+                    <div
+                      v-if="activeWidget === 'addAssigneeTooltip'"
+                      class="assigned-dropdown--user">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          id="user"
+                          name="user"
+                          ref="user"
+                          v-model="searchUser"
+                          :autofocus="true"/>
+                          <label for="user" class="control-label">Assigned to</label><i class="bar"></i>
+                      </div>
+                      <div class="assigned-list">
+                        <ul>
+                          <li
+                            v-for="user in filterAssignees"
+                            :key="user.id"
+                            @click.stop="assignUserToTask(user.id)">
+                            <c-avatar class="assigned-avatar" :obj="user" :size="32"></c-avatar>
+                            <div class="assigned-list--details">
+                              <span>{{user.name}}</span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="task-preview--date separation">
                   <strong>Due Date:</strong>
@@ -99,8 +135,10 @@ import { backgroundColorMap} from '@/helpers'
 
 export default {
   name: 'TaskPreview',
+  props: ['data'],
   data () {
     return {
+      searchUser: '',
       statusList: ['New', 'In Progress', 'Done', 'Blocked', 'Cancelled'],
       backgroundColorMap,
       labelColor: {
@@ -127,12 +165,26 @@ export default {
     }
   },
   computed: {
-    ...mapState(['taskId', 'changeStatus'])
+    ...mapState(['taskId', 'activeWidget']),
+    filterAssignees() {
+      const user = this.searchUser.toLowerCase()
+      const users = this.getUsers
+      return users.filter((u) => {
+        return !users.includes(u.id) && u.name.toLowerCase().includes(user) || u.email.toLowerCase(user)
+        // return !users.includes(u.id) && (u.name.toLowerCase().includes(user) || u.email.toLowerCase().includes(user))
+      })
+    }
   },
   methods: {
     changeTaskStatus(status) {
       if (this.task.status === status) return
       this.updateTask({status})
+    },
+    assignUserToTask(id) {
+      const assignees = this.data.assignees.map(o => o.id && o.name)
+      console.log(assignees.name)
+      assignees.push(id)
+      // this.updateTask({assignees})
     },
     updateTask(input) {
       this.$apollo.mutate({
@@ -142,13 +194,13 @@ export default {
           input
         },
       }).then(() => {
-        this.$store.dispatch('setTaskWidget', null)
+        this.$store.dispatch('changeActiveWidget', null)
       }).catch((error) => {
         console.log(error)
       })
     },
     changeActiveWidget(key) {
-      this.$store.dispatch('setTaskWidget', key)
+      this.$store.dispatch('changeActiveWidget', key)
     },
   },
   apollo: {
@@ -173,7 +225,12 @@ export default {
         this.subtasks = getTasks
       },
     },
-    getUsers: GetUsers
+    getUsers: {
+      query: GetUsers,
+      result({ data: {getUsers} }) {
+        this.getUsers = getUsers
+      },
+    }
   }
 }
 </script>
@@ -182,59 +239,5 @@ export default {
 @import "../assets/scss/components/modal/modal";
 @import "../assets/scss/components/form/form";
 @import "../assets/scss/components/buttons/button";
-
-.task-preview__content.modal {
-  width: 80.6rem;
-}
-
-.task-preview__body /deep/ .grid {
-  padding: 0;
-}
-
-.task-preview__comments textarea {
-  height: 4.5rem;
-}
-
-.task-preview__statebar strong {
-  display: flex;
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.separation {
-  margin-top: 1.5rem;
-}
-
-.task-preview--status {
-  position: relative;
-  border-radius: $border-radius;
-}
-
-.dropdown-content {
-  background: $white;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
-  height: auto;
-  left: 0;
-  position: absolute;
-  width: 17.5rem;
-}
-
-.dropdown-content span {
-  display: flex;
-  padding: 1.5rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  &:hover {
-    background-color: $silver-clear;
-  }
-}
-
-.task-preview--contentLabel p {
-  padding: 1rem;
-  font-size: 1.4rem;
-  color: $white;
-}
-
+@import "../assets/scss/components/task/taskPreview";
 </style>

@@ -56,7 +56,7 @@
       :parentId="$route.params.id"
       :config="modalConfig">
     </c-add-task>
-    <CTaskPreview @close="openTask=false" v-if="openTask"/>
+    <CTaskPreview @close="openTask=false" v-if="openTask" :data="getTasks"/>
   </section>
 </template>
 
